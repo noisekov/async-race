@@ -1,3 +1,159 @@
-body {
-    background-color: red;
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+img {
+    width: 100%;
+    height: 100%;
+    vertical-align: top;
+}
+html, body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    background: #FFFFFF;
+}
+.container {
+    max-width: 1280px;
+    padding: 0 40px;
+    width: 100%;
+    margin: 0 auto;
+}
+.wrapper {
+    padding: 80px 0 100px;
+}
+.wrapper-bg {
+    background-image: url(/assets/image/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px 0;
+}
+.logo {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+.logo__title {
+    font-size: 32px;
+    line-height: 110%;
+    letter-spacing: 0.06em;
+    color: #F1CDB3;
+    margin: 0 0 10px;
+}
+.logo__subtitle {
+    font-size: 13px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    line-height: 15px;
+    letter-spacing: 0.1em;
+    color: #FFFFFF;
+}
+.nav {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+.nav__items {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
+.nav__item {
+    list-style-type: none;
+    line-height: 160%;
+}
+.nav__item:not(:last-child) {
+    margin-right: 35px;
+}
+.nav__link {
+    text-decoration: none;
+    line-height: 160%;
+    color: #CDCDCD;
+}
+.nav__link:active {
+    color: #FAFAFA;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #F1CDB3;;
+}
+/*not-only*/
+.not-only {
+    display: flex;
+    justify-content: space-between;
+}
+.not-only__content {
+    margin-top: 134px;
+    flex: 0 0 460px;
+}
+.not-only__content-title {
+    font-size: 44px;
+    line-height: 130%;
+    color: #FFFFFF;
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+.not-only__content-subtitle {
+    line-height: 160%;
+    color: #CDCDCD;
+    margin-bottom: 42px;
+}
+.not-only__content-btn {
+}
+.button {
+    cursor: pointer;
+    font-size: 17px;
+    line-height: 130%;
+    letter-spacing: 0.06em;
+    color: #292929;
+    padding: 15px 45px;
+    background: #F1CDB3;
+    border-radius: 100px;
+    outline: none;
+    border: none;
+}
+.not-only__img {
+    align-self: flex-end;
+}
+/*--about--*/
+.about {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 855px;
+}
+.about__img {
+    background-image: url(/assets/image/about-pets.jpg);
+    width: 300px;
+    height: 408px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.about__content {
+    flex: 0 0 430px;
+}
+.about__title {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 130%;
+    letter-spacing: 0.06em;
+    color: #545454;
+}
+.about__subtitle-top {
+    font-family: 'Arial';
+    font-size: 15px;
+    line-height: 160%;
+    color: #4C4C4C;
+    margin-top: 0;
+    margin-bottom: 28px;
+}
+.about__subtitle-bottom {
+    font-family: 'Arial';
+    font-size: 15px;
+    line-height: 160%;
+    color: #4C4C4C;
+    margin: 0;
 }
