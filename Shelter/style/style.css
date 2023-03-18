@@ -72,7 +72,7 @@ html, body {
     line-height: 160%;
     color: #CDCDCD;
 }
-.nav__link:active {
+.nav__link.active {
     color: #FAFAFA;
     padding-bottom: 5px;
     border-bottom: 3px solid #F1CDB3;;
@@ -136,10 +136,6 @@ html, body {
 .about__title {
     margin-top: 0;
     margin-bottom: 25px;
-    font-weight: 400;
-    font-size: 35px;
-    line-height: 130%;
-    letter-spacing: 0.06em;
     color: #545454;
 }
 .about__subtitle-top {
@@ -156,4 +152,87 @@ html, body {
     line-height: 160%;
     color: #4C4C4C;
     margin: 0;
+}
+/* our-friends */
+.our-friends {
+    background: #F6F6F6;
+}
+.our-friends__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.our-friends__title {
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 60px;
+}
+.title {
+    max-width: 400px;
+    font-weight: 400;
+    font-size: 35px;
+    line-height: 130%;
+    letter-spacing: 0.06em;
+    color: #545454;
+}
+.swiper {
+    position: relative;
+    max-width: 990px;
+    width: 100%;
+}
+.swiper__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.swiper__content-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.swiper__content-block-img {
+    margin-bottom: 28px;
+}
+.swiper__content-block-title {
+    margin-top: 0;
+    font-size: 20px;
+    line-height: 23px;
+    color: #545454;
+    margin-bottom: 31px;
+}
+.swiper__content-block-btn {
+    padding: 15px 45px;
+    border: 2px solid #F1CDB3;
+    border-radius: 100px;
+    width: 187px;
+    font-size: 17px;
+    cursor: pointer;
+}
+.swiper__btn-prev {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    left: -105px;
+    top: 192px;
+    border: 2px solid #F1CDB3;
+    border-radius: 100px;
+    background-image: url(/assets/image/icons/arrow.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.swiper__btn-next {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    right: -105px;
+    top: 192px;
+    border: 2px solid #F1CDB3;
+    border-radius: 100px;
+    background-image: url(/assets/image/icons/arrow.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: rotate(180deg);
+}
+.our-friends__swiper {
+    margin-bottom: 88px;
 }
