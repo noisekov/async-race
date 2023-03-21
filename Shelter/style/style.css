@@ -217,13 +217,12 @@ html, body {
     padding-bottom: 30px;
     transition: 0.3s all;
     background: #FAFAFA;
+    overflow: hidden;
 }
 .swiper__content-block:hover {
     background: #FFFFFF;
 }
-
 .swiper__content-block-img {
-    overflow: hidden;
     margin-bottom: 28px;
 }
 .swiper__content-block-title {
