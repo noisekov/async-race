@@ -474,6 +474,11 @@ html, body {
         margin-top: 40px;
     }
 }
+@media (max-width:540px) {
+    .swiper__pagination {
+        gap: 10px;
+    }
+}
 .pagination-button {
     display: flex;
     justify-content: center;
@@ -895,11 +900,34 @@ html, body {
     .wrapper-pets {
         padding: 80px 25px 20px;
     }
-    .wrapper-pets__content-block  {
+    .wrapper-pets__content-block:nth-child(7)  {
+        display: none;
+    }
+    .wrapper-pets__content-block:nth-child(8)  {
         display: none;
     }
     .wrapper-pets__title {
         margin-bottom: 29px;
+    }
+}
+@media (max-width:540px) {
+    .wrapper-pets {
+        padding: 40px 0 20px;
+    }
+    .wrapper-pets__title {
+        margin-bottom: 43px;
+    }
+    .wrapper-pets__content-block:nth-child(4)  {
+        display: none;
+    }
+    .wrapper-pets__content-block:nth-child(5)  {
+        display: none;
+    }
+    .wrapper-pets__content-block:nth-child(6)  {
+        display: none;
+    }
+    .wrapper-pets__content-swiper {
+        margin-bottom: 25px;
     }
 }
 @media (max-width:1160px) {
