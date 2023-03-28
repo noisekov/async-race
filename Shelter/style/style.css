@@ -234,6 +234,7 @@ html, body {
     margin-bottom: 31px;
 }
 .swiper__content-block-btn {
+    background-color: #FFFFFF;
     padding: 15px 45px;
     border: 2px solid #F1CDB3;
     border-radius: 100px;
