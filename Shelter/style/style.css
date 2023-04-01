@@ -505,30 +505,23 @@ body.no-scroll {
     cursor: pointer;
     background: #F6F6F6;
     transition: 0.3s all;
+    border: 2px solid #F1CDB3;
+}
+.pagination-button:hover {
+    background: #F1CDB3;
 }
 .pagination-button--disabled {
     border: 2px solid #CDCDCD;
     color: #CDCDCD;
 }
+.pagination-button--disabled:hover {
+    background: inherit;
+}
 .pagination-button--active {
     background: #F1CDB3;
-    border: 2px solid #F1CDB3;
 }
 .pagination-button--active:hover {
     background: #FFFFFF;
-    border: 2px solid #F1CDB3;
-}
-.swiper__pagination--next {
-    border: 2px solid #F1CDB3;
-}
-.swiper__pagination--next:hover {
-    background: #F1CDB3;
-}
-.swiper__pagination--last {
-    border: 2px solid #F1CDB3;
-}
-.swiper__pagination--last:hover {
-    background: #F1CDB3;
 }
 .our-friends__content-swiper {
     margin-bottom: 56px;
@@ -916,12 +909,12 @@ body.no-scroll {
     .wrapper-pets {
         padding: 80px 25px 20px;
     }
-    .wrapper-pets__content-block:nth-child(7)  {
+    /* .wrapper-pets__content-block:nth-child(7)  {
         display: none;
     }
     .wrapper-pets__content-block:nth-child(8)  {
         display: none;
-    }
+    } */
     .wrapper-pets__title {
         margin-bottom: 29px;
     }
@@ -933,7 +926,7 @@ body.no-scroll {
     .wrapper-pets__title {
         margin-bottom: 43px;
     }
-    .wrapper-pets__content-block:nth-child(4)  {
+    /* .wrapper-pets__content-block:nth-child(4)  {
         display: none;
     }
     .wrapper-pets__content-block:nth-child(5)  {
@@ -941,7 +934,7 @@ body.no-scroll {
     }
     .wrapper-pets__content-block:nth-child(6)  {
         display: none;
-    }
+    } */
     .wrapper-pets__content-swiper {
         margin-bottom: 25px;
     }
@@ -951,16 +944,16 @@ body.no-scroll {
         justify-content: space-evenly;
     }
 }
-@media (max-width:1000px) {
+/* @media (max-width:1000px) {
     .our-friends__content-block:last-child {
         display: none;
     }
 }
 @media (max-width:720px) {
-    .our-friends__content-block {
+    .our-friends__content-block:nth-child(2) {
         display: none;
     }
-}
+} */
 /* burger */
 .burger {
     display: none;
@@ -1143,4 +1136,12 @@ body.no-scroll {
 }
 .modal-window.open {
     display: block;
+}
+@media (max-width:350px) {
+    .burger {
+        margin-right: 10px;
+    }
+    .logo {
+        margin-left: 10px;
+    }
 }
