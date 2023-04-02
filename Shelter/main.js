@@ -26,25 +26,85 @@ function closeBurger (evt) {
     }
 }
 
+//--------------------------------modal----------------------//
 const petsCard = document.querySelector('.swiper__content');
 const modalWidnow = document.querySelector('.modal-window');
-const modalClose = document.querySelector('.modal__btn-close');
 const swiperContent = document.querySelector('.swiper__content');
+
+function getData () {
+    let xhr = new XMLHttpRequest();
+    const url = './pets.json';
+    xhr.open('GET', url, false);
+    try {
+        xhr.send();
+        if (xhr.status != 200) {
+            alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
+        } else {
+            return xhr.response
+        }
+    } catch(err) {
+        alert("нет данных от сервера")
+    }
+}
+
+function createModalWindow (whatName) {
+    let data = JSON.parse(getData ());
+    let whatIndex = data.filter((x, i, arr) => {
+        if (x.name === whatName) {
+            return arr[i];
+        }
+    })
+
+    let html = `
+    <div class="modal-wrapper">
+        <div class="modal">
+            <div class="modal__img">
+                <img src="${whatIndex[0].img}" width="500" height="500" alt="${whatIndex[0].name}">
+            </div>
+            <div class="modal__content">
+                <p class="modal__title">${whatIndex[0].name}</p>
+                <p class="modal__breed">${whatIndex[0].type} - ${whatIndex[0].breed}</p>
+                <p class="modal__description">${whatIndex[0].description}</p>
+                <ul class="modal__items">
+                    <li class="modal__item">
+                        <span class="modal__item-type"><b>Age:</b> ${whatIndex[0].age}</span>
+                    </li>
+                    <li class="modal__item">
+                        <span class="modal__item-type"><b>Inoculations:</b> ${whatIndex[0].inoculations}</span>
+                    </li>
+                    <li class="modal__item">
+                        <span class="modal__item-type"><b>Diseases:</b> ${whatIndex[0].diseases}</span>
+                    </li>
+                    <li class="modal__item">
+                        <span class="modal__item-type"><b>Parasites:</b>  ${whatIndex[0].parasites}</span>
+                    </li>
+                </ul>
+            </div>
+            <span class="modal__btn-close"></span>
+        </div>
+    </div>`
+    
+    modalWidnow.insertAdjacentHTML("afterbegin", html);
+}
 
 petsCard.onclick = function (evt) {
     if (evt.target.closest('.swiper__content-block')) {
+        let whatName = evt.target.closest('.swiper__content-block').children[1].textContent;
+        createModalWindow (whatName);
         modalWidnow.classList.toggle('open');
         body.classList.toggle('no-scroll');
     }
 }
-modalClose.addEventListener('click', closeModal);
+modalWidnow.addEventListener('click', closeModal);
 
-function closeModal () {
-    modalWidnow.classList.remove('open');
-    body.classList.remove('no-scroll');
+function closeModal (evt) {
+    if (evt.target.closest('.modal__btn-close')) {
+        modalWidnow.classList.remove('open');
+        body.classList.remove('no-scroll');
+    }
 }
 
-//parse card slider
+//--------------------------------slider----------------------//
 if (location.pathname === "/Shelter/") {
     async function getCard () {
         const url = './pets.json';

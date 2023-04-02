@@ -1137,6 +1137,43 @@ body.no-scroll {
 .modal-window.open {
     display: block;
 }
+@media (max-width:1030px) {
+    .modal {
+        padding: 10px;
+        max-width: 630px;
+    }
+    .modal__breed {
+        margin-bottom: 20px;
+    }
+    .modal__description {
+        margin-bottom: 20px;
+    }
+    .modal__img {
+        margin-right: 11px;
+        flex: 0 1 350px;
+    }
+    .modal__content {
+        padding: 0;
+    }
+}
+@media (max-width:768px) {
+    .modal {
+        max-width: 230px;
+    }
+    .modal__title {
+        text-align: center;
+    }
+    .modal__breed {
+        text-align: center;
+    }
+    .modal__img {
+        display: none;
+    }
+    .modal__description {
+        font-size: 13px;
+        line-height: 14px;
+    }
+}
 @media (max-width:350px) {
     .burger {
         margin-right: 10px;
