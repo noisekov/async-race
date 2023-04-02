@@ -14,15 +14,11 @@ function openBurger () {
 }
 
 function closeBurger (evt) {
-    if (!evt.target.closest('.nav')
-    && !evt.target.closest('.burger')
-    && !evt.target.closest('.swiper__content-block')
-    && !evt.target.closest('.modal')) {
+    if (evt.target.closest('.nav__item') || evt.target.closest('.overflow')) {
         burger.classList.remove('open');
         nav.classList.remove('open');
         body.classList.remove('no-scroll');
         overflow.classList.remove('show');
-        modalWidnow.classList.remove('open');
     }
 }
 
@@ -98,7 +94,11 @@ petsCard.onclick = function (evt) {
 modalWidnow.addEventListener('click', closeModal);
 
 function closeModal (evt) {
-    if (evt.target.closest('.modal__btn-close')) {
+    if (evt.target.closest('.modal__btn-close') ) {
+        modalWidnow.classList.remove('open');
+        body.classList.remove('no-scroll');
+    }
+    if (!evt.target.closest('.modal')) {
         modalWidnow.classList.remove('open');
         body.classList.remove('no-scroll');
     }
