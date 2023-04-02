@@ -97,13 +97,13 @@ if (location.pathname === "/Shelter/") {
 }
 
 //pagination
-
 async function getCardForPagination () {
     const url = './pets.json';
     const response = await fetch(url);
     const answer = await response.json();
+    console.log(answer)
     const arrCard = [];
-    const matrix = [];
+    const result = [];
     for (let prop in answer ) {
         arrCard.push(`
                 <div class="swiper__content-block">
@@ -118,41 +118,102 @@ async function getCardForPagination () {
 
     for (let i = 0; i < 6; i++) {
         let newAnswer = [...arrCard].sort(() => Math.random() -0.5);
-        matrix.push(newAnswer);
+        result.push(...newAnswer);
     }
-    return matrix;
+    return result;
 }
+console.log(getCardForPagination())
 const swiperBlock = document.querySelector('.wrapper-pets__content');
-getCardForPagination().then(card =>
-    card[0].forEach(oneCard => {
-        swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
-    })
-)
-const paginationActive = document.querySelector('.pagination-button--active');
-const paginationPrev = document.querySelector('.swiper__pagination--prev');
-const paginationNext = document.querySelector('.swiper__pagination--next');
-const paginationLast = document.querySelector('.swiper__pagination--last');
-const paginationFirst = document.querySelector('.swiper__pagination--first');
-
-paginationNext.addEventListener('click', painationNextSlide);
-
 let page = 1;
-function painationNextSlide () {
-    if (page < 6) {
-        paginationActive.textContent = `${++page}`;
-        swiperBlock.innerHTML = '';
+let lastPage = 0;
+function setCard () {
+    swiperBlock.innerHTML = '';
+    if (window.innerWidth > 1000) {
+        lastPage = 6;
         getCardForPagination().then(card =>
-            card[page-1].forEach(oneCard => {
+            card.slice(0,8).forEach(oneCard => {
                 swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
             })
         )
-        if (page !== 1) {
-            paginationPrev.classList.remove('pagination-button--disabled');
-            paginationFirst.classList.remove('pagination-button--disabled');
-        }
-        if (page === 6) {
-            paginationLast.classList.add('pagination-button--disabled');
-            paginationNext.classList.add('pagination-button--disabled');
-        }
+    } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
+        lastPage = 8;
+        getCardForPagination().then(card =>
+            card.slice(0,6).forEach(oneCard => {
+                swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+            })
+        )
+    } else {
+        lastPage = 16
+        getCardForPagination().then(card =>
+            card.slice(0,3).forEach(oneCard => {
+                swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+            })
+        )
     }
 }
+// setCard ()
+// window.addEventListener('resize', setCard);
+
+// const paginationActive = document.querySelector('.pagination-button--active');
+// const paginationPrev = document.querySelector('.swiper__pagination--prev');
+// const paginationNext = document.querySelector('.swiper__pagination--next');
+// const paginationLast = document.querySelector('.swiper__pagination--last');
+// const paginationFirst = document.querySelector('.swiper__pagination--first');
+
+// paginationNext.addEventListener('click', painationNextSlide);
+// paginationLast.addEventListener('click', painationLastSlide);
+// paginationPrev.addEventListener('click', painationPrevSlide);
+// paginationFirst.addEventListener('click', painationFirstSlide);
+
+// function painationNextSlide () {
+//     if (page < lastPage) {
+//         paginationActive.textContent = `${++page}`;
+//         setCard ();
+//         if (page !== 1) {
+//             paginationPrev.classList.remove('pagination-button--disabled');
+//             paginationFirst.classList.remove('pagination-button--disabled');
+//         }
+//         if (page === lastPage) {
+//             paginationLast.classList.add('pagination-button--disabled');
+//             paginationNext.classList.add('pagination-button--disabled');
+//         }
+//     }
+// }
+// function painationLastSlide () {
+//     if (page !== lastPage) {
+//         page = lastPage;
+//         paginationActive.textContent = `${page}`;
+//         setCard ();
+//         if (page === lastPage) {
+//             paginationLast.classList.add('pagination-button--disabled');
+//             paginationNext.classList.add('pagination-button--disabled');
+//             paginationPrev.classList.remove('pagination-button--disabled');
+//             paginationFirst.classList.remove('pagination-button--disabled');
+//         }
+//     }
+// }
+// function painationPrevSlide () {
+//     if (page > 1) {
+//         paginationActive.textContent = `${--page}`;
+//         if (page === 1) {
+//             paginationPrev.classList.add('pagination-button--disabled');
+//             paginationFirst.classList.add('pagination-button--disabled');
+//         }
+//         setCard ();
+//         paginationLast.classList.remove('pagination-button--disabled');
+//         paginationNext.classList.remove('pagination-button--disabled');
+//     }
+// }
+// function painationFirstSlide () {
+//     if (page > 1) {
+//         page = 1;
+//         paginationActive.textContent = `${page}`;
+//         if (page === 1) {
+//             paginationPrev.classList.add('pagination-button--disabled');
+//             paginationFirst.classList.add('pagination-button--disabled');
+//         }
+//         setCard ();
+//         paginationLast.classList.remove('pagination-button--disabled');
+//         paginationNext.classList.remove('pagination-button--disabled');
+//     }
+// }
