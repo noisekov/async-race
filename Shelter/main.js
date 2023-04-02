@@ -96,124 +96,228 @@ if (location.pathname === "/Shelter/") {
     }
 }
 
-//pagination
-async function getCardForPagination () {
-    const url = './pets.json';
-    const response = await fetch(url);
-    const answer = await response.json();
-    console.log(answer)
-    const arrCard = [];
-    const result = [];
-    for (let prop in answer ) {
-        arrCard.push(`
-                <div class="swiper__content-block">
-                    <div class="swiper__content-block-img">
-                        <img src="${answer[prop].img}" alt="pets-katrine" width="270" height="270">
+//--------------------------------pagination----------------------//
+if (location.pathname === "/Shelter/page/our-pets.html") {
+    function getData () {
+        let xhr = new XMLHttpRequest();
+        const url = './pets.json';
+        xhr.open('GET', url, false);
+        try {
+            xhr.send();
+            if (xhr.status != 200) {
+                alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
+            } else {
+                return xhr.response
+            }
+        } catch(err) {
+            alert("нет данных от сервера")
+        }
+    }
+    
+    function createCardPagination() {
+        let data = JSON.parse(getData());
+        const arrCard = [];
+        const result = [];
+        data.forEach(card => {
+            arrCard.push(`
+                    <div class="swiper__content-block">
+                        <div class="swiper__content-block-img">
+                            <img src="${card.img}" alt="pets-katrine" width="270" height="270">
+                        </div>
+                        <h3 class="swiper__content-block-title">${card.name}</h3>
+                        <button class="swiper__content-block-btn">Learn more</button>
                     </div>
-                    <h3 class="swiper__content-block-title">${answer[prop].name}</h3>
-                    <button class="swiper__content-block-btn">Learn more</button>
-                </div>
-            `)
+                `)
+        })
+        for (let i = 0; i < 6; i++) {
+            let newAnswer = [...arrCard].sort(() => Math.random() -0.5);
+            result.push(...newAnswer);
+        }
+        return result;
     }
-
-    for (let i = 0; i < 6; i++) {
-        let newAnswer = [...arrCard].sort(() => Math.random() -0.5);
-        result.push(...newAnswer);
-    }
-    return result;
-}
-console.log(getCardForPagination())
-const swiperBlock = document.querySelector('.wrapper-pets__content');
-let page = 1;
-let lastPage = 0;
-function setCard () {
-    swiperBlock.innerHTML = '';
+    let arrayAllCard = [...createCardPagination()];
+    
+    const swiperBlock = document.querySelector('.wrapper-pets__content');
+    const paginationActive = document.querySelector('.pagination-button--active');
+    const paginationPrev = document.querySelector('.swiper__pagination--prev');
+    const paginationNext = document.querySelector('.swiper__pagination--next');
+    const paginationLast = document.querySelector('.swiper__pagination--last');
+    const paginationFirst = document.querySelector('.swiper__pagination--first');
+    
+    let page = 1;
+    let lastPage = 0;
+    let firstCard = 0;
+    let lastCard = 0;
+    
     if (window.innerWidth > 1000) {
-        lastPage = 6;
-        getCardForPagination().then(card =>
-            card.slice(0,8).forEach(oneCard => {
-                swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
-            })
-        )
+        lastCard = 8;
     } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
-        lastPage = 8;
-        getCardForPagination().then(card =>
-            card.slice(0,6).forEach(oneCard => {
-                swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
-            })
-        )
+        lastCard = 6;
     } else {
-        lastPage = 16
-        getCardForPagination().then(card =>
-            card.slice(0,3).forEach(oneCard => {
+        lastCard = 3;
+    }
+    function setCard () {
+        swiperBlock.innerHTML = '';
+        if (window.innerWidth > 1000) {
+            page = 1;
+            paginationActive.textContent = `${page}`;
+            lastPage = 6;
+            firstCard = 0;
+            lastCard = 8 * page;
+            arrayAllCard.slice(0,8).forEach(oneCard => {
                 swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
             })
-        )
+        } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
+            page = 1;
+            paginationActive.textContent = `${page}`;
+            lastPage = 8;
+            firstCard = 0;
+            lastCard = 8 * page;
+            arrayAllCard.slice(0,6).forEach(oneCard => {
+                swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+            })
+        } else {
+            page = 1;
+            paginationActive.textContent = `${page}`;
+            lastPage = 16;
+            firstCard = 0;
+            lastCard = 8 * page;
+            arrayAllCard.slice(0,3).forEach(oneCard => {
+                swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+            })
+        }
+        paginationPrev.classList.add('pagination-button--disabled');
+        paginationFirst.classList.add('pagination-button--disabled');
+        paginationLast.classList.remove('pagination-button--disabled');
+        paginationNext.classList.remove('pagination-button--disabled');
+    }
+    setCard()
+    window.addEventListener('resize', setCard);
+    
+    paginationNext.addEventListener('click', painationNextSlide);
+    paginationLast.addEventListener('click', painationLastSlide);
+    paginationPrev.addEventListener('click', painationPrevSlide);
+    paginationFirst.addEventListener('click', painationFirstSlide);
+    
+    function painationNextSlide () {
+        if (page !== lastPage) {
+            paginationActive.textContent = `${++page}`;
+            swiperBlock.innerHTML = '';
+            if (window.innerWidth > 1000) {
+                lastPage = 6;
+                firstCard = 8 * (page - 1);
+                lastCard = 8 * page;
+                arrayAllCard.slice(firstCard, lastCard).forEach(oneCard => {
+                    swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+                })
+            } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
+                lastPage = 8;
+                firstCard = 6 * (page - 1);
+                lastCard = 6 * page;
+                arrayAllCard.slice(firstCard, lastCard).forEach(oneCard => {
+                    swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+                })
+            } else {
+                lastPage = 16;
+                firstCard = 3 * (page - 1);
+                lastCard = 3 * page;
+                arrayAllCard.slice(firstCard, lastCard).forEach(oneCard => {
+                    swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+                })
+            }
+            if (page !== 1) {
+                paginationPrev.classList.remove('pagination-button--disabled');
+                paginationFirst.classList.remove('pagination-button--disabled');
+            }
+            if (page === lastPage) {
+                paginationLast.classList.add('pagination-button--disabled');
+                paginationNext.classList.add('pagination-button--disabled');
+            }
+        console.log(firstCard, lastCard)
+        }
+    }
+    function painationLastSlide () {
+        if (page !== lastPage) {
+            page = lastPage;
+            paginationActive.textContent = `${page}`;
+            swiperBlock.innerHTML = '';
+            if (window.innerWidth > 1000) {
+                lastPage = 6;
+                firstCard = 8 * (page - 1);
+                lastCard = 8 * page;
+                arrayAllCard.slice(firstCard, lastCard).forEach(oneCard => {
+                    swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+                })
+            } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
+                lastPage = 8;
+                firstCard = 6 * (page - 1);
+                lastCard = 6 * page;
+                arrayAllCard.slice(firstCard, lastCard).forEach(oneCard => {
+                    swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+                })
+            } else {
+                lastPage = 16;
+                firstCard = 3 * (page - 1);
+                lastCard = 3 * page;
+                arrayAllCard.slice(firstCard, lastCard).forEach(oneCard => {
+                    swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+                })
+            }
+            if (page === lastPage) {
+                paginationLast.classList.add('pagination-button--disabled');
+                paginationNext.classList.add('pagination-button--disabled');
+                paginationPrev.classList.remove('pagination-button--disabled');
+                paginationFirst.classList.remove('pagination-button--disabled');
+            }
+            console.log(firstCard, lastCard)
+        }
+    }
+    function painationPrevSlide () {
+        if (page > 1) {
+            paginationActive.textContent = `${--page}`;
+            swiperBlock.innerHTML = '';
+            if (window.innerWidth > 1000) {
+                lastPage = 6;
+                firstCard = 8 * (page - 1);
+                lastCard = 8 * page;
+                arrayAllCard.slice(firstCard, lastCard).forEach(oneCard => {
+                    swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+                })
+            } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
+                lastPage = 8;
+                firstCard = 6 * (page - 1);
+                lastCard = 6 * page;
+                arrayAllCard.slice(firstCard, lastCard).forEach(oneCard => {
+                    swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+                })
+            } else {
+                lastPage = 16;
+                firstCard = 3 * (page - 1);
+                lastCard = 3 * page;
+                arrayAllCard.slice(firstCard, lastCard).forEach(oneCard => {
+                    swiperBlock.insertAdjacentHTML('afterbegin', oneCard);
+                })
+            }
+            if (page === 1) {
+                paginationPrev.classList.add('pagination-button--disabled');
+                paginationFirst.classList.add('pagination-button--disabled');
+            }
+            paginationLast.classList.remove('pagination-button--disabled');
+            paginationNext.classList.remove('pagination-button--disabled');
+        console.log(firstCard, lastCard)
+        }
+    }
+    function painationFirstSlide () {
+        if (page > 1) {
+            page = 1;
+            paginationActive.textContent = `${page}`;
+            if (page === 1) {
+                paginationPrev.classList.add('pagination-button--disabled');
+                paginationFirst.classList.add('pagination-button--disabled');
+            }
+            setCard ();
+            paginationLast.classList.remove('pagination-button--disabled');
+            paginationNext.classList.remove('pagination-button--disabled');
+        }
     }
 }
-// setCard ()
-// window.addEventListener('resize', setCard);
-
-// const paginationActive = document.querySelector('.pagination-button--active');
-// const paginationPrev = document.querySelector('.swiper__pagination--prev');
-// const paginationNext = document.querySelector('.swiper__pagination--next');
-// const paginationLast = document.querySelector('.swiper__pagination--last');
-// const paginationFirst = document.querySelector('.swiper__pagination--first');
-
-// paginationNext.addEventListener('click', painationNextSlide);
-// paginationLast.addEventListener('click', painationLastSlide);
-// paginationPrev.addEventListener('click', painationPrevSlide);
-// paginationFirst.addEventListener('click', painationFirstSlide);
-
-// function painationNextSlide () {
-//     if (page < lastPage) {
-//         paginationActive.textContent = `${++page}`;
-//         setCard ();
-//         if (page !== 1) {
-//             paginationPrev.classList.remove('pagination-button--disabled');
-//             paginationFirst.classList.remove('pagination-button--disabled');
-//         }
-//         if (page === lastPage) {
-//             paginationLast.classList.add('pagination-button--disabled');
-//             paginationNext.classList.add('pagination-button--disabled');
-//         }
-//     }
-// }
-// function painationLastSlide () {
-//     if (page !== lastPage) {
-//         page = lastPage;
-//         paginationActive.textContent = `${page}`;
-//         setCard ();
-//         if (page === lastPage) {
-//             paginationLast.classList.add('pagination-button--disabled');
-//             paginationNext.classList.add('pagination-button--disabled');
-//             paginationPrev.classList.remove('pagination-button--disabled');
-//             paginationFirst.classList.remove('pagination-button--disabled');
-//         }
-//     }
-// }
-// function painationPrevSlide () {
-//     if (page > 1) {
-//         paginationActive.textContent = `${--page}`;
-//         if (page === 1) {
-//             paginationPrev.classList.add('pagination-button--disabled');
-//             paginationFirst.classList.add('pagination-button--disabled');
-//         }
-//         setCard ();
-//         paginationLast.classList.remove('pagination-button--disabled');
-//         paginationNext.classList.remove('pagination-button--disabled');
-//     }
-// }
-// function painationFirstSlide () {
-//     if (page > 1) {
-//         page = 1;
-//         paginationActive.textContent = `${page}`;
-//         if (page === 1) {
-//             paginationPrev.classList.add('pagination-button--disabled');
-//             paginationFirst.classList.add('pagination-button--disabled');
-//         }
-//         setCard ();
-//         paginationLast.classList.remove('pagination-button--disabled');
-//         paginationNext.classList.remove('pagination-button--disabled');
-//     }
-// }
