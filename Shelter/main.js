@@ -105,59 +105,70 @@ function closeModal (evt) {
 }
 
 //--------------------------------slider----------------------//
-if (location.pathname === "/Shelter/") {
-    async function getCard () {
+if (location.pathname === "/") {
+    function getDataCardForSlider () {
+        let xhr = new XMLHttpRequest();
         const url = './pets.json';
-        const response = await fetch(url);
-        const answer =  await response.json();
+        xhr.open('GET', url, false);
+        try {
+            xhr.send();
+            if (xhr.status != 200) {
+                alert(`Ошибка ${xhr.status}: ${xhr.statusText}`);
+            } else {
+                return xhr.response
+            }
+        } catch(err) {
+            alert("нет данных от сервера")
+        }
+    }
+
+
+    function getCard () {
+        let data = JSON.parse(getData());
         const result = [];
-        for (let prop in answer ) {
+
+        data.forEach(card => {
             result.push(`
                     <div class="swiper__content-block">
                         <div class="swiper__content-block-img">
-                            <img src="${answer[prop].img}" alt="pets-katrine" width="270" height="270">
+                            <img src="${card.img}" alt="${card.name}" width="270" height="270">
                         </div>
-                        <h3 class="swiper__content-block-title">${answer[prop].name}</h3>
+                        <h3 class="swiper__content-block-title">${card.name}</h3>
                         <button class="swiper__content-block-btn">Learn more</button>
                     </div>
                 `)
-        }
+        })
+            
         if (window.innerWidth > 1000) {
-            return result.sort(() => Math.random() -0.5).slice(0,3);
+            return result.sort(() => Math.random() -0.5).slice(0,6);
         } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
-            return result.sort(() => Math.random() -0.5).slice(0,2);
+            return result.sort(() => Math.random() -0.5).slice(0,5);
         } else {
-            return result.sort(() => Math.random() -0.5).slice(0,1);
+            return result.sort(() => Math.random() -0.5).slice(0,2);
         }
     }
+    getCard ()
 
-
-    getCard().then(card =>
-        card.forEach(oneCard => {
+    getCard().forEach(oneCard => {
             swiperContent.insertAdjacentHTML('afterbegin', oneCard);
         })
-    )
 
-    const btnNext = document.querySelector('.swiper__btn-next');
-    const btnPrev = document.querySelector('.swiper__btn-prev');
+    // const btnNext = document.querySelector('.swiper__btn-next');
+    // const btnPrev = document.querySelector('.swiper__btn-prev');
 
-    btnPrev.addEventListener('click', sliderPrev);
-    btnNext.addEventListener('click', sliderNext);
+    // btnPrev.addEventListener('click', sliderPrev);
+    // btnNext.addEventListener('click', sliderNext);
 
-    function sliderNext () {
-        getCard().then(card =>
-            card.forEach(oneCard => {
-                swiperContent.insertAdjacentHTML('afterbegin', oneCard);
-            })
-        )
-    }
-    function sliderPrev () {
+    // function sliderNext () {
+        
+    // }
+    // function sliderPrev () {
 
-    }
+    // }
 }
 
 //--------------------------------pagination----------------------//
-if (location.pathname === "/Shelter/page/our-pets.html") {
+if (location.pathname === "/page/our-pets.html") {
     function getData () {
         let xhr = new XMLHttpRequest();
         const url = './pets.json';

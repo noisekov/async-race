@@ -363,7 +363,6 @@ body.no-scroll {
         max-width: 580px;
     }
 }
-
 .swiper__content {
     display: flex;
     flex-wrap: wrap;
@@ -532,8 +531,6 @@ body.no-scroll {
     }
 }
 /* help */
-.help {
-}
 .help__content {
     display: flex;
     flex-direction: column;
