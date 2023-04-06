@@ -122,7 +122,6 @@ if (location.pathname === "/") {
         }
     }
 
-
     function getCard () {
         let data = JSON.parse(getData());
         const result = [];
@@ -142,29 +141,48 @@ if (location.pathname === "/") {
         if (window.innerWidth > 1000) {
             return result.sort(() => Math.random() -0.5).slice(0,6);
         } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
-            return result.sort(() => Math.random() -0.5).slice(0,5);
+            return result.sort(() => Math.random() -0.5).slice(0,4);
         } else {
             return result.sort(() => Math.random() -0.5).slice(0,2);
         }
     }
-    getCard ()
 
-    getCard().forEach(oneCard => {
-            swiperContent.insertAdjacentHTML('afterbegin', oneCard);
-        })
+    const sliderContentActive = document.querySelector('.slider__content-slide--active');
+    const sliderContentLeft = document.querySelector('.slider__content-slide--left');
+    const sliderContentRight = document.querySelector('.slider__content-slide--right');
+    const slider = document.querySelector('.slider');
+    const sliderContent = document.querySelector('.slider__content');
+    const btnNext = document.querySelector('.swiper__btn-next');
+    const btnPrev = document.querySelector('.swiper__btn-prev');
 
-    // const btnNext = document.querySelector('.swiper__btn-next');
-    // const btnPrev = document.querySelector('.swiper__btn-prev');
+    const arrPets = getCard();
 
-    // btnPrev.addEventListener('click', sliderPrev);
-    // btnNext.addEventListener('click', sliderNext);
+    sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[0]);
+    sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[1]);
+    sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[2]);
+    sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[3]);
+    sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[4]);
+    sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[5]);
+    sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[3]);
+    sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[4]);
+    sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[5]);
 
-    // function sliderNext () {
-        
-    // }
-    // function sliderPrev () {
 
-    // }
+    let positionSliderInitial = slider.clientWidth;
+    sliderContent.style.transform = `translateX(-${positionSliderInitial}px)`;
+
+    btnPrev.addEventListener('click', sliderPrev);
+    btnNext.addEventListener('click', sliderNext);
+
+    let positionSliderNow = 0;
+    function sliderNext () {
+        positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
+        sliderContent.style.transform = `translateX(${positionSliderNow - positionSliderInitial}px)`;
+    }
+    function sliderPrev () {
+        positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
+        sliderContent.style.transform = `translateX(${positionSliderNow + positionSliderInitial}px)`;
+    }
 }
 
 //--------------------------------pagination----------------------//

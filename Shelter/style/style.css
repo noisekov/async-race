@@ -23,7 +23,7 @@ body.no-scroll {
 }
 .overflow {
     display: none;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     top: 0;
     left: 0;
@@ -1157,4 +1157,20 @@ body.no-scroll {
     .logo {
         margin-left: 10px;
     }
+}
+.slider {
+    position: relative;
+    overflow: hidden;
+    height: 470px;
+}
+.slider__content {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: 0.3s all;
+}
+.slider__content-slide {
+    gap: 90px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
