@@ -137,14 +137,7 @@ if (location.pathname === "/") {
                     </div>
                 `)
         })
-            
-        if (window.innerWidth > 1000) {
-            return result.sort(() => Math.random() -0.5).slice(0,6);
-        } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
-            return result.sort(() => Math.random() -0.5).slice(0,4);
-        } else {
-            return result.sort(() => Math.random() -0.5).slice(0,2);
-        }
+        return result.sort(() => Math.random() -0.5);
     }
 
     const sliderContentActive = document.querySelector('.slider__content-slide--active');
@@ -156,20 +149,44 @@ if (location.pathname === "/") {
     const btnPrev = document.querySelector('.swiper__btn-prev');
 
     const arrPets = getCard();
+    generateCard ();
 
-    sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[0]);
-    sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[1]);
-    sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[2]);
-    sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[3]);
-    sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[4]);
-    sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[5]);
-    sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[3]);
-    sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[4]);
-    sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[5]);
+    window.addEventListener('resize', generateCard);
 
 
-    let positionSliderInitial = slider.clientWidth;
-    sliderContent.style.transform = `translateX(-${positionSliderInitial}px)`;
+
+    function generateCard () {
+        sliderContentActive.innerHTML = '';
+        sliderContentRight.innerHTML = '';
+        sliderContentLeft.innerHTML = '';
+        sliderContent.style.transform = `translateX(-${slider.clientWidth}px)`;
+        if (window.innerWidth > 1000) {
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[0]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[1]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[2]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[3]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[4]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[5]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[6]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[7]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[1]);
+        } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[0]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[1]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[2]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[3]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[4]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[5]);
+        } else {
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[0]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[1]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[2]);
+        }
+    }
+    
+
+
+
 
     btnPrev.addEventListener('click', sliderPrev);
     btnNext.addEventListener('click', sliderNext);
@@ -177,11 +194,11 @@ if (location.pathname === "/") {
     let positionSliderNow = 0;
     function sliderNext () {
         positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
-        sliderContent.style.transform = `translateX(${positionSliderNow - positionSliderInitial}px)`;
+        sliderContent.style.transform = `translateX(${positionSliderNow - slider.clientWidth}px)`;
     }
     function sliderPrev () {
         positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
-        sliderContent.style.transform = `translateX(${positionSliderNow + positionSliderInitial}px)`;
+        sliderContent.style.transform = `translateX(${positionSliderNow + slider.clientWidth}px)`;
     }
 }
 

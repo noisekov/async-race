@@ -370,6 +370,11 @@ body.no-scroll {
         max-width: 580px;
     }
 }
+@media (max-width:720px) {
+    .swiper--small {
+        max-width: 270px;
+    }
+}
 .swiper__content {
     display: flex;
     flex-wrap: wrap;
@@ -1165,6 +1170,7 @@ body.no-scroll {
 }
 .slider__content {
     display: flex;
+    flex-direction: row;
     flex-wrap: nowrap;
     transition: 0.3s all;
 }
