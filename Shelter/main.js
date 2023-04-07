@@ -148,12 +148,10 @@ if (location.pathname === "/") {
     const btnNext = document.querySelector('.swiper__btn-next');
     const btnPrev = document.querySelector('.swiper__btn-prev');
 
-    const arrPets = getCard();
+    const arrPets = [...getCard()];
     generateCard ();
 
     window.addEventListener('resize', generateCard);
-
-
 
     function generateCard () {
         sliderContentActive.innerHTML = '';
@@ -161,45 +159,58 @@ if (location.pathname === "/") {
         sliderContentLeft.innerHTML = '';
         sliderContent.style.transform = `translateX(-${slider.clientWidth}px)`;
         if (window.innerWidth > 1000) {
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[0]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[1]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[0]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[1]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[2]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[3]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[4]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[5]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[6]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[7]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[1]);
+        } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[0]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[1]);
             sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[2]);
-            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[3]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[3]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[4]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[5]);
-            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[6]);
-            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[7]);
-            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[1]);
-        } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[0]);
+        } else {
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[0]);
             sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[1]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[2]);
-            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[3]);
-            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[4]);
-            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[5]);
-        } else {
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[0]);
-            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[1]);
-            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[2]);
         }
     }
-    
-
-
-
 
     btnPrev.addEventListener('click', sliderPrev);
     btnNext.addEventListener('click', sliderNext);
 
     let positionSliderNow = 0;
     function sliderNext () {
+        // sliderContentLeft.innerHTML = sliderContentActive.innerHTML;
+        sliderContentActive.innerHTML = sliderContentRight.innerHTML;
         positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
         sliderContent.style.transform = `translateX(${positionSliderNow - slider.clientWidth}px)`;
+        btnNext.removeEventListener('click', sliderNext);
     }
+
     function sliderPrev () {
+        // sliderContentRight.innerHTML = sliderContentActive.innerHTML;
+        sliderContentActive.innerHTML = sliderContentLeft.innerHTML;
         positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
         sliderContent.style.transform = `translateX(${positionSliderNow + slider.clientWidth}px)`;
+        
+        btnPrev.removeEventListener('click', sliderPrev);
     }
+
+    sliderContent.addEventListener('transitionend', () => {
+        sliderContent.classList.add('no-transition');
+        sliderContent.style.transform = `translateX(-${slider.clientWidth}px)`;
+        setTimeout(() =>{sliderContent.classList.remove('no-transition')}, 0);
+
+        btnPrev.addEventListener('click', sliderPrev);
+        btnNext.addEventListener('click', sliderNext);
+    })
 }
 
 //--------------------------------pagination----------------------//

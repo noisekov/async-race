@@ -1174,6 +1174,9 @@ body.no-scroll {
     flex-wrap: nowrap;
     transition: 0.3s all;
 }
+.slider__content.no-transition {
+    transition: 0s;
+}
 .slider__content-slide {
     gap: 90px;
     display: flex;
