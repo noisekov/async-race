@@ -2,7 +2,7 @@ const burger = document.querySelector('.burger');
 const nav = document.querySelector('.nav');
 const body = document.querySelector('body');
 const overflow = document.querySelector('.overflow');
-
+console.log(location.pathname)
 burger.addEventListener('click', openBurger);
 document.addEventListener('click', closeBurger);
 
@@ -106,7 +106,6 @@ function closeModal (evt) {
 
 //--------------------------------slider----------------------//
 if (location.pathname === "./") {
-    console.log('da')
     function getDataCardForSlider () {
         let xhr = new XMLHttpRequest();
         const url = './pets.json';
