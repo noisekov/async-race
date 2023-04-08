@@ -106,6 +106,7 @@ function closeModal (evt) {
 
 //--------------------------------slider----------------------//
 if (location.pathname === "./") {
+    console.log('da')
     function getDataCardForSlider () {
         let xhr = new XMLHttpRequest();
         const url = './pets.json';
