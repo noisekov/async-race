@@ -149,9 +149,13 @@ if (location.pathname === "/") {
     const btnPrev = document.querySelector('.swiper__btn-prev');
 
     const arrPets = [...getCard()];
-    generateCard ();
-
+    
     window.addEventListener('resize', generateCard);
+
+    let activeSlideNow1 = null;
+    let activeSlideNow2 = null;
+    let activeSlideNow3 = null;
+    generateCard ();
 
     function generateCard () {
         sliderContentActive.innerHTML = '';
@@ -159,25 +163,31 @@ if (location.pathname === "/") {
         sliderContentLeft.innerHTML = '';
         sliderContent.style.transform = `translateX(-${slider.clientWidth}px)`;
         if (window.innerWidth > 1000) {
+            activeSlideNow1 = 3;
+            activeSlideNow2 = 4;
+            activeSlideNow3 = 5;
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[0]);
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[1]);
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[2]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[3]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[4]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[5]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow2]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow3]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[6]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[7]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[1]);
         } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
+            activeSlideNow1 = 2;
+            activeSlideNow2 = 3;
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[0]);
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[1]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[2]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[3]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow2]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[4]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[5]);
         } else {
+            activeSlideNow1 = 1;
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[0]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[1]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[2]);
         }
     }
@@ -186,17 +196,109 @@ if (location.pathname === "/") {
     btnNext.addEventListener('click', sliderNext);
 
     let positionSliderNow = 0;
+    let arrEmpty = [activeSlideNow1,activeSlideNow2,activeSlideNow3];
+    let arrAllDigit = [0,1,2,3,4,5,6,7];
+    let newArrElementActive = [];
     function sliderNext () {
-        // sliderContentLeft.innerHTML = sliderContentActive.innerHTML;
+        sliderContentLeft.innerHTML = sliderContentActive.innerHTML;
         sliderContentActive.innerHTML = sliderContentRight.innerHTML;
+        sliderContentRight.innerHTML ='';
+        if (window.innerWidth > 1000) {
+            newArrElementActive.length = 0;
+            arrAllDigit.forEach(x => {
+                if (!arrEmpty.includes(x)){
+                    newArrElementActive.push(x);
+                }
+            })
+            let actialVal = newArrElementActive.sort(() => Math.random() -0.5).slice(0,3);
+            activeSlideNow1 = actialVal[0];
+            activeSlideNow2 = actialVal[1];
+            activeSlideNow3 = actialVal[2];
+            arrEmpty.length = 0;
+            arrEmpty.push(activeSlideNow1,activeSlideNow2,activeSlideNow3);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow2]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow3]);
+        } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
+            newArrElementActive.length = 0;
+            arrAllDigit.forEach(x => {
+                if (!arrEmpty.includes(x)){
+                    newArrElementActive.push(x);
+                }
+            })
+            let actialVal = newArrElementActive.sort(() => Math.random() -0.5).slice(0,2);
+            activeSlideNow1 = actialVal[0];
+            activeSlideNow2 = actialVal[1];
+            arrEmpty.length = 0;
+            arrEmpty.push(activeSlideNow1,activeSlideNow2);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow2]);
+        } else {
+            newArrElementActive.length = 0;
+            arrAllDigit.forEach(x => {
+                if (!arrEmpty.includes(x)){
+                    newArrElementActive.push(x);
+                }
+            })
+            let actialVal = newArrElementActive.sort(() => Math.random() -0.5).slice(0,1);
+            activeSlideNow1 = actialVal[0];
+            arrEmpty.length = 0;
+            arrEmpty.push(activeSlideNow1);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
+        }
+
         positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
         sliderContent.style.transform = `translateX(${positionSliderNow - slider.clientWidth}px)`;
         btnNext.removeEventListener('click', sliderNext);
     }
 
     function sliderPrev () {
-        // sliderContentRight.innerHTML = sliderContentActive.innerHTML;
+        sliderContentRight.innerHTML = sliderContentActive.innerHTML;
         sliderContentActive.innerHTML = sliderContentLeft.innerHTML;
+        sliderContentLeft.innerHTML ='';
+        if (window.innerWidth > 1000) {
+            newArrElementActive.length = 0;
+            arrAllDigit.forEach(x => {
+                if (!arrEmpty.includes(x)){
+                    newArrElementActive.push(x);
+                }
+            })
+            let actialVal = newArrElementActive.sort(() => Math.random() -0.5).slice(0,3);
+            activeSlideNow1 = actialVal[0];
+            activeSlideNow2 = actialVal[1];
+            activeSlideNow3 = actialVal[2];
+            arrEmpty.length = 0;
+            arrEmpty.push(activeSlideNow1,activeSlideNow2,activeSlideNow3);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow2]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow3]);
+        } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
+            newArrElementActive.length = 0;
+            arrAllDigit.forEach(x => {
+                if (!arrEmpty.includes(x)){
+                    newArrElementActive.push(x);
+                }
+            })
+            let actialVal = newArrElementActive.sort(() => Math.random() -0.5).slice(0,2);
+            activeSlideNow1 = actialVal[0];
+            activeSlideNow2 = actialVal[1];
+            arrEmpty.length = 0;
+            arrEmpty.push(activeSlideNow1,activeSlideNow2);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow2]);
+        } else {
+            newArrElementActive.length = 0;
+            arrAllDigit.forEach(x => {
+                if (!arrEmpty.includes(x)){
+                    newArrElementActive.push(x);
+                }
+            })
+            let actialVal = newArrElementActive.sort(() => Math.random() -0.5).slice(0,1);
+            activeSlideNow1 = actialVal[0];
+            arrEmpty.length = 0;
+            arrEmpty.push(activeSlideNow1);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
+        }
         positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
         sliderContent.style.transform = `translateX(${positionSliderNow + slider.clientWidth}px)`;
         
