@@ -105,7 +105,7 @@ function closeModal (evt) {
 }
 
 //--------------------------------slider----------------------//
-if (location.pathname === "/") {
+if (location.pathname === "./") {
     function getDataCardForSlider () {
         let xhr = new XMLHttpRequest();
         const url = './pets.json';
@@ -314,7 +314,7 @@ if (location.pathname === "/") {
 }
 
 //--------------------------------pagination----------------------//
-if (location.pathname === "/page/our-pets.html") {
+if (location.pathname === "./page/our-pets.html") {
     function getData () {
         let xhr = new XMLHttpRequest();
         const url = './pets.json';
