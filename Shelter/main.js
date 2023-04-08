@@ -201,7 +201,6 @@ if (location.pathname === "/") {
     let newArrElementActive = [];
     function sliderNext () {
         sliderContentLeft.innerHTML = sliderContentActive.innerHTML;
-        sliderContentActive.innerHTML = sliderContentRight.innerHTML;
         sliderContentRight.innerHTML ='';
         if (window.innerWidth > 1000) {
             newArrElementActive.length = 0;
@@ -246,7 +245,7 @@ if (location.pathname === "/") {
             arrEmpty.push(activeSlideNow1);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
         }
-
+        sliderContentActive.innerHTML = sliderContentRight.innerHTML;
         positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
         sliderContent.style.transform = `translateX(${positionSliderNow - slider.clientWidth}px)`;
         btnNext.removeEventListener('click', sliderNext);
@@ -254,7 +253,6 @@ if (location.pathname === "/") {
 
     function sliderPrev () {
         sliderContentRight.innerHTML = sliderContentActive.innerHTML;
-        sliderContentActive.innerHTML = sliderContentLeft.innerHTML;
         sliderContentLeft.innerHTML ='';
         if (window.innerWidth > 1000) {
             newArrElementActive.length = 0;
@@ -299,9 +297,9 @@ if (location.pathname === "/") {
             arrEmpty.push(activeSlideNow1);
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
         }
+        sliderContentActive.innerHTML = sliderContentLeft.innerHTML;
         positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
         sliderContent.style.transform = `translateX(${positionSliderNow + slider.clientWidth}px)`;
-        
         btnPrev.removeEventListener('click', sliderPrev);
     }
 
