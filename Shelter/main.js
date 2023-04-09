@@ -333,10 +333,15 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/page/our-pets.html") {
     
     function createCardPagination() {
         let data = JSON.parse(getData());
-        const arrCard = [];
+        const arrCard1 = [];
+        const arrCard2 = [];
+        const arrCard3 = [];
         const result = [];
+        let count = 0;
         data.forEach(card => {
-            arrCard.push(`
+            count++;
+            if (count <=3) {
+                    arrCard1.push(`
                     <div class="swiper__content-block">
                         <div class="swiper__content-block-img">
                             <img src="${card.img}" alt="pets-katrine" width="270" height="270">
@@ -345,9 +350,33 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/page/our-pets.html") {
                         <button class="swiper__content-block-btn">Learn more</button>
                     </div>
                 `)
+            } else if (count > 3 && count <= 6) {
+                    arrCard2.push(`
+                    <div class="swiper__content-block">
+                        <div class="swiper__content-block-img">
+                            <img src="${card.img}" alt="pets-katrine" width="270" height="270">
+                        </div>
+                        <h3 class="swiper__content-block-title">${card.name}</h3>
+                        <button class="swiper__content-block-btn">Learn more</button>
+                    </div>
+                `)
+            } else {
+                arrCard3.push(`
+                    <div class="swiper__content-block">
+                        <div class="swiper__content-block-img">
+                            <img src="${card.img}" alt="pets-katrine" width="270" height="270">
+                        </div>
+                        <h3 class="swiper__content-block-title">${card.name}</h3>
+                        <button class="swiper__content-block-btn">Learn more</button>
+                    </div>
+                `)
+            }
         })
         for (let i = 0; i < 6; i++) {
-            let newAnswer = [...arrCard].sort(() => Math.random() -0.5);
+            let arrMix1 = arrCard1.sort(() => Math.random() -0.5);
+            let arrMix2 = arrCard2.sort(() => Math.random() -0.5);
+            let arrMix3 = arrCard3.sort(() => Math.random() -0.5);
+            let newAnswer = [...arrMix1, ...arrMix2, ...arrMix3];
             result.push(...newAnswer);
         }
         return result;
