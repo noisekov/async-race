@@ -126,9 +126,9 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/") {
         let data = JSON.parse(getData());
         const result = [];
 
-        data.forEach(card => {
+        data.forEach((card, index) => {
             result.push(`
-                    <div class="swiper__content-block">
+                    <div class="swiper__content-block" id="${index}">
                         <div class="swiper__content-block-img">
                             <img src="${card.img}" alt="${card.name}" width="270" height="270">
                         </div>
@@ -137,7 +137,7 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/") {
                     </div>
                 `)
         })
-        return result.sort(() => Math.random() -0.5);
+        return result;
     }
 
     const sliderContentActive = document.querySelector('.slider__content-slide--active');
@@ -148,13 +148,13 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/") {
     const btnNext = document.querySelector('.swiper__btn-next');
     const btnPrev = document.querySelector('.swiper__btn-prev');
 
-    const arrPets = [...getCard()];
+    const noSortArr = getCard();
+    const arrPets = getCard().sort(() => Math.random() -0.5);
     
     window.addEventListener('resize', generateCard);
 
-    let activeSlideNow1 = null;
-    let activeSlideNow2 = null;
-    let activeSlideNow3 = null;
+    let arrEmpty = [];
+
     generateCard ();
 
     function generateCard () {
@@ -163,32 +163,32 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/") {
         sliderContentLeft.innerHTML = '';
         sliderContent.style.transform = `translateX(-${slider.clientWidth}px)`;
         if (window.innerWidth > 1000) {
-            activeSlideNow1 = 3;
-            activeSlideNow2 = 4;
-            activeSlideNow3 = 5;
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[0]);
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[1]);
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[2]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow2]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow3]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[3]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[4]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[5]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[6]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[7]);
-            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[1]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[0]);
+            arrEmpty.length = 0;
+            arrEmpty.push(+sliderContentActive.children[0].id, +sliderContentActive.children[1].id, +sliderContentActive.children[2].id);
         } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
-            activeSlideNow1 = 2;
-            activeSlideNow2 = 3;
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[0]);
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[1]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow2]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[2]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[3]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[4]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[5]);
+            arrEmpty.length = 0;
+            arrEmpty.push(+sliderContentActive.children[0].id, +sliderContentActive.children[1].id);
         } else {
-            activeSlideNow1 = 1;
             sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[0]);
-            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
+            sliderContentActive.insertAdjacentHTML('afterbegin', arrPets[1]);
             sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[2]);
+            arrEmpty.length = 0;
+            arrEmpty.push(+sliderContentActive.children[0].id);
         }
     }
 
@@ -196,13 +196,16 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/") {
     btnNext.addEventListener('click', sliderNext);
 
     let positionSliderNow = 0;
-    let arrEmpty = [activeSlideNow1,activeSlideNow2,activeSlideNow3];
     let arrAllDigit = [0,1,2,3,4,5,6,7];
     let newArrElementActive = [];
+
     function sliderNext () {
-        sliderContentLeft.innerHTML = sliderContentActive.innerHTML;
-        sliderContentRight.innerHTML ='';
         if (window.innerWidth > 1000) {
+            sliderContentLeft.innerHTML = sliderContentActive.innerHTML;
+            sliderContentActive.innerHTML = sliderContentRight.innerHTML;
+            arrEmpty.length = 0;
+            arrEmpty.push(+sliderContentRight.children[0].id, +sliderContentRight.children[1].id, +sliderContentRight.children[2].id);
+            sliderContentRight.innerHTML ='';
             newArrElementActive.length = 0;
             arrAllDigit.forEach(x => {
                 if (!arrEmpty.includes(x)){
@@ -210,15 +213,17 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/") {
                 }
             })
             let actialVal = newArrElementActive.sort(() => Math.random() -0.5).slice(0,3);
-            activeSlideNow1 = actialVal[0];
-            activeSlideNow2 = actialVal[1];
-            activeSlideNow3 = actialVal[2];
             arrEmpty.length = 0;
-            arrEmpty.push(activeSlideNow1,activeSlideNow2,activeSlideNow3);
-            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
-            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow2]);
-            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow3]);
+            arrEmpty.push(actialVal[0],actialVal[1],actialVal[2]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', noSortArr[actialVal[0]]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', noSortArr[actialVal[1]]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', noSortArr[actialVal[2]]);
         } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
+            sliderContentLeft.innerHTML = sliderContentActive.innerHTML;
+            sliderContentActive.innerHTML = sliderContentRight.innerHTML;
+            arrEmpty.length = 0;
+            arrEmpty.push(+sliderContentRight.children[0].id, +sliderContentRight.children[1].id);
+            sliderContentRight.innerHTML ='';
             newArrElementActive.length = 0;
             arrAllDigit.forEach(x => {
                 if (!arrEmpty.includes(x)){
@@ -226,13 +231,16 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/") {
                 }
             })
             let actialVal = newArrElementActive.sort(() => Math.random() -0.5).slice(0,2);
-            activeSlideNow1 = actialVal[0];
-            activeSlideNow2 = actialVal[1];
             arrEmpty.length = 0;
-            arrEmpty.push(activeSlideNow1,activeSlideNow2);
-            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
-            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow2]);
+            arrEmpty.push(actialVal[0],actialVal[1]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', noSortArr[actialVal[0]]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', noSortArr[actialVal[1]]);
         } else {
+            sliderContentLeft.innerHTML = sliderContentActive.innerHTML;
+            sliderContentActive.innerHTML = sliderContentRight.innerHTML;
+            arrEmpty.length = 0;
+            arrEmpty.push(+sliderContentRight.children[0].id);
+            sliderContentRight.innerHTML ='';
             newArrElementActive.length = 0;
             arrAllDigit.forEach(x => {
                 if (!arrEmpty.includes(x)){
@@ -240,21 +248,24 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/") {
                 }
             })
             let actialVal = newArrElementActive.sort(() => Math.random() -0.5).slice(0,1);
-            activeSlideNow1 = actialVal[0];
             arrEmpty.length = 0;
-            arrEmpty.push(activeSlideNow1);
-            sliderContentRight.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
+            arrEmpty.push(actialVal[0]);
+            sliderContentRight.insertAdjacentHTML('afterbegin', noSortArr[actialVal[0]]);
         }
-        sliderContentActive.innerHTML = sliderContentRight.innerHTML;
         positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
         sliderContent.style.transform = `translateX(${positionSliderNow - slider.clientWidth}px)`;
         btnNext.removeEventListener('click', sliderNext);
     }
 
     function sliderPrev () {
-        sliderContentRight.innerHTML = sliderContentActive.innerHTML;
-        sliderContentLeft.innerHTML ='';
+        positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
+        sliderContent.style.transform = `translateX(${positionSliderNow + slider.clientWidth}px)`;
         if (window.innerWidth > 1000) {
+            sliderContentRight.innerHTML = sliderContentActive.innerHTML;
+            sliderContentActive.innerHTML = sliderContentLeft.innerHTML;
+            arrEmpty.length = 0;
+            arrEmpty.push(+sliderContentLeft.children[0].id, +sliderContentLeft.children[1].id, +sliderContentLeft.children[2].id);
+            sliderContentLeft.innerHTML ='';
             newArrElementActive.length = 0;
             arrAllDigit.forEach(x => {
                 if (!arrEmpty.includes(x)){
@@ -262,15 +273,17 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/") {
                 }
             })
             let actialVal = newArrElementActive.sort(() => Math.random() -0.5).slice(0,3);
-            activeSlideNow1 = actialVal[0];
-            activeSlideNow2 = actialVal[1];
-            activeSlideNow3 = actialVal[2];
             arrEmpty.length = 0;
-            arrEmpty.push(activeSlideNow1,activeSlideNow2,activeSlideNow3);
-            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
-            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow2]);
-            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow3]);
+            arrEmpty.push(actialVal[0],actialVal[1],actialVal[2]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', noSortArr[actialVal[0]]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', noSortArr[actialVal[1]]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', noSortArr[actialVal[2]]);
         } else if (window.innerWidth < 1000 && window.innerWidth > 720 ) {
+            sliderContentRight.innerHTML = sliderContentActive.innerHTML;
+            sliderContentActive.innerHTML = sliderContentLeft.innerHTML;
+            arrEmpty.length = 0;
+            arrEmpty.push(+sliderContentLeft.children[0].id, +sliderContentLeft.children[1].id);
+            sliderContentLeft.innerHTML ='';
             newArrElementActive.length = 0;
             arrAllDigit.forEach(x => {
                 if (!arrEmpty.includes(x)){
@@ -278,13 +291,16 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/") {
                 }
             })
             let actialVal = newArrElementActive.sort(() => Math.random() -0.5).slice(0,2);
-            activeSlideNow1 = actialVal[0];
-            activeSlideNow2 = actialVal[1];
             arrEmpty.length = 0;
-            arrEmpty.push(activeSlideNow1,activeSlideNow2);
-            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
-            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow2]);
+            arrEmpty.push(actialVal[0],actialVal[1]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', noSortArr[actialVal[0]]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', noSortArr[actialVal[1]]);
         } else {
+            sliderContentRight.innerHTML = sliderContentActive.innerHTML;
+            sliderContentActive.innerHTML = sliderContentLeft.innerHTML;
+            arrEmpty.length = 0;
+            arrEmpty.push(+sliderContentLeft.children[0].id);
+            sliderContentLeft.innerHTML ='';
             newArrElementActive.length = 0;
             arrAllDigit.forEach(x => {
                 if (!arrEmpty.includes(x)){
@@ -292,14 +308,11 @@ if (location.pathname === "/noisekov-JSFE2023Q1/Shelter/") {
                 }
             })
             let actialVal = newArrElementActive.sort(() => Math.random() -0.5).slice(0,1);
-            activeSlideNow1 = actialVal[0];
             arrEmpty.length = 0;
-            arrEmpty.push(activeSlideNow1);
-            sliderContentLeft.insertAdjacentHTML('afterbegin', arrPets[activeSlideNow1]);
+            arrEmpty.push(actialVal[0]);
+            sliderContentLeft.insertAdjacentHTML('afterbegin', noSortArr[actialVal[0]]);
         }
-        sliderContentActive.innerHTML = sliderContentLeft.innerHTML;
-        positionSliderNow = +sliderContent.style.transform.replace('translateX(','').replace('px)','');
-        sliderContent.style.transform = `translateX(${positionSliderNow + slider.clientWidth}px)`;
+
         btnPrev.removeEventListener('click', sliderPrev);
     }
 
