@@ -2,10 +2,12 @@
 import './index.html';
 import './index.scss';
 
-const createElement = (tag, className, text = '') => {
+const createElement = (tag, className, text = '', column, row) => {
   const node = document.createElement(`${tag}`);
   node.className = `${className}`;
   node.innerText = `${text}`;
+  node.dataset.column = column;
+  node.dataset.row = row;
   return node;
 };
 
@@ -37,15 +39,15 @@ class Minesweeper {
       const row = [];
       for (let j = 1; j <= this.column; j += 1) {
         count += 1;
-        row.push(`${i}r ${j}c ${count}`);
-        minesweeper.append(createElement('button', `box ${i}r ${j}c ${count}`, `${count}`));
+        row.push(`${count}`);
+        minesweeper.append(createElement('button', `box ${count}`, `${count}`, `${j}`, `${i}`));
       }
       this.allField.push(row);
     }
     container.addEventListener('click', (evt) => {
       this.click(evt);
     });
-    console.log(this.allField, 'все поле без мин')
+    console.log(this.allField, 'все поле без мин');
   }
 
   initMine(firstElementClick) {
@@ -57,8 +59,10 @@ class Minesweeper {
       }
     }
     [...this.mineField].forEach(mine => {
-      minesweeper.children[mine - 1].innerText = '';
-      minesweeper.children[mine - 1].classList.add('boomb');
+      if (mine > 0) {
+        minesweeper.children[mine -1].innerText = '*';
+        minesweeper.children[mine -1].classList.add('boomb');
+      } 
     });
     console.log([...this.mineField], 'мины');
   }
@@ -69,8 +73,9 @@ class Minesweeper {
         evt.target.closest('.box').classList.add('current');
         if (this.firstClick) {
           this.firstClick = false;
-          const firstElem = +evt.target.closest('.box').classList[3];
+          const firstElem = +evt.target.closest('.box').classList[1];
           this.initMine(firstElem);
+          this.countMineAround();
         }
         if (evt.target.closest('.box').classList.contains('boomb')) {
           this.gameOver = true;
@@ -78,6 +83,34 @@ class Minesweeper {
         }
       }
     }
+  }
+
+  countMineAround() {
+    const minesweeper = document.querySelector('.minesweeper');
+    const mapAllElemAddPlus = [];
+    Array.from(minesweeper.children).forEach((box) => {
+      if (box.classList.contains('boomb')) {
+        mapAllElemAddPlus.push(`${+box.dataset.column + 1} ${+box.dataset.row + 1}`);
+        mapAllElemAddPlus.push(`${+box.dataset.column - 1} ${+box.dataset.row - 1}`);
+        mapAllElemAddPlus.push(`${+box.dataset.column + 1} ${+box.dataset.row - 1}`);
+        mapAllElemAddPlus.push(`${+box.dataset.column - 1} ${+box.dataset.row + 1}`);
+        mapAllElemAddPlus.push(`${+box.dataset.column} ${+box.dataset.row + 1}`);
+        mapAllElemAddPlus.push(`${+box.dataset.column} ${+box.dataset.row - 1}`);
+        mapAllElemAddPlus.push(`${+box.dataset.column + 1} ${+box.dataset.row}`);
+        mapAllElemAddPlus.push(`${+box.dataset.column - 1} ${+box.dataset.row}`);
+      } else {
+        box.innerText = "";
+      }
+    })
+    mapAllElemAddPlus.forEach(val => {
+      Array.from(minesweeper.children).forEach((box) => {
+        if (+box.dataset.column === +val.split(' ')[0] && +box.dataset.row === +val.split(' ')[1] && !box.classList.contains('boomb')) {
+          let textInnerBox = +box.innerText;
+          textInnerBox += 1;
+          box.innerText = textInnerBox;
+        }
+      })
+    })
   }
 
   finishGame() {
