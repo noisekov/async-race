@@ -47,6 +47,9 @@ class Minesweeper {
     container.addEventListener('click', (evt) => {
       this.click(evt);
     });
+    container.addEventListener('contextmenu', (evt) => {
+      this.markMine(evt);
+    });
     console.log(this.allField, 'все поле без мин');
   }
 
@@ -111,6 +114,14 @@ class Minesweeper {
         }
       })
     })
+  }
+
+  markMine(evt) {
+    evt.preventDefault();
+    if (evt.target.closest('.box') && !evt.target.closest('.box').classList.contains('current')) {
+      evt.target.closest('.box').classList.toggle('is-here');
+      evt.target.closest('.box').textContent = '';
+    }
   }
 
   finishGame() {
