@@ -60,7 +60,7 @@ class Minesweeper {
       }
       this.allField.push(row);
     }
-    container.addEventListener('click', (evt) => { 
+    container.addEventListener('click', (evt) => {
       this.click(evt);
       this.reloadCountMenu();
       // this.openBox(evt);
@@ -183,8 +183,8 @@ class Minesweeper {
   }
 
   destroy() {
-    const body = document.querySelector('body');
-    body.innerHTML = '';
+    const container = document.querySelector('.container');
+    container.innerHTML = '';
   }
 
   winGame() {

@@ -93,13 +93,3 @@ body {
   top: 5%;
   right: 5%;
 }
-.theme__input {
-  display: none;
-}
-.theme__label {
-  cursor: pointer;
-}
-.theme__input:checked + .theme__label {
-  color: red;
-}
-
