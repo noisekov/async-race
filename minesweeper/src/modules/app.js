@@ -45,7 +45,9 @@ class Minesweeper {
     const body = document.querySelector('body');
     body.append(createElement('div', 'container'));
     const container = document.querySelector('.container');
-    container.append(createElement('div', 'minesweeper'));
+    container.append(createElement('div', 'wrapper'));
+    const wrapper = document.querySelector('.wrapper');
+    wrapper.append(createElement('div', 'minesweeper'));
     const minesweeper = document.querySelector('.minesweeper');
     minesweeper.style.gridTemplateColumns = `repeat(${this.row} , 1fr)`;
     let count = 0;
@@ -84,7 +86,7 @@ class Minesweeper {
 
   click(evt) {
     if (!this.gameOver) {
-      if (evt.target.closest('.box')) {
+      if (evt.target.closest('.box') && !evt.target.closest('.box').classList.contains('is-here')) {
         if (!evt.target.closest('.box').classList.contains('current')) {
           this.countClick += 1;
         }
@@ -103,6 +105,11 @@ class Minesweeper {
         }
         this.winGame();
       }
+    }
+    if (evt.target.closest('.menu__start')) {
+      this.destroy();
+      this.countClick = 0;
+      new Minesweeper(10, 10);
     }
   }
 
@@ -143,19 +150,18 @@ class Minesweeper {
 
   //need to add another class MENU
   createMenu() {
-    const container = document.querySelector('.container');
-    const minesweeper = document.querySelector('.minesweeper');
-    container.prepend(createElement('div', 'menu'));
+    const wrapper = document.querySelector('.wrapper');
+    wrapper.prepend(createElement('div', 'menu'));
     const menu = document.querySelector('.menu');
-    console.log()
-    menu.style.width = `${minesweeper.clientWidth}px`;
     menu.append(createElement('div', 'menu__count-click'));
-    menu.append(createElement('div', 'menu__start'));
+    menu.append(createElement('button', 'menu__start'));
     menu.append(createElement('div', 'menu__time'));
     const countMenu = document.querySelector('.menu__count-click');
     countMenu.innerText = this.countClick;
     const timer = document.querySelector('.menu__time');
     timer.innerText = 0;
+    const start = document.querySelector('.menu__start');
+    start.innerText = 'Начать';
   }
 
   reloadCountMenu() {
@@ -175,11 +181,17 @@ class Minesweeper {
     }, 1000);
   }
 
+  destroy() {
+    const body = document.querySelector('body');
+    body.innerHTML = '';
+  }
+
   winGame() {
     const minesweeper = document.querySelector('.minesweeper');
     const win = Array.from(minesweeper.children).every((box) => {
       return box.classList.contains('current') ||  box.classList.contains('boomb');
     })
+
     if (win) {
       this.youAreWin = true;
       const container = document.querySelector('.container');
