@@ -18,6 +18,7 @@ class Minesweeper {
     this.mine = mine;
     this.allField = [];
     this.mineField = new Set();
+    this.youAreWin = false;
     this.gameOver = false;
     this.firstClick = true;
     this.objColor = {
@@ -31,6 +32,7 @@ class Minesweeper {
     8 : 'MediumPurple',
     }
     this.countClick = 0;
+    this.countTimer = 0;
     this.startApp();
   }
 
@@ -99,6 +101,7 @@ class Minesweeper {
           this.gameOver = true;
           this.finishGame();
         }
+        this.winGame();
       }
     }
   }
@@ -161,15 +164,27 @@ class Minesweeper {
   }
 
   startTimer() {
-    let countTimer = 0;
     const timer = document.querySelector('.menu__time');
-    const refreshInterval = setInterval(() => {
-      countTimer += 1;
-      timer.innerText = `${countTimer}`;
-      if (this.gameOver) {
+    let refreshInterval = setInterval(() => {
+      if (this.gameOver || this.youAreWin) {
         clearInterval(refreshInterval);
+      } else {
+        this.countTimer += 1;
+        timer.innerText = `${this.countTimer}`;
       }
     }, 1000);
+  }
+
+  winGame() {
+    const minesweeper = document.querySelector('.minesweeper');
+    const win = Array.from(minesweeper.children).every((box) => {
+      return box.classList.contains('current') ||  box.classList.contains('boomb');
+    })
+    if (win) {
+      this.youAreWin = true;
+      const container = document.querySelector('.container');
+      container.append(createElement('div', 'modal', `Hooray! You found all mines in ${this.countTimer} seconds and ${this.countClick} moves!`));
+    }
   }
 
   finishGame() {
