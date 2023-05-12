@@ -63,6 +63,7 @@ class Minesweeper {
     container.addEventListener('click', (evt) => { 
       this.click(evt);
       this.reloadCountMenu();
+      // this.openBox(evt);
     });
     container.addEventListener('contextmenu', (evt) => { this.markMine(evt) });
     console.log(this.allField, 'все поле без мин');
@@ -81,7 +82,7 @@ class Minesweeper {
         minesweeper.children[mine -1].classList.add('boomb');
       }
     });
-    console.log([...this.mineField], 'мины');
+    // console.log([...this.mineField], 'мины');
   }
 
   click(evt) {
@@ -91,7 +92,6 @@ class Minesweeper {
           this.countClick += 1;
         }
         evt.target.closest('.box').classList.add('current');
-        evt.target.closest('.box').style.color = `${this.objColor[+evt.target.closest('.box').innerText]}`;
         if (this.firstClick) {
           this.firstClick = false;
           this.startTimer();
@@ -99,6 +99,7 @@ class Minesweeper {
           this.initMine(firstElem);
           this.countMineAround();
         }
+        evt.target.closest('.box').style.color = `${this.objColor[+evt.target.closest('.box').innerText]}`;
         if (evt.target.closest('.box').classList.contains('boomb')) {
           this.gameOver = true;
           this.finishGame();
@@ -198,6 +199,24 @@ class Minesweeper {
       container.append(createElement('div', 'modal', `Hooray! You found all mines in ${this.countTimer} seconds and ${this.countClick} moves!`));
     }
   }
+
+  // openBox(evt) {
+  //   const minesweeper = document.querySelector('.minesweeper');
+  //   const mapElAround = [];
+  //   Array.from(minesweeper.children).forEach((box) => {
+  //     if(`${box.dataset.column}${box.dataset.row}` === `${evt.target.closest('.box').dataset.column}${evt.target.closest('.box').dataset.row}`) {
+  //       mapElAround.push(`${+box.dataset.column + 1} ${+box.dataset.row + 1}`);
+  //       mapElAround.push(`${+box.dataset.column - 1} ${+box.dataset.row - 1}`);
+  //       mapElAround.push(`${+box.dataset.column + 1} ${+box.dataset.row - 1}`);
+  //       mapElAround.push(`${+box.dataset.column - 1} ${+box.dataset.row + 1}`);
+  //       mapElAround.push(`${+box.dataset.column} ${+box.dataset.row + 1}`);
+  //       mapElAround.push(`${+box.dataset.column} ${+box.dataset.row - 1}`);
+  //       mapElAround.push(`${+box.dataset.column + 1} ${+box.dataset.row}`);
+  //       mapElAround.push(`${+box.dataset.column - 1} ${+box.dataset.row}`);
+  //     }
+  //   })
+  //   console.log(mapElAround)
+  // }
 
   finishGame() {
     const container = document.querySelector('.container');
