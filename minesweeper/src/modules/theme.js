@@ -1,20 +1,16 @@
+/* eslint-disable */
+import { createElement } from '../modules/create-node.js';
+
 const changeTheme = () => {
   const body = document.querySelector('body');
-  const div = document.createElement('div');
-  div.className = 'theme';
-  body.append(div);
-  const select = document.createElement('select');
-  select.className = 'theme__option';
-  div.append(select);
-  const option = document.createElement('option');
-  option.className = 'theme__option';
-  option.innerText = 'Black theme';
-  option.value = 'black';
-  const option2 = document.createElement('option');
-  option2.className = 'theme__option';
-  option2.innerText = 'White theme';
-  option2.value = 'white';
-  select.append(option2);
-  select.append(option);
+  body.append(createElement('div', 'theme'));
+  const theme = document.querySelector('.theme');
+  theme.append(createElement('select', 'theme__select'));
+  const select = document.querySelector('.theme__select');
+  select.append(createElement('option', 'theme__option', 'White theme'));
+  select.append(createElement('option', 'theme__option', 'Black theme'));
+  const option = document.querySelectorAll('.theme__option');
+  option[0].value = 'white';
+  option[1].value = 'black';
 };
 changeTheme();
