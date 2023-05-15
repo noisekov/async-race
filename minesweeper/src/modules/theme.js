@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { createElement } from '../modules/create-node.js';
 
-const changeTheme = () => {
+const createTheme = () => {
   const body = document.querySelector('body');
   body.append(createElement('div', 'theme'));
   const theme = document.querySelector('.theme');
@@ -14,10 +14,11 @@ const changeTheme = () => {
   optionWhite.value = 'light';
   optionBlack.value = 'dark';
 };
-changeTheme();
+createTheme();
 
 const htmlEl = document.getElementsByTagName('html')[0];
 const select = document.querySelector('.theme__select');
+
 select.addEventListener("change", function(){
   toggleTheme(select.value);
 });
@@ -25,4 +26,4 @@ select.addEventListener("change", function(){
 const toggleTheme = (theme = 'light') => {
   htmlEl.dataset.theme = theme;
 }
-toggleTheme()
+toggleTheme();

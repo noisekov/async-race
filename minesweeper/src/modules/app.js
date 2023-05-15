@@ -33,10 +33,6 @@ class Minesweeper {
   }
 
   initField() {
-    const body = document.querySelector('body');
-    body.append(createElement('div', 'container'));
-    const container = document.querySelector('.container');
-    container.append(createElement('div', 'wrapper'));
     const wrapper = document.querySelector('.wrapper');
     wrapper.append(createElement('div', 'minesweeper'));
     const minesweeper = document.querySelector('.minesweeper');
@@ -51,14 +47,14 @@ class Minesweeper {
       }
       this.allField.push(row);
     }
-    container.addEventListener('click', (evt) => {
+    wrapper.addEventListener('click', (evt) => {
       this.click(evt);
       this.reloadCountMenu();
       if (!evt.target.closest('.menu')) {
         this.openBox(evt);
       }
     });
-    container.addEventListener('contextmenu', (evt) => { this.markMine(evt) });
+    wrapper.addEventListener('contextmenu', (evt) => { this.markMine(evt) });
     console.log(this.allField, 'все поле без мин');
   }
 
@@ -340,4 +336,4 @@ class Minesweeper {
     container.append(createElement('div', 'modal', 'Game over. Try again!'));
   }
 }
-new Minesweeper(10, 10);
+export { Minesweeper };

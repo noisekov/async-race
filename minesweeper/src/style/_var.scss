@@ -6,6 +6,7 @@ html[data-theme='dark'] {
   --menuColor: #1d1c19;
   --defaultText: #fff;
   --defaultBg: #000;
+  --currentBox: #636363;
 }
 
 html[data-theme='light'] {
@@ -16,4 +17,5 @@ html[data-theme='light'] {
   --menuColor:  #E5C7A3;
   --defaultText: #000;
   --defaultBg: #fff;
+  --currentBox: #a3a3a3;
 }
