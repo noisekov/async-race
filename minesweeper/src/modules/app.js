@@ -54,7 +54,9 @@ class Minesweeper {
     container.addEventListener('click', (evt) => {
       this.click(evt);
       this.reloadCountMenu();
-      // this.openBox(evt);
+      if (!evt.target.closest('.menu')) {
+        this.openBox(evt);
+      }
     });
     container.addEventListener('contextmenu', (evt) => { this.markMine(evt) });
     console.log(this.allField, 'все поле без мин');
@@ -208,60 +210,131 @@ class Minesweeper {
     }
   }
 
-  // openBox(evt) {
-  //   const minesweeper = document.querySelector('.minesweeper');
-  //   Array.from(minesweeper.children).filter((box) => {
+  openBox(evt) {
+    const minesweeper = document.querySelector('.minesweeper');
 
-  //     if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
-  //     evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}`) {
-  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
-  //         box.classList.add('current');
-  //       }
+    if (evt instanceof Event) {
+      Array.from(minesweeper.children).filter((box) => {
 
-  //     } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
-  //     evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}`) {
-  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
-  //         box.classList.add('current');
-  //       }
+        if (evt.target.closest('.box')) {
 
-  //     } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
-  //     evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}`) {
-  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
-  //         box.classList.add('current');
-  //       }
+          if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
+          evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}`) {
+            if (!box.classList.contains('boomb') && !box.classList.contains('is-here') && box.innerText === '') {
+              box.classList.add('current');
+              this.openBox(box);
+            }
+          } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
+          evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}` && box.innerText === '') {
+            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+              box.classList.add('current');
+              this.openBox(box);
+            }
+  
+          } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
+          evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}` && box.innerText === '') {
+            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+              box.classList.add('current');
+              this.openBox(box);
+            }
+  
+          } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
+          evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}` && box.innerText === '') {
+            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+              box.classList.add('current');
+              this.openBox(box);
+            }
+  
+          } else if (evt.target.closest('.box').dataset.column === box.dataset.column &&
+          evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}` && box.innerText === '') {
+            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+              box.classList.add('current');
+              this.openBox(box);
+            }
+  
+          } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
+          evt.target.closest('.box').dataset.row === box.dataset.row && box.innerText === '') {
+            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+              box.classList.add('current');
+              this.openBox(box);
+            }
+  
+          } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
+          evt.target.closest('.box').dataset.row === box.dataset.row && box.innerText === '') {
+            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+              box.classList.add('current');
+              this.openBox(box);
+            }
+  
+          } else if (evt.target.closest('.box').dataset.column === box.dataset.column &&
+          evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}` && box.innerText === '') {
+            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+              box.classList.add('current');
+              this.openBox(box);
+            }
+          }
 
-  //     } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
-  //     evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}`) {
-  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
-  //         box.classList.add('current');
-  //       }
+        }
 
-  //     } else if (evt.target.closest('.box').dataset.column === box.dataset.column &&
-  //     evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}`) {
-  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
-  //         box.classList.add('current');
-  //       }
+      })
+    } else {
+      Array.from(minesweeper.children).filter((box) => {
+        
+        if (evt.dataset.column === `${+box.dataset.column + 1}` &&
+        evt.dataset.row === `${+box.dataset.row + 1}`) {
+          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+            box.classList.add('current');
+            if (box.innerText === '') {
+              this.openBox(box);
+            }
+          }
 
-  //     } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
-  //     evt.target.closest('.box').dataset.row === box.dataset.row) {
-  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
-  //         box.classList.add('current');
-  //       }
+        } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
+        evt.dataset.row === `${+box.dataset.row - 1}`) {
+          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+            box.classList.add('current');
+          }
 
-  //     } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
-  //     evt.target.closest('.box').dataset.row === box.dataset.row) {
-  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
-  //         box.classList.add('current');
-  //       }
+        } else if (evt.dataset.column === `${+box.dataset.column + 1}` &&
+        evt.dataset.row === `${+box.dataset.row - 1}`) {
+          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+            box.classList.add('current');
+          }
 
-  //     } else if (evt.target.closest('.box').dataset.column === box.dataset.column &&
-  //     evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}`) {
-  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
-  //         box.classList.add('current');
-  //       }
-  //     }
-  //   })
-  // }
+        } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
+        evt.dataset.row === `${+box.dataset.row + 1}`) {
+          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+            box.classList.add('current');
+          }
+
+        } else if (evt.dataset.column === box.dataset.column &&
+          evt.dataset.row === `${+box.dataset.row + 1}`) {
+          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+            box.classList.add('current');
+          }
+
+        } else if (evt.dataset.column === `${+box.dataset.column + 1}` &&
+        evt.dataset.row === box.dataset.row) {
+          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+            box.classList.add('current');
+          }
+
+        } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
+        evt.dataset.row === box.dataset.row) {
+          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+            box.classList.add('current');
+          }
+
+        } else if (evt.dataset.column === box.dataset.column &&
+          evt.dataset.row === `${+box.dataset.row - 1}`) {
+          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+            box.classList.add('current');
+          }
+        }
+
+      })
+    }
+  }
 
   finishGame() {
     const container = document.querySelector('.container');
