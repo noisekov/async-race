@@ -92,7 +92,7 @@ class Minesweeper {
           this.initMine(firstElem);
           this.countMineAround();
         }
-        evt.target.closest('.box').style.color = `${this.objColor[+evt.target.closest('.box').innerText]}`;
+
         if (evt.target.closest('.box').classList.contains('boomb')) {
           this.gameOver = true;
           this.finishGame();
@@ -128,6 +128,7 @@ class Minesweeper {
               let textInnerBox = +box.innerText;
               textInnerBox += 1;
               box.innerText = textInnerBox;
+              box.classList.add(`${this.objColor[+box.innerText]}`);
           }
       })
     })
@@ -185,9 +186,7 @@ class Minesweeper {
     const menutime = document.querySelector('.menu__time');
     menutime.innerText = 0;
     Array.from(minesweeper.children).forEach((box) => {
-      box.classList.remove('boomb');
-      box.classList.remove('current');
-      box.classList.remove('is-here');
+      box.classList.value = Array.from(box.classList).splice(0, 2).join(' ');
       box.innerText = '';
       box.style.color = '';
       const modal = document.querySelector('.modal');
