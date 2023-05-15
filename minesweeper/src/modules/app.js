@@ -136,7 +136,7 @@ class Minesweeper {
 
   markMine(evt) {
     evt.preventDefault();
-    if (evt.target.closest('.box') && !evt.target.closest('.box').classList.contains('current')) {
+    if (evt.target.closest('.box') && !evt.target.closest('.box').classList.contains('current') && !this.firstClick) {
       evt.target.closest('.box').classList.toggle('is-here');
     }
   }
