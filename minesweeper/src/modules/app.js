@@ -13,14 +13,14 @@ class Minesweeper {
     this.gameOver = false;
     this.firstClick = true;
     this.objColor = {
-    1 : 'Red',
-    2 : 'Blue',
-    3 : 'Green',
-    4 : 'Indigo',
-    5 : 'Brown',
-    6 : 'DeepPink',
-    7 : 'DarkSlateGray',
-    8 : 'MediumPurple',
+      1 : 'Red',
+      2 : 'Blue',
+      3 : 'Green',
+      4 : 'Indigo',
+      5 : 'Brown',
+      6 : 'DeepPink',
+      7 : 'DarkSlateGray',
+      8 : 'MediumPurple',
     }
     this.countClick = 0;
     this.countTimer = 0;
@@ -54,7 +54,7 @@ class Minesweeper {
     container.addEventListener('click', (evt) => {
       this.click(evt);
       this.reloadCountMenu();
-      this.openBox(evt);
+      // this.openBox(evt);
     });
     container.addEventListener('contextmenu', (evt) => { this.markMine(evt) });
     console.log(this.allField, 'все поле без мин');
@@ -99,9 +99,7 @@ class Minesweeper {
       }
     }
     if (evt.target.closest('.menu__start')) {
-      this.destroy();
-      this.countClick = 0;
-      new Minesweeper(10, 10);
+      this.startAgain();
     }
   }
 
@@ -173,9 +171,28 @@ class Minesweeper {
     }, 1000);
   }
 
-  destroy() {
-    const container = document.querySelector('.container');
-    container.innerHTML = '';
+  startAgain() {
+    this.allField = [];
+    this.mineField = new Set();
+    this.youAreWin = false;
+    this.gameOver = false;
+    this.firstClick = true;
+    this.countClick = 0;
+    this.countTimer = 0;
+    const minesweeper = document.querySelector('.minesweeper');
+    const menutime = document.querySelector('.menu__time');
+    menutime.innerText = 0;
+    Array.from(minesweeper.children).forEach((box) => {
+      box.classList.remove('boomb');
+      box.classList.remove('current');
+      box.classList.remove('is-here');
+      box.innerText = '';
+      box.style.color = '';
+      const modal = document.querySelector('.modal');
+      if (modal) {
+        modal.remove();
+      }
+    })
   }
 
   winGame() {
@@ -191,60 +208,60 @@ class Minesweeper {
     }
   }
 
-  openBox(evt) {
-    const minesweeper = document.querySelector('.minesweeper');
-    Array.from(minesweeper.children).filter((box) => {
+  // openBox(evt) {
+  //   const minesweeper = document.querySelector('.minesweeper');
+  //   Array.from(minesweeper.children).filter((box) => {
 
-      if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
-      evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}`) {
-        if (box.innerText === '' && !box.classList.contains('boomb')) {
-          box.classList.add('current');
-        }
+  //     if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
+  //     evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}`) {
+  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
+  //         box.classList.add('current');
+  //       }
 
-      } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
-      evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}`) {
-        if (box.innerText === '' && !box.classList.contains('boomb')) {
-          box.classList.add('current');
-        }
+  //     } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
+  //     evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}`) {
+  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
+  //         box.classList.add('current');
+  //       }
 
-      } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
-      evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}`) {
-        if (box.innerText === '' && !box.classList.contains('boomb')) {
-          box.classList.add('current');
-        }
+  //     } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
+  //     evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}`) {
+  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
+  //         box.classList.add('current');
+  //       }
 
-      } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
-      evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}`) {
-        if (box.innerText === '' && !box.classList.contains('boomb')) {
-          box.classList.add('current');
-        }
+  //     } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
+  //     evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}`) {
+  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
+  //         box.classList.add('current');
+  //       }
 
-      } else if (evt.target.closest('.box').dataset.column === box.dataset.column &&
-      evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}`) {
-        if (box.innerText === '' && !box.classList.contains('boomb')) {
-          box.classList.add('current');
-        }
+  //     } else if (evt.target.closest('.box').dataset.column === box.dataset.column &&
+  //     evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}`) {
+  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
+  //         box.classList.add('current');
+  //       }
 
-      } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
-      evt.target.closest('.box').dataset.row === box.dataset.row) {
-        if (box.innerText === '' && !box.classList.contains('boomb')) {
-          box.classList.add('current');
-        }
+  //     } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
+  //     evt.target.closest('.box').dataset.row === box.dataset.row) {
+  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
+  //         box.classList.add('current');
+  //       }
 
-      } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
-      evt.target.closest('.box').dataset.row === box.dataset.row) {
-        if (box.innerText === '' && !box.classList.contains('boomb')) {
-          box.classList.add('current');
-        }
+  //     } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
+  //     evt.target.closest('.box').dataset.row === box.dataset.row) {
+  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
+  //         box.classList.add('current');
+  //       }
 
-      } else if (evt.target.closest('.box').dataset.column === box.dataset.column &&
-      evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}`) {
-        if (box.innerText === '' && !box.classList.contains('boomb')) {
-          box.classList.add('current');
-        }
-      }
-    })
-  }
+  //     } else if (evt.target.closest('.box').dataset.column === box.dataset.column &&
+  //     evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}`) {
+  //       if (box.innerText === '' && !box.classList.contains('boomb')) {
+  //         box.classList.add('current');
+  //       }
+  //     }
+  //   })
+  // }
 
   finishGame() {
     const container = document.querySelector('.container');
