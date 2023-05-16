@@ -220,10 +220,9 @@ class Minesweeper {
 
     Array.from(minesweeper.children).filter((box) => {
       if (evt.dataset.column === `${+box.dataset.column + 1}` &&
-      evt.dataset.row === `${+box.dataset.row + 1}`) {
+      evt.dataset.row === `${+box.dataset.row + 1}` && evt.innerText === '') {
         if (!box.classList.contains('boomb')
         && !box.classList.contains('is-here')
-        && box.innerText === ''
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
@@ -231,10 +230,9 @@ class Minesweeper {
           box.classList.add('current');
         }
       } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
-      evt.dataset.row === `${+box.dataset.row - 1}`) {
+      evt.dataset.row === `${+box.dataset.row - 1}` && evt.innerText === '') {
         if (!box.classList.contains('boomb')
         && !box.classList.contains('is-here')
-        && box.innerText === ''
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
@@ -242,10 +240,9 @@ class Minesweeper {
           box.classList.add('current');
         }
       } else if (evt.dataset.column === `${+box.dataset.column + 1}` &&
-      evt.dataset.row === `${+box.dataset.row - 1}`) {
+      evt.dataset.row === `${+box.dataset.row - 1}` && evt.innerText === '') {
         if (!box.classList.contains('boomb')
         && !box.classList.contains('is-here')
-        && box.innerText === ''
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
@@ -253,10 +250,9 @@ class Minesweeper {
           box.classList.add('current');
         }
       } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
-      evt.dataset.row === `${+box.dataset.row + 1}`) {
+      evt.dataset.row === `${+box.dataset.row + 1}` && evt.innerText === '') {
         if (!box.classList.contains('boomb')
         && !box.classList.contains('is-here')
-        && box.innerText === ''
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
@@ -264,10 +260,9 @@ class Minesweeper {
           box.classList.add('current');
         }
       } else if (evt.dataset.column === box.dataset.column &&
-      evt.dataset.row === `${+box.dataset.row + 1}`) {
+      evt.dataset.row === `${+box.dataset.row + 1}` && evt.innerText === '') {
         if (!box.classList.contains('boomb')
         && !box.classList.contains('is-here')
-        && box.innerText === ''
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
@@ -275,10 +270,9 @@ class Minesweeper {
           box.classList.add('current');
         }
       } else if (evt.dataset.column === `${+box.dataset.column + 1}` &&
-      evt.dataset.row === box.dataset.row) {
+      evt.dataset.row === box.dataset.row && evt.innerText === '') {
         if (!box.classList.contains('boomb')
         && !box.classList.contains('is-here')
-        && box.innerText === ''
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
@@ -286,10 +280,9 @@ class Minesweeper {
           box.classList.add('current');
         }
       } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
-      evt.dataset.row === box.dataset.row) {
+      evt.dataset.row === box.dataset.row && evt.innerText === '') {
         if (!box.classList.contains('boomb')
         && !box.classList.contains('is-here')
-        && box.innerText === ''
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
@@ -297,10 +290,9 @@ class Minesweeper {
           box.classList.add('current');
         }
       } else if (evt.dataset.column === box.dataset.column &&
-      evt.dataset.row === `${+box.dataset.row - 1}`) {
+      evt.dataset.row === `${+box.dataset.row - 1}` && evt.innerText === '') {
         if (!box.classList.contains('boomb')
         && !box.classList.contains('is-here')
-        && box.innerText === ''
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
