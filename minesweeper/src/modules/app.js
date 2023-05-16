@@ -33,6 +33,10 @@ class Minesweeper {
   }
 
   initField() {
+    const body = document.querySelector('body');
+    body.append(createElement('div', 'container'));
+    const container = document.querySelector('.container');
+    container.append(createElement('div', 'wrapper'));
     const wrapper = document.querySelector('.wrapper');
     wrapper.append(createElement('div', 'minesweeper'));
     const minesweeper = document.querySelector('.minesweeper');
@@ -50,9 +54,9 @@ class Minesweeper {
     wrapper.addEventListener('click', (evt) => {
       this.click(evt);
       this.reloadCountMenu();
-      if (!evt.target.closest('.menu')) {
-        this.openBox(evt);
-      }
+      // if (evt.target.closest('.box')) {
+      //   this.openBox(evt.target.closest('.box'));
+      // }
     });
     wrapper.addEventListener('contextmenu', (evt) => { this.markMine(evt) });
     console.log(this.allField, 'все поле без мин');
@@ -91,6 +95,12 @@ class Minesweeper {
 
         if (evt.target.closest('.box').classList.contains('boomb')) {
           this.gameOver = true;
+          const minesweeper = document.querySelector('.minesweeper');
+          Array.from(minesweeper.children).forEach((box) => {
+            if (box.classList.contains('boomb')) {
+              box.classList.add('current');
+            }
+          })
           this.finishGame();
         }
         this.winGame();
@@ -205,135 +215,33 @@ class Minesweeper {
     }
   }
 
-  openBox(evt) {
-    const minesweeper = document.querySelector('.minesweeper');
+  // openBox(evt) {
+  //   const minesweeper = document.querySelector('.minesweeper');
+  //   const boxNearNum = [];
+  //   // if (typeof +evt.innerText === 'number') { return false }
+  //   console.log(evt.innerText)
+  //   boxNearNum.push(+evt.classList[1] + 1);
+  //   boxNearNum.push(+evt.classList[1] - 1);
+  //   boxNearNum.push(+evt.classList[1] + this.row);
+  //   boxNearNum.push(+evt.classList[1] - this.row);
+  //   boxNearNum.push(+evt.classList[1] - this.row - 1);
+  //   boxNearNum.push(+evt.classList[1] - this.row + 1);
+  //   boxNearNum.push(+evt.classList[1] + this.row - 1);
+  //   boxNearNum.push(+evt.classList[1] + this.row + 1);
 
-    if (evt instanceof Event) {
-      Array.from(minesweeper.children).filter((box) => {
-
-        if (evt.target.closest('.box')) {
-
-          if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
-          evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}`) {
-            if (!box.classList.contains('boomb') && !box.classList.contains('is-here') && box.innerText === '') {
-              box.classList.add('current');
-              this.openBox(box);
-            }
-          } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
-          evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}` && box.innerText === '') {
-            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-              box.classList.add('current');
-              this.openBox(box);
-            }
-  
-          } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
-          evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}` && box.innerText === '') {
-            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-              box.classList.add('current');
-              this.openBox(box);
-            }
-  
-          } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
-          evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}` && box.innerText === '') {
-            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-              box.classList.add('current');
-              this.openBox(box);
-            }
-  
-          } else if (evt.target.closest('.box').dataset.column === box.dataset.column &&
-          evt.target.closest('.box').dataset.row === `${+box.dataset.row + 1}` && box.innerText === '') {
-            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-              box.classList.add('current');
-              this.openBox(box);
-            }
-  
-          } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column + 1}` &&
-          evt.target.closest('.box').dataset.row === box.dataset.row && box.innerText === '') {
-            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-              box.classList.add('current');
-              this.openBox(box);
-            }
-  
-          } else if (evt.target.closest('.box').dataset.column === `${+box.dataset.column - 1}` &&
-          evt.target.closest('.box').dataset.row === box.dataset.row && box.innerText === '') {
-            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-              box.classList.add('current');
-              this.openBox(box);
-            }
-  
-          } else if (evt.target.closest('.box').dataset.column === box.dataset.column &&
-          evt.target.closest('.box').dataset.row === `${+box.dataset.row - 1}` && box.innerText === '') {
-            if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-              box.classList.add('current');
-              this.openBox(box);
-            }
-          }
-
-        }
-
-      })
-    } else {
-      Array.from(minesweeper.children).filter((box) => {
-        
-        if (evt.dataset.column === `${+box.dataset.column + 1}` &&
-        evt.dataset.row === `${+box.dataset.row + 1}`) {
-          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-            box.classList.add('current');
-            if (box.innerText === '') {
-              this.openBox(box);
-            }
-          }
-
-        } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
-        evt.dataset.row === `${+box.dataset.row - 1}`) {
-          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-            box.classList.add('current');
-          }
-
-        } else if (evt.dataset.column === `${+box.dataset.column + 1}` &&
-        evt.dataset.row === `${+box.dataset.row - 1}`) {
-          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-            box.classList.add('current');
-          }
-
-        } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
-        evt.dataset.row === `${+box.dataset.row + 1}`) {
-          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-            box.classList.add('current');
-          }
-
-        } else if (evt.dataset.column === box.dataset.column &&
-          evt.dataset.row === `${+box.dataset.row + 1}`) {
-          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-            box.classList.add('current');
-          }
-
-        } else if (evt.dataset.column === `${+box.dataset.column + 1}` &&
-        evt.dataset.row === box.dataset.row) {
-          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-            box.classList.add('current');
-          }
-
-        } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
-        evt.dataset.row === box.dataset.row) {
-          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-            box.classList.add('current');
-          }
-
-        } else if (evt.dataset.column === box.dataset.column &&
-          evt.dataset.row === `${+box.dataset.row - 1}`) {
-          if (!box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-            box.classList.add('current');
-          }
-        }
-
-      })
-    }
-  }
+  //   Array.from(minesweeper.children).forEach((box) => {
+  //     if (boxNearNum.includes(+box.classList[1])) {
+  //       if (box.innerText === '' && !box.classList.contains('boomb') && !box.classList.contains('is-here')) {
+  //         box.classList.add('current');
+  //         // this.openBox(box);
+  //       }
+  //     }
+  //   })
+  // }
 
   finishGame() {
     const container = document.querySelector('.container');
     container.append(createElement('div', 'modal', 'Game over. Try again!'));
   }
 }
-export { Minesweeper };
+new Minesweeper(10, 10);
