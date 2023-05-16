@@ -54,9 +54,9 @@ class Minesweeper {
     wrapper.addEventListener('click', (evt) => {
       this.click(evt);
       this.reloadCountMenu();
-      // if (evt.target.closest('.box')) {
-      //   this.openBox(evt.target.closest('.box'));
-      // }
+      if (evt.target.closest('.box')) {
+        this.openBox(evt.target.closest('.box'));
+      }
     });
     wrapper.addEventListener('contextmenu', (evt) => { this.markMine(evt) });
     console.log(this.allField, 'все поле без мин');
@@ -215,29 +215,101 @@ class Minesweeper {
     }
   }
 
-  // openBox(evt) {
-  //   const minesweeper = document.querySelector('.minesweeper');
-  //   const boxNearNum = [];
-  //   // if (typeof +evt.innerText === 'number') { return false }
-  //   console.log(evt.innerText)
-  //   boxNearNum.push(+evt.classList[1] + 1);
-  //   boxNearNum.push(+evt.classList[1] - 1);
-  //   boxNearNum.push(+evt.classList[1] + this.row);
-  //   boxNearNum.push(+evt.classList[1] - this.row);
-  //   boxNearNum.push(+evt.classList[1] - this.row - 1);
-  //   boxNearNum.push(+evt.classList[1] - this.row + 1);
-  //   boxNearNum.push(+evt.classList[1] + this.row - 1);
-  //   boxNearNum.push(+evt.classList[1] + this.row + 1);
+  openBox(evt) {
+    const minesweeper = document.querySelector('.minesweeper');
 
-  //   Array.from(minesweeper.children).forEach((box) => {
-  //     if (boxNearNum.includes(+box.classList[1])) {
-  //       if (box.innerText === '' && !box.classList.contains('boomb') && !box.classList.contains('is-here')) {
-  //         box.classList.add('current');
-  //         // this.openBox(box);
-  //       }
-  //     }
-  //   })
-  // }
+    Array.from(minesweeper.children).filter((box) => {
+      if (evt.dataset.column === `${+box.dataset.column + 1}` &&
+      evt.dataset.row === `${+box.dataset.row + 1}`) {
+        if (!box.classList.contains('boomb')
+        && !box.classList.contains('is-here')
+        && box.innerText === ''
+        && !box.classList.contains('current')) {
+          box.classList.add('current');
+          this.openBox(box);
+        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+          box.classList.add('current');
+        }
+      } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
+      evt.dataset.row === `${+box.dataset.row - 1}`) {
+        if (!box.classList.contains('boomb')
+        && !box.classList.contains('is-here')
+        && box.innerText === ''
+        && !box.classList.contains('current')) {
+          box.classList.add('current');
+          this.openBox(box);
+        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+          box.classList.add('current');
+        }
+      } else if (evt.dataset.column === `${+box.dataset.column + 1}` &&
+      evt.dataset.row === `${+box.dataset.row - 1}`) {
+        if (!box.classList.contains('boomb')
+        && !box.classList.contains('is-here')
+        && box.innerText === ''
+        && !box.classList.contains('current')) {
+          box.classList.add('current');
+          this.openBox(box);
+        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+          box.classList.add('current');
+        }
+      } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
+      evt.dataset.row === `${+box.dataset.row + 1}`) {
+        if (!box.classList.contains('boomb')
+        && !box.classList.contains('is-here')
+        && box.innerText === ''
+        && !box.classList.contains('current')) {
+          box.classList.add('current');
+          this.openBox(box);
+        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+          box.classList.add('current');
+        }
+      } else if (evt.dataset.column === box.dataset.column &&
+      evt.dataset.row === `${+box.dataset.row + 1}`) {
+        if (!box.classList.contains('boomb')
+        && !box.classList.contains('is-here')
+        && box.innerText === ''
+        && !box.classList.contains('current')) {
+          box.classList.add('current');
+          this.openBox(box);
+        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+          box.classList.add('current');
+        }
+      } else if (evt.dataset.column === `${+box.dataset.column + 1}` &&
+      evt.dataset.row === box.dataset.row) {
+        if (!box.classList.contains('boomb')
+        && !box.classList.contains('is-here')
+        && box.innerText === ''
+        && !box.classList.contains('current')) {
+          box.classList.add('current');
+          this.openBox(box);
+        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+          box.classList.add('current');
+        }
+      } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
+      evt.dataset.row === box.dataset.row) {
+        if (!box.classList.contains('boomb')
+        && !box.classList.contains('is-here')
+        && box.innerText === ''
+        && !box.classList.contains('current')) {
+          box.classList.add('current');
+          this.openBox(box);
+        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+          box.classList.add('current');
+        }
+      } else if (evt.dataset.column === box.dataset.column &&
+      evt.dataset.row === `${+box.dataset.row - 1}`) {
+        if (!box.classList.contains('boomb')
+        && !box.classList.contains('is-here')
+        && box.innerText === ''
+        && !box.classList.contains('current')) {
+          box.classList.add('current');
+          this.openBox(box);
+        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+          box.classList.add('current');
+        }
+      }
+    })
+  }
 
   finishGame() {
     const container = document.querySelector('.container');
