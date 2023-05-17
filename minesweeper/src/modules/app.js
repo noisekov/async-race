@@ -54,12 +54,14 @@ class Minesweeper {
     wrapper.addEventListener('click', (evt) => {
       this.click(evt);
       this.reloadCountMenu();
-      if (evt.target.closest('.box')) {
-        this.openBox(evt.target.closest('.box'));
+      if (!this.gameOver) {
+        if (evt.target.closest('.box')) {
+          this.openBox(evt.target.closest('.box'));
+        }
       }
     });
     wrapper.addEventListener('contextmenu', (evt) => { this.markMine(evt) });
-    console.log(this.allField, 'все поле без мин');
+    // console.log(this.allField, 'все поле без мин');
   }
 
   initMine(firstElementClick) {
@@ -160,7 +162,7 @@ class Minesweeper {
     const timer = document.querySelector('.menu__time');
     timer.innerText = 0;
     const start = document.querySelector('.menu__start');
-    start.innerText = 'Начать';
+    start.innerText = 'New game';
   }
 
   reloadCountMenu() {

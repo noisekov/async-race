@@ -23,6 +23,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
   font-weight: 600;
   min-width: 1.6rem;
   min-height: 1.6rem;
@@ -98,7 +99,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: calc(100% / 3);
+  width: 25%;
   border: 3px solid var( --menuColor);
   color: red;
 }
@@ -109,7 +110,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: calc(100% / 3);
+  width: 50%;
   border-radius: 20px;
   outline: none;
   border: none;
