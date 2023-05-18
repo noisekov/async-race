@@ -32,6 +32,17 @@ body {
   color: var(--boxColor);
   outline: none;
   transition: 0.3s all;
+  &.is-here::after {
+    content: "";
+    background-image: url(./images/scull.png);
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    display: block;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
   &.current {
     color: var(--text);
     background-color: var(--currentBox);
@@ -64,11 +75,9 @@ body {
       background-size: contain;
     }
   }
-  &.is-here {
-    background-image: url(./images/scull.png);
-    background-size: contain;
-  }
 }
+
+
 @media (max-width:600px) {
   .box {
     min-width: 1.2rem;

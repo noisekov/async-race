@@ -84,6 +84,8 @@ class Minesweeper {
     if (!this.gameOver) {
       if (evt.target.closest('.box') && !evt.target.closest('.box').classList.contains('is-here')) {
         if (!evt.target.closest('.box').classList.contains('current')) {
+          const clickSound = new Audio('./assets/click.wav');
+          clickSound.play();
           this.countClick += 1;
         }
         evt.target.closest('.box').classList.add('current');
@@ -212,6 +214,8 @@ class Minesweeper {
 
     if (win) {
       this.youAreWin = true;
+      const winnerSound = new Audio('./assets/winner.wav');
+      winnerSound.play();
       const container = document.querySelector('.container');
       container.append(createElement('div', 'modal', `Hooray! You found all mines in ${this.countTimer} seconds and ${this.countClick} moves!`));
     }
@@ -228,8 +232,8 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' 
-        && !box.classList.contains('boomb') 
+        } else if (typeof +box.innerText === 'number'
+        && !box.classList.contains('boomb')
         && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
@@ -240,8 +244,8 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' 
-        && !box.classList.contains('boomb') 
+        } else if (typeof +box.innerText === 'number'
+        && !box.classList.contains('boomb')
         && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
@@ -252,8 +256,8 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' 
-        && !box.classList.contains('boomb') 
+        } else if (typeof +box.innerText === 'number'
+        && !box.classList.contains('boomb')
         && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
@@ -264,8 +268,8 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' 
-        && !box.classList.contains('boomb') 
+        } else if (typeof +box.innerText === 'number'
+        && !box.classList.contains('boomb')
         && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
@@ -276,8 +280,8 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' 
-        && !box.classList.contains('boomb') 
+        } else if (typeof +box.innerText === 'number'
+        && !box.classList.contains('boomb')
         && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
@@ -288,8 +292,8 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' 
-        && !box.classList.contains('boomb') 
+        } else if (typeof +box.innerText === 'number'
+        && !box.classList.contains('boomb')
         && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
@@ -300,8 +304,8 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' 
-        && !box.classList.contains('boomb') 
+        } else if (typeof +box.innerText === 'number'
+        && !box.classList.contains('boomb')
         && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
@@ -312,16 +316,19 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' 
-        && !box.classList.contains('boomb') 
+        } else if (typeof +box.innerText === 'number'
+        && !box.classList.contains('boomb')
         && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
       }
     })
+    this.winGame()
   }
 
   finishGame() {
+    const loseSound = new Audio('./assets/lose.mp3');
+    loseSound.play();
     const container = document.querySelector('.container');
     container.append(createElement('div', 'modal', 'Game over. Try again!'));
   }
