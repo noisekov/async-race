@@ -228,7 +228,9 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+        } else if (typeof +box.innerText === 'number' 
+        && !box.classList.contains('boomb') 
+        && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
       } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
@@ -238,7 +240,9 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+        } else if (typeof +box.innerText === 'number' 
+        && !box.classList.contains('boomb') 
+        && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
       } else if (evt.dataset.column === `${+box.dataset.column + 1}` &&
@@ -248,7 +252,9 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+        } else if (typeof +box.innerText === 'number' 
+        && !box.classList.contains('boomb') 
+        && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
       } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
@@ -258,7 +264,9 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+        } else if (typeof +box.innerText === 'number' 
+        && !box.classList.contains('boomb') 
+        && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
       } else if (evt.dataset.column === box.dataset.column &&
@@ -268,7 +276,9 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+        } else if (typeof +box.innerText === 'number' 
+        && !box.classList.contains('boomb') 
+        && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
       } else if (evt.dataset.column === `${+box.dataset.column + 1}` &&
@@ -278,7 +288,9 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+        } else if (typeof +box.innerText === 'number' 
+        && !box.classList.contains('boomb') 
+        && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
       } else if (evt.dataset.column === `${+box.dataset.column - 1}` &&
@@ -288,7 +300,9 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+        } else if (typeof +box.innerText === 'number' 
+        && !box.classList.contains('boomb') 
+        && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
       } else if (evt.dataset.column === box.dataset.column &&
@@ -298,7 +312,9 @@ class Minesweeper {
         && !box.classList.contains('current')) {
           box.classList.add('current');
           this.openBox(box);
-        } else if (typeof +box.innerText === 'number' && !box.classList.contains('boomb')){
+        } else if (typeof +box.innerText === 'number' 
+        && !box.classList.contains('boomb') 
+        && !box.classList.contains('is-here')){
           box.classList.add('current');
         }
       }
