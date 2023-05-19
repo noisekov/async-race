@@ -92,8 +92,8 @@ class Minesweeper {
     const resultsItems = document.querySelector('.results__items');
 
     for (let i = 1; i <= 10; i += 1) {
-      if (localStorage.getItem(`resultsGameMinesweeper ${i}`)) {
-        let valueLoccalStorage = localStorage.getItem(`resultsGameMinesweeper ${i}`)
+      let valueLoccalStorage = localStorage.getItem(`resultsGameMinesweeper ${i}`)
+      if (valueLoccalStorage) {
         resultsItems.append(createElement('li', 'results__item', `${valueLoccalStorage}`));
       }
     }
@@ -101,13 +101,15 @@ class Minesweeper {
 
   saveResults(timeCounter, clicks) {
     const resultsItem = document.querySelectorAll('.results__item');
-
-    localStorage.setItem(`resultsGameMinesweeper ${resultsItem.length}`, `Time past ${timeCounter} seconds, and ${clicks} moves.`);
-    // resultsItem.forEach((each, i) => {
-    //   if (i - 1 === resultsItem.length) {
-    //     each.innerText = localStorage.getItem(`resultsGameMinesweeper ${resultsItem.length}`);
-    //   }
-    // })
+    if (localStorage.length === 10) {
+      for (let i = 1; i <= 9; i += 1) {
+        localStorage.setItem(`resultsGameMinesweeper ${i}`, localStorage.getItem(`resultsGameMinesweeper ${i+1}`));
+      }
+      localStorage.removeItem(`resultsGameMinesweeper ${10}`);
+      localStorage.setItem(`resultsGameMinesweeper ${resultsItem.length}`, `Time ${timeCounter} sec, and ${clicks} moves.`);
+    } else {
+      localStorage.setItem(`resultsGameMinesweeper ${resultsItem.length}`, `Time ${timeCounter} sec, and ${clicks} moves.`);
+    }
   }
 
   click(evt) {
@@ -371,4 +373,4 @@ class Minesweeper {
     container.append(createElement('div', 'modal', 'Game over. Try again!'));
   }
 }
-new Minesweeper(10, 5);
+new Minesweeper(10, 10);
