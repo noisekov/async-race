@@ -31,6 +31,7 @@ class Minesweeper {
   startApp() {
     this.initField();
     this.createMenu();
+    this.initResults();
   }
 
   initField() {
@@ -61,7 +62,7 @@ class Minesweeper {
         }
       }
     });
-    wrapper.addEventListener('contextmenu', (evt) => { this.markMine(evt) });
+    wrapper.addEventListener('contextmenu', (evt) => this.markMine(evt));
     // console.log(this.allField, 'все поле без мин');
   }
 
@@ -79,6 +80,34 @@ class Minesweeper {
       }
     });
     // console.log([...this.mineField], 'мины');
+  }
+
+  initResults() {
+    const wrapper = document.querySelector('.wrapper');
+    wrapper.append(createElement('div', 'results'));
+    const results = document.querySelector('.results');
+    results.append(createElement('h1', 'results__title', 'Results'));
+    results.append(createElement('ol', 'results__items'));
+
+    const resultsItems = document.querySelector('.results__items');
+
+    for (let i = 1; i <= 10; i += 1) {
+      if (localStorage.getItem(`resultsGameMinesweeper ${i}`)) {
+        let valueLoccalStorage = localStorage.getItem(`resultsGameMinesweeper ${i}`)
+        resultsItems.append(createElement('li', 'results__item', `${valueLoccalStorage}`));
+      }
+    }
+  }
+
+  saveResults(timeCounter, clicks) {
+    const resultsItem = document.querySelectorAll('.results__item');
+
+    localStorage.setItem(`resultsGameMinesweeper ${resultsItem.length}`, `Time past ${timeCounter} seconds, and ${clicks} moves.`);
+    // resultsItem.forEach((each, i) => {
+    //   if (i - 1 === resultsItem.length) {
+    //     each.innerText = localStorage.getItem(`resultsGameMinesweeper ${resultsItem.length}`);
+    //   }
+    // })
   }
 
   click(evt) {
@@ -193,6 +222,9 @@ class Minesweeper {
     const minesweeper = document.querySelector('.minesweeper');
     const menutime = document.querySelector('.menu__time');
     menutime.innerText = 0;
+    const results = document.querySelector('.results');
+    results.remove();
+    this.initResults();
     Array.from(minesweeper.children).forEach((box) => {
       box.classList.value = Array.from(box.classList).splice(0, 2).join(' ');
       box.innerText = '';
@@ -209,14 +241,20 @@ class Minesweeper {
     const win = Array.from(minesweeper.children).every((box) => {
       return box.classList.contains('current') ||  box.classList.contains('boomb');
     })
-
-    if (win) {
+    
+    if (win && this.youAreWin === false) {
       this.youAreWin = true;
       clearInterval(this.refreshInterval);
       const winnerSound = new Audio('./assets/winner.wav');
       winnerSound.play();
       const container = document.querySelector('.container');
       container.append(createElement('div', 'modal', `Hooray! You found all mines in ${this.countTimer} seconds and ${this.countClick} moves!`));
+      const resultsItems = document.querySelector('.results__items');
+      
+      if (resultsItems.children.length < 10) {
+        resultsItems.append(createElement('li', 'results__item',));
+      }
+      this.saveResults(this.countTimer, this.countClick);
     }
   }
 
@@ -322,7 +360,7 @@ class Minesweeper {
         }
       }
     })
-    this.winGame()
+    this.winGame();
   }
 
   finishGame() {
@@ -333,4 +371,4 @@ class Minesweeper {
     container.append(createElement('div', 'modal', 'Game over. Try again!'));
   }
 }
-new Minesweeper(10, 10);
+new Minesweeper(10, 5);

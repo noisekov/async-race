@@ -4,26 +4,26 @@ import { createElement } from '../modules/create-node.js';
 // import { Minesweeper } from '../modules/app.js';
 
 const createLevelMinesweeper = () => {
-  const body = document.querySelector('body');
-  body.append(createElement('div', 'container'));
-  const container = document.querySelector('.container');
-  container.append(createElement('div', 'wrapper'));
+  // const body = document.querySelector('body');
+  // body.append(createElement('div', 'container'));
+  // const container = document.querySelector('.container');
+  // container.append(createElement('div', 'wrapper'));
   const wrapper = document.querySelector('.wrapper');
   wrapper.prepend(createElement('div', 'level'));
   const level = document.querySelector('.level');
   level.append(createElement('label', 'level__label', 'easy (10 x 10)'));
   level.append(createElement('label', 'level__label', 'medium (15 x 15)'));
   level.append(createElement('label', 'level__label', 'hard (25 x 25)'));
+
   const levelLabel = document.querySelectorAll('.level__label');
-  levelLabel.forEach(label => {
-    label.append(createElement('input', 'level__radio'));
-  })
+  levelLabel.forEach(label => label.append(createElement('input', 'level__radio')))
+
   level.append(createElement('div', 'level__range-wrapper'));
   const levelRangeWrap = document.querySelector('.level__range-wrapper');
   levelRangeWrap.append(createElement('input', 'level__range'));
   const levelRange = document.querySelector('.level__range');
   levelRange.setAttribute('type', 'range');
-  levelRange.setAttribute('min', '0');
+  levelRange.setAttribute('min', '1');
   levelRange.setAttribute('max', '99');
   levelRange.addEventListener('input', changeRange);
 
@@ -33,10 +33,7 @@ const createLevelMinesweeper = () => {
   function changeRange (evt) {
     levelRangeVal.innerText = `Set mine ${evt.target.value}`;
   }
-
-  
   level.append(createElement('button', 'level__save', 'Save settings'));
-  // const levelSave = document.querySelector('.level__save');
 };
 createLevelMinesweeper();
 
