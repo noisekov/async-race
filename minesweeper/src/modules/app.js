@@ -12,6 +12,7 @@ class Minesweeper {
     this.youAreWin = false;
     this.gameOver = false;
     this.firstClick = true;
+    this.refreshInterval = null;
     this.objColor = {
       1 : 'Red',
       2 : 'Blue',
@@ -174,13 +175,9 @@ class Minesweeper {
 
   startTimer() {
     const timer = document.querySelector('.menu__time');
-    let refreshInterval = setInterval(() => {
-      if (this.gameOver || this.youAreWin) {
-        clearInterval(refreshInterval);
-      } else {
+    this.refreshInterval = setInterval(() => {
         this.countTimer += 1;
         timer.innerText = `${this.countTimer}`;
-      }
     }, 1000);
   }
 
@@ -190,6 +187,7 @@ class Minesweeper {
     this.youAreWin = false;
     this.gameOver = false;
     this.firstClick = true;
+    clearInterval(this.refreshInterval);
     this.countClick = 0;
     this.countTimer = 0;
     const minesweeper = document.querySelector('.minesweeper');
@@ -214,6 +212,7 @@ class Minesweeper {
 
     if (win) {
       this.youAreWin = true;
+      clearInterval(this.refreshInterval);
       const winnerSound = new Audio('./assets/winner.wav');
       winnerSound.play();
       const container = document.querySelector('.container');
@@ -329,6 +328,7 @@ class Minesweeper {
   finishGame() {
     const loseSound = new Audio('./assets/lose.mp3');
     loseSound.play();
+    clearInterval(this.refreshInterval);
     const container = document.querySelector('.container');
     container.append(createElement('div', 'modal', 'Game over. Try again!'));
   }
