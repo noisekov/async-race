@@ -187,9 +187,13 @@ body {
   margin: 5px 0;
   text-align: center;
   font-size: 16px;
+  color: var(--defaultText);
 }
 .results__items {
   padding: 0 0 0 20px;
   margin: 0;
   font-size: 14px;
+}
+.results__item {
+  color: var(--defaultText);
 }
