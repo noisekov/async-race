@@ -138,6 +138,41 @@ body {
   color: var(--defaultText);
   background-color: var(--defaultBg);
 }
+
+.level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
 .level__label {
   color: var(--defaultText);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.level__save {
+  background: var(--defaultBg);
+  color: var(--defaultText);
+  font-weight: 600;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s all;
+  padding: 3px 15px;
+  &:hover {
+    background-color: #a9a9a9;
+  }
+}
+.level__range-value {
+  color: var(--defaultText);
+}
+.level__range-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  border: 1px solid  var(--defaultText);
+  margin-bottom: 10px;
 }
