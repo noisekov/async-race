@@ -1,5 +1,7 @@
 /* eslint-disable */
-import { createElement } from '../modules/create-node.js';
+import { createElement, createMainField } from '../modules/create-node.js';
+
+createMainField();
 
 class Minesweeper {
 
@@ -37,12 +39,10 @@ class Minesweeper {
   }
 
   initField() {
-    const body = document.querySelector('body');
-    body.append(createElement('div', 'container'));
-    const container = document.querySelector('.container');
-    container.append(createElement('div', 'wrapper'));
     const wrapper = document.querySelector('.wrapper');
-    wrapper.append(createElement('div', 'minesweeper'));
+    wrapper.append(createElement('div', 'minesweeper-wrap'));
+    const minesweeperWrap = document.querySelector('.minesweeper-wrap');
+    minesweeperWrap.append(createElement('div', 'minesweeper'));
     const minesweeper = document.querySelector('.minesweeper');
     minesweeper.style.gridTemplateColumns = `repeat(${this.row} , 1fr)`;
     let count = 0;
@@ -213,8 +213,8 @@ class Minesweeper {
 
   //need to add another class MENU
   createMenu() {
-    const wrapper = document.querySelector('.wrapper');
-    wrapper.prepend(createElement('div', 'menu'));
+    const minesweeperWrap = document.querySelector('.minesweeper-wrap');
+    minesweeperWrap.prepend(createElement('div', 'menu'));
     const menu = document.querySelector('.menu');
     menu.append(createElement('div', 'menu__count-click'));
     menu.append(createElement('div', 'menu__count-flag'));
@@ -437,4 +437,4 @@ class Minesweeper {
     modalBtn.addEventListener('click', () => modal.remove());
   }
 }
-new Minesweeper(10, 1);
+export { Minesweeper };

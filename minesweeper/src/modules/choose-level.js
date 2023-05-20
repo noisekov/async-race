@@ -1,15 +1,11 @@
 /* eslint-disable */
 
 import { createElement } from '../modules/create-node.js';
-// import { Minesweeper } from '../modules/app.js';
+import { Minesweeper } from '../modules/app.js';
 
 const createLevelMinesweeper = () => {
-  // const body = document.querySelector('body');
-  // body.append(createElement('div', 'container'));
-  // const container = document.querySelector('.container');
-  // container.append(createElement('div', 'wrapper'));
   const wrapper = document.querySelector('.wrapper');
-  wrapper.prepend(createElement('div', 'level'));
+  wrapper.append(createElement('div', 'level'));
   const level = document.querySelector('.level');
   level.append(createElement('label', 'level__label', 'easy (10 x 10)'));
   level.append(createElement('label', 'level__label', 'medium (15 x 15)'));
@@ -45,10 +41,10 @@ levelCheckbox.forEach((input, i) => {
   // input.addEventListener('change', changeLevelMinesweeper);
 })
 levelCheckbox[0].checked = true;
-// let minesweeperEl;
-// if (levelCheckbox[0].checked) {
-//   minesweeperEl = new Minesweeper(10, 10);
-// }
+let minesweeperEl;
+if (levelCheckbox[0].checked) {
+  minesweeperEl = new Minesweeper(10, 10);
+}
 
 // function changeLevelMinesweeper (evt) {
 //   const minesweeper = document.querySelector('.minesweeper');

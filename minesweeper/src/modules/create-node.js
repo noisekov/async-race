@@ -9,4 +9,11 @@ const createElement = (tag, className, text = '', column, row) => {
   }
   return node;
 };
-export { createElement };
+
+const createMainField = () => {
+  const body = document.querySelector('body');
+  body.append(createElement('div', 'container'));
+  const container = document.querySelector('.container');
+  container.append(createElement('div', 'wrapper'));
+}
+export { createElement, createMainField };
