@@ -13,6 +13,7 @@ class Minesweeper {
     this.gameOver = false;
     this.firstClick = true;
     this.refreshInterval = null;
+    this.sound = true;
     this.objColor = {
       1 : 'Red',
       2 : 'Blue',
@@ -133,8 +134,10 @@ class Minesweeper {
     if (!this.gameOver && !this.youAreWin) {
       if (evt.target.closest('.box') && !evt.target.closest('.box').classList.contains('is-here')) {
         if (!evt.target.closest('.box').classList.contains('current')) {
-          const clickSound = new Audio('./assets/click.wav');
-          clickSound.play();
+          if (this.sound) {
+            const clickSound = new Audio('./assets/click.wav');
+            clickSound.play();
+          }
           this.countClick += 1;
         }
         evt.target.closest('.box').classList.add('current');
@@ -196,7 +199,15 @@ class Minesweeper {
   markMine(evt) {
     evt.preventDefault();
     if (evt.target.closest('.box') && !evt.target.closest('.box').classList.contains('current') && !this.firstClick) {
-      evt.target.closest('.box').classList.toggle('is-here');
+      if (evt.target.closest('.box').classList.contains('is-here')) {
+        evt.target.closest('.box').classList.remove('is-here');
+      } else {
+        if (this.sound) {
+          const clickSound = new Audio('./assets/flag.wav');
+          clickSound.play();
+        }
+        evt.target.closest('.box').classList.add('is-here');
+      }
     }
   }
 
@@ -217,6 +228,24 @@ class Minesweeper {
     countFlag.innerText = 0;
     const start = document.querySelector('.menu__start');
     start.innerText = 'New game';
+
+    menu.append(createElement('button', 'menu__toggle-sound'));
+    const menuBtnSound = document.querySelector('.menu__toggle-sound');
+    menuBtnSound.classList.add('on');
+    menuBtnSound.addEventListener('click', () => this.toggleSound());
+  }
+
+  toggleSound() {
+    const menuBtnSound = document.querySelector('.menu__toggle-sound');
+    if (this.sound) {
+      menuBtnSound.classList.add('off');
+      menuBtnSound.classList.remove('on');
+      this.sound = false;
+    } else {
+      menuBtnSound.classList.add('on');
+      menuBtnSound.classList.remove('off');
+      this.sound = true;
+    }
   }
 
   reloadCountMenu() {
@@ -270,8 +299,10 @@ class Minesweeper {
     if (win && this.youAreWin === false) {
       this.youAreWin = true;
       clearInterval(this.refreshInterval);
-      const winnerSound = new Audio('./assets/winner.wav');
-      winnerSound.play();
+      if (this.sound) {
+        const winnerSound = new Audio('./assets/winner.wav');
+        winnerSound.play();
+      }
       const container = document.querySelector('.container');
       container.append(createElement('div', 'modal', `Hooray! You found all mines in ${this.countTimer} seconds and ${this.countClick} moves!`));
       const modal = document.querySelector('.modal');
@@ -393,8 +424,10 @@ class Minesweeper {
   }
 
   finishGame() {
-    const loseSound = new Audio('./assets/lose.mp3');
-    loseSound.play();
+    if (this.sound) {
+      const loseSound = new Audio('./assets/lose.mp3');
+      loseSound.play();
+    }
     clearInterval(this.refreshInterval);
     const container = document.querySelector('.container');
     container.append(createElement('div', 'modal', 'Game over. Try again!'));
