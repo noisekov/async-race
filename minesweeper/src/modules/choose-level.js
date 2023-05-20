@@ -38,35 +38,38 @@ levelCheckbox.forEach((input, i) => {
   input.setAttribute('type', 'radio');
   input.setAttribute('name', 'level');
   input.id = i + 1;
-  // input.addEventListener('change', changeLevelMinesweeper);
-})
-levelCheckbox[0].checked = true;
+});
+
 let minesweeperEl;
-if (levelCheckbox[0].checked) {
-  minesweeperEl = new Minesweeper(10, 10);
+window.addEventListener('DOMContentLoaded', () => {
+  minesweeperEl = new Minesweeper(10, 9);
+})
+
+const settingsSave = document.querySelector('.level__save');
+settingsSave.addEventListener('click', () => settings());
+
+function settings () {
+  const levelCheckbox = document.querySelectorAll('.level__radio');
+  const levelRange = document.querySelector('.level__range');
+
+  levelCheckbox.forEach((input) => {
+    if (input.checked) {
+      const minesweeperWrap = document.querySelector('.minesweeper-wrap');
+      const results = document.querySelector('.results');
+      minesweeperEl = null;
+      minesweeperWrap.remove();
+      results.remove();
+
+      if (input.id == 1) {
+        minesweeperEl = new Minesweeper(10, +levelRange.value);
+      }
+      if (input.id == 2) {
+        minesweeperEl = new Minesweeper(15, +levelRange.value);
+      }
+      if (input.id == 3) {
+        minesweeperEl = new Minesweeper(25, +levelRange.value);
+      }
+    }
+  })
 }
-
-// function changeLevelMinesweeper (evt) {
-//   const minesweeper = document.querySelector('.minesweeper');
-//   const menu = document.querySelector('.menu');
-
-//   if (evt.target.id == 1) {
-//     minesweeper.remove();
-//     menu.remove();
-//     minesweeperEl = null;
-//     minesweeperEl = new Minesweeper(10, 10);
-//   }
-//   if (evt.target.id == 2) {
-//     minesweeper.remove();
-//     menu.remove();
-//     minesweeperEl = null;
-//     minesweeperEl = new Minesweeper(15, 10);
-//   }
-//   if (evt.target.id == 3) {
-//     minesweeper.remove();
-//     menu.remove();
-//     minesweeperEl = null;
-//     minesweeperEl = new Minesweeper(25, 10);
-//   }
-// }
 

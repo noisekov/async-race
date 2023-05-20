@@ -10,6 +10,7 @@ class Minesweeper {
     this.column = field;
     this.mine = mine;
     this.allField = [];
+    this.mapElNearMine = [];
     this.mineField = new Set();
     this.youAreWin = false;
     this.gameOver = false;
@@ -55,7 +56,7 @@ class Minesweeper {
       }
       this.allField.push(row);
     }
-    wrapper.addEventListener('click', (evt) => {
+    wrapper.onclick = (evt) => {
       this.click(evt);
       this.reloadCountMenu();
       if (!this.gameOver) {
@@ -63,17 +64,17 @@ class Minesweeper {
           this.openBox(evt.target.closest('.box'));
         }
       }
-    });
-    wrapper.addEventListener('contextmenu', (evt) => {
+    };
+    wrapper.oncontextmenu = (evt) => {
       this.markMine(evt);
       this.countFlags();
-    });
+    };
     // console.log(this.allField, 'все поле без мин');
   }
 
   initMine(firstElementClick) {
     const minesweeper = document.querySelector('.minesweeper');
-    while (this.mineField.size < this.mine) {
+    while (this.mineField.size <= this.mine) {
       let newRandomValue = Math.round(Math.random() * (minesweeper.children.length - 0) + 0);
       if (newRandomValue !== firstElementClick) {
         this.mineField.add(newRandomValue);
@@ -81,7 +82,7 @@ class Minesweeper {
     }
     [...this.mineField].forEach(mine => {
       if (mine > 0) {
-        minesweeper.children[mine -1].classList.add('boomb');
+        minesweeper.children[mine - 1].classList.add('boomb');
       }
     });
     // console.log([...this.mineField], 'мины');
@@ -169,20 +170,19 @@ class Minesweeper {
 
   countMineAround() {
     const minesweeper = document.querySelector('.minesweeper');
-    const mapElNearMine = [];
     Array.from(minesweeper.children).forEach((box) => {
       if (box.classList.contains('boomb')) {
-        mapElNearMine.push(`${+box.dataset.column + 1} ${+box.dataset.row + 1}`);
-        mapElNearMine.push(`${+box.dataset.column - 1} ${+box.dataset.row - 1}`);
-        mapElNearMine.push(`${+box.dataset.column + 1} ${+box.dataset.row - 1}`);
-        mapElNearMine.push(`${+box.dataset.column - 1} ${+box.dataset.row + 1}`);
-        mapElNearMine.push(`${+box.dataset.column} ${+box.dataset.row + 1}`);
-        mapElNearMine.push(`${+box.dataset.column} ${+box.dataset.row - 1}`);
-        mapElNearMine.push(`${+box.dataset.column + 1} ${+box.dataset.row}`);
-        mapElNearMine.push(`${+box.dataset.column - 1} ${+box.dataset.row}`);
+        this.mapElNearMine.push(`${+box.dataset.column + 1} ${+box.dataset.row + 1}`);
+        this.mapElNearMine.push(`${+box.dataset.column - 1} ${+box.dataset.row - 1}`);
+        this.mapElNearMine.push(`${+box.dataset.column + 1} ${+box.dataset.row - 1}`);
+        this.mapElNearMine.push(`${+box.dataset.column - 1} ${+box.dataset.row + 1}`);
+        this.mapElNearMine.push(`${+box.dataset.column} ${+box.dataset.row + 1}`);
+        this.mapElNearMine.push(`${+box.dataset.column} ${+box.dataset.row - 1}`);
+        this.mapElNearMine.push(`${+box.dataset.column + 1} ${+box.dataset.row}`);
+        this.mapElNearMine.push(`${+box.dataset.column - 1} ${+box.dataset.row}`);
       }
     })
-    mapElNearMine.forEach(val => {
+    this.mapElNearMine.forEach(val => {
       Array.from(minesweeper.children).forEach((box) => {
           if (+box.dataset.column === +val.split(' ')[0]
             && +box.dataset.row === +val.split(' ')[1]
@@ -232,7 +232,7 @@ class Minesweeper {
     menu.append(createElement('button', 'menu__toggle-sound'));
     const menuBtnSound = document.querySelector('.menu__toggle-sound');
     menuBtnSound.classList.add('on');
-    menuBtnSound.addEventListener('click', () => this.toggleSound());
+    menuBtnSound.onclick = () => this.toggleSound();
   }
 
   toggleSound() {
@@ -263,6 +263,7 @@ class Minesweeper {
 
   startAgain() {
     this.allField = [];
+    this.mapElNearMine = [];
     this.mineField = new Set();
     this.youAreWin = false;
     this.gameOver = false;
@@ -308,7 +309,7 @@ class Minesweeper {
       const modal = document.querySelector('.modal');
       modal.append(createElement('button', 'modal__btn', `Ok`));
       const modalBtn = document.querySelector('.modal__btn');
-      modalBtn.addEventListener('click', () => modal.remove());
+      modalBtn.onclick = () => modal.remove();
       const resultsItems = document.querySelector('.results__items');
 
       if (resultsItems.children.length < 10) {
@@ -434,7 +435,7 @@ class Minesweeper {
     const modal = document.querySelector('.modal');
     modal.append(createElement('button', 'modal__btn', `Ok`));
     const modalBtn = document.querySelector('.modal__btn');
-    modalBtn.addEventListener('click', () => modal.remove());
+    modalBtn.onclick = () => modal.remove();
   }
 }
 export { Minesweeper };
