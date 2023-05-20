@@ -23,7 +23,7 @@ const createLevelMinesweeper = () => {
   levelRangeWrap.append(createElement('input', 'level__range'));
   const levelRange = document.querySelector('.level__range');
   levelRange.setAttribute('type', 'range');
-  levelRange.setAttribute('min', '1');
+  levelRange.setAttribute('min', '10');
   levelRange.setAttribute('max', '99');
   levelRange.addEventListener('input', changeRange);
 
@@ -33,7 +33,7 @@ const createLevelMinesweeper = () => {
   function changeRange (evt) {
     levelRangeVal.innerText = `Set mine ${evt.target.value}`;
   }
-  level.append(createElement('button', 'level__save', 'Save settings'));
+  level.append(createElement('button', 'level__save', 'Change level'));
 };
 createLevelMinesweeper();
 

@@ -113,7 +113,7 @@ class Minesweeper {
   }
 
   click(evt) {
-    if (!this.gameOver) {
+    if (!this.gameOver && !this.youAreWin) {
       if (evt.target.closest('.box') && !evt.target.closest('.box').classList.contains('is-here')) {
         if (!evt.target.closest('.box').classList.contains('current')) {
           const clickSound = new Audio('./assets/click.wav');
@@ -243,7 +243,7 @@ class Minesweeper {
     const win = Array.from(minesweeper.children).every((box) => {
       return box.classList.contains('current') ||  box.classList.contains('boomb');
     })
-    
+
     if (win && this.youAreWin === false) {
       this.youAreWin = true;
       clearInterval(this.refreshInterval);
@@ -251,8 +251,12 @@ class Minesweeper {
       winnerSound.play();
       const container = document.querySelector('.container');
       container.append(createElement('div', 'modal', `Hooray! You found all mines in ${this.countTimer} seconds and ${this.countClick} moves!`));
+      const modal = document.querySelector('.modal');
+      modal.append(createElement('button', 'modal__btn', `Ok`));
+      const modalBtn = document.querySelector('.modal__btn');
+      modalBtn.addEventListener('click', () => modal.remove());
       const resultsItems = document.querySelector('.results__items');
-      
+
       if (resultsItems.children.length < 10) {
         resultsItems.append(createElement('li', 'results__item',));
       }
@@ -371,6 +375,10 @@ class Minesweeper {
     clearInterval(this.refreshInterval);
     const container = document.querySelector('.container');
     container.append(createElement('div', 'modal', 'Game over. Try again!'));
+    const modal = document.querySelector('.modal');
+    modal.append(createElement('button', 'modal__btn', `Ok`));
+    const modalBtn = document.querySelector('.modal__btn');
+    modalBtn.addEventListener('click', () => modal.remove());
   }
 }
-new Minesweeper(10, 10);
+new Minesweeper(10, 5);
