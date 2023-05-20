@@ -129,13 +129,42 @@ body {
   font-weight: 600;
 }
 .menu__count-click,
-.menu__time {
+.menu__time,
+.menu__count-flag {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 25%;
+  width: 20%;
   border: 3px solid var( --menuColor);
   color: red;
+}
+.menu__count-click::after {
+  content: 'Click';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  color: var(--defaultText);
+}
+.menu__count-flag::after {
+  content: 'Flags';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  color: var(--defaultText);
+}
+.menu__time::after {
+  content: 'Time';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  color: var(--defaultText);
 }
 .menu__start {
   background: var(--defaultBg);
@@ -144,7 +173,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 40%;
   border-radius: 20px;
   outline: none;
   border: none;

@@ -24,6 +24,7 @@ class Minesweeper {
       8 : 'MediumPurple',
     }
     this.countClick = 0;
+    this.countFlag = 0;
     this.countTimer = 0;
     this.startApp();
   }
@@ -62,7 +63,10 @@ class Minesweeper {
         }
       }
     });
-    wrapper.addEventListener('contextmenu', (evt) => this.markMine(evt));
+    wrapper.addEventListener('contextmenu', (evt) => {
+      this.markMine(evt);
+      this.countFlags();
+    });
     // console.log(this.allField, 'все поле без мин');
   }
 
@@ -110,6 +114,19 @@ class Minesweeper {
     } else {
       localStorage.setItem(`resultsGameMinesweeper ${resultsItem.length}`, `Time ${timeCounter} sec, and ${clicks} moves.`);
     }
+  }
+
+  countFlags() {
+    const minesweeper = document.querySelector('.minesweeper');
+    const countFlag = document.querySelector('.menu__count-flag');
+
+    this.countFlag = 0;
+    Array.from(minesweeper.children).forEach((box) => {
+      if (box.classList.contains('is-here')) {
+        this.countFlag += 1;
+      }
+    })
+    countFlag.innerText = this.countFlag;
   }
 
   click(evt) {
@@ -189,12 +206,15 @@ class Minesweeper {
     wrapper.prepend(createElement('div', 'menu'));
     const menu = document.querySelector('.menu');
     menu.append(createElement('div', 'menu__count-click'));
-    menu.append(createElement('button', 'menu__start'));
+    menu.append(createElement('div', 'menu__count-flag'));
     menu.append(createElement('div', 'menu__time'));
+    menu.append(createElement('button', 'menu__start'));
     const countMenu = document.querySelector('.menu__count-click');
     countMenu.innerText = this.countClick;
     const timer = document.querySelector('.menu__time');
-    timer.innerText = 0;
+    timer.innerText = this.countFlag;
+    const countFlag = document.querySelector('.menu__count-flag');
+    countFlag.innerText = 0;
     const start = document.querySelector('.menu__start');
     start.innerText = 'New game';
   }
@@ -221,6 +241,9 @@ class Minesweeper {
     clearInterval(this.refreshInterval);
     this.countClick = 0;
     this.countTimer = 0;
+    this.countFlag = 0;
+    const countFlag = document.querySelector('.menu__count-flag');
+    countFlag.innerText = 0;
     const minesweeper = document.querySelector('.minesweeper');
     const menutime = document.querySelector('.menu__time');
     menutime.innerText = 0;
