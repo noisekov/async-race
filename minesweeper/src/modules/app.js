@@ -99,7 +99,7 @@ class Minesweeper {
     for (let i = 1; i <= 10; i += 1) {
       let valueLoccalStorage = localStorage.getItem(`resultsGameMinesweeper ${i}`)
       if (valueLoccalStorage) {
-        resultsItems.append(createElement('li', 'results__item', `${valueLoccalStorage}`));
+        resultsItems.prepend(createElement('li', 'results__item', `${valueLoccalStorage}`));
       }
     }
   }
@@ -437,4 +437,4 @@ class Minesweeper {
     modalBtn.addEventListener('click', () => modal.remove());
   }
 }
-new Minesweeper(10, 5);
+new Minesweeper(10, 1);
