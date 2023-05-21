@@ -74,16 +74,14 @@ class Minesweeper {
 
   initMine(firstElementClick) {
     const minesweeper = document.querySelector('.minesweeper');
-    while (this.mineField.size <= this.mine) {
-      let newRandomValue = Math.round(Math.random() * (minesweeper.children.length - 0) + 0);
+    while (this.mineField.size < this.mine) {
+      let newRandomValue = Math.floor(Math.random() * (minesweeper.children.length - 0) + 0);
       if (newRandomValue !== firstElementClick) {
         this.mineField.add(newRandomValue);
       }
     }
     [...this.mineField].forEach(mine => {
-      if (mine > 0) {
-        minesweeper.children[mine - 1].classList.add('boomb');
-      }
+      minesweeper.children[mine].classList.add('boomb');
     });
     // console.log([...this.mineField], 'мины');
   }
@@ -145,7 +143,7 @@ class Minesweeper {
         if (this.firstClick) {
           this.firstClick = false;
           this.startTimer();
-          const firstElem = +evt.target.closest('.box').classList[1];
+          const firstElem = +evt.target.closest('.box').classList[1] - 1;
           this.initMine(firstElem);
           this.countMineAround();
         }

@@ -42,7 +42,7 @@ levelCheckbox.forEach((input, i) => {
 
 let minesweeperEl;
 window.addEventListener('DOMContentLoaded', () => {
-  minesweeperEl = new Minesweeper(10, 9);
+  minesweeperEl = new Minesweeper(10, 10);
 })
 
 const settingsSave = document.querySelector('.level__save');
