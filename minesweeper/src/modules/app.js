@@ -16,6 +16,7 @@ class Minesweeper {
     this.gameOver = false;
     this.firstClick = true;
     this.refreshInterval = null;
+    this.mineLeft = 0;
     this.sound = true;
     this.objColor = {
       1 : 'Red',
@@ -127,6 +128,7 @@ class Minesweeper {
       }
     })
     countFlag.innerText = this.countFlag;
+    this.counterMineLeft();
   }
 
   click(evt) {
@@ -147,7 +149,7 @@ class Minesweeper {
           this.initMine(firstElem);
           this.countMineAround();
         }
-
+        this.counterMineLeft();
         if (evt.target.closest('.box').classList.contains('boomb')) {
           this.gameOver = true;
           const minesweeper = document.querySelector('.minesweeper');
@@ -215,6 +217,7 @@ class Minesweeper {
     minesweeperWrap.prepend(createElement('div', 'menu'));
     const menu = document.querySelector('.menu');
     menu.append(createElement('div', 'menu__count-click'));
+    menu.append(createElement('div', 'menu__count-mine'));
     menu.append(createElement('div', 'menu__count-flag'));
     menu.append(createElement('div', 'menu__time'));
     menu.append(createElement('button', 'menu__start'));
@@ -226,11 +229,26 @@ class Minesweeper {
     countFlag.innerText = 0;
     const start = document.querySelector('.menu__start');
     start.innerText = 'New game';
+    const countMine = document.querySelector('.menu__count-mine');
+    countMine.innerText = this.mineLeft;
 
     menu.append(createElement('button', 'menu__toggle-sound'));
     const menuBtnSound = document.querySelector('.menu__toggle-sound');
     menuBtnSound.classList.add('on');
     menuBtnSound.onclick = () => this.toggleSound();
+  }
+
+  counterMineLeft() {
+    const minesweeper = document.querySelector('.minesweeper');
+    const countMine = document.querySelector('.menu__count-mine');
+
+    this.mineLeft = 0;
+    Array.from(minesweeper.children).forEach((box) => {
+      if (box.classList.contains('boomb')) {
+        this.mineLeft += 1;
+      }
+    })
+    countMine.innerText = this.mineLeft - this.countFlag;
   }
 
   toggleSound() {
@@ -270,6 +288,9 @@ class Minesweeper {
     this.countClick = 0;
     this.countTimer = 0;
     this.countFlag = 0;
+    this.mineLeft = 0;
+    const countMine = document.querySelector('.menu__count-mine');
+    countMine.innerText = 0;
     const countFlag = document.querySelector('.menu__count-flag');
     countFlag.innerText = 0;
     const minesweeper = document.querySelector('.minesweeper');

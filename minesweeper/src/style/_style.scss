@@ -131,14 +131,24 @@ body {
 }
 .menu__count-click,
 .menu__time,
-.menu__count-flag {
+.menu__count-flag,
+.menu__count-mine {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20%;
+  width: 15%;
   border: 3px solid var( --menuColor);
   color: red;
+}
+.menu__count-mine::after {
+  content: 'Mine';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  color: var(--defaultText);
 }
 .menu__count-click::after {
   content: 'Click';
