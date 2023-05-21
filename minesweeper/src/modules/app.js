@@ -60,7 +60,7 @@ class Minesweeper {
       this.click(evt);
       this.reloadCountMenu();
       if (!this.gameOver) {
-        if (evt.target.closest('.box')) {
+        if (evt.target.closest('.box') && !evt.target.closest('.box').classList.contains('is-here')) {
           this.openBox(evt.target.closest('.box'));
         }
       }
