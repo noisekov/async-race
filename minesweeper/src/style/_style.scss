@@ -27,6 +27,10 @@ body {
   font-weight: 600;
   min-width: 1.6rem;
   min-height: 1.6rem;
+  @media (max-width:700px) {
+    min-width: 1.2rem;
+    min-height: 1.2rem;
+  }
   background-color: var(--boxColor);
   border: 1px solid #000;
   color: var(--boxColor);
@@ -84,16 +88,6 @@ body {
   }
 }
 
-
-@media (max-width:700px) {
-  .box {
-    min-width: 1.2rem;
-    min-height: 1.2rem;
-  }
-}
-.wrapper {
-  height: 100%;
-}
 .modal {
   position: absolute;
   display: flex;
@@ -215,7 +209,7 @@ body {
 }
 .theme {
   position: absolute;
-  top: 5%;
+  top: 2%;
   right: 5%;
 }
 .theme__select {
@@ -224,20 +218,30 @@ body {
 }
 
 .level {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: none;
+  background: var(--defaultBg);
+  color: var(--defaultText);
   margin-bottom: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 180px;
+  padding: 10px;
+  &--active {
+    display: block;
+  }
 }
 .level__label {
   color: var(--defaultText);
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
 }
 .level__save {
-  background: var(--defaultBg);
+  background: #a3a3a3;
   color: var(--defaultText);
   font-weight: 600;
   border-radius: 20px;
@@ -246,8 +250,30 @@ body {
   cursor: pointer;
   transition: 0.2s all;
   padding: 3px 15px;
+  width: 100%;
   &:hover {
     background-color: #a9a9a9;
+  }
+}
+.level__close {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(100%) translateY(-100%);
+  background-image: url(./images/close.png);
+  background-size: 20px 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  transition: 0.3s all;
+  filter: var(--white);
+  border: 1px solid var(--defaultText);
+  border-radius: 100%;
+  &:hover {
+    transform: translateX(100%) translateY(-100%) scale(1.1);
   }
 }
 .level__range-value {
@@ -278,4 +304,19 @@ body {
 }
 .results__item {
   color: var(--defaultText);
+}
+.settings__img {
+  background-image: url(./images/setting.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+  margin: 0 0 5px;
+  cursor: pointer;
+  transition: 0.3s all;
+  filter: var(--white);
+  &:hover {
+    transform: rotate(90deg);
+  }
 }
