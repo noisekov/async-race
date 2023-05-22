@@ -226,10 +226,11 @@ body {
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  width: 180px;
-  padding: 10px;
+  width: 210px;
+  padding: 25px;
   &--active {
     display: block;
+    z-index: 2;
   }
 }
 .level__label {
@@ -258,22 +259,19 @@ body {
 .level__close {
   display: block;
   position: absolute;
-  top: 0;
-  right: 0;
-  transform: translateX(100%) translateY(-100%);
+  top: 5px;
+  right: 5px;
   background-image: url(./images/close.png);
-  background-size: 20px 20px;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 35px;
-  height: 35px;
+  width: 14px;
+  height: 14px;
   cursor: pointer;
   transition: 0.3s all;
   filter: var(--white);
-  border: 1px solid var(--defaultText);
-  border-radius: 100%;
   &:hover {
-    transform: translateX(100%) translateY(-100%) scale(1.1);
+    transform: scale(1.1);
   }
 }
 .level__range-value {
