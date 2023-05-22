@@ -38,6 +38,7 @@ class Minesweeper {
     this.initField();
     this.createMenu();
     this.initResults();
+    this.saveGame();
   }
 
   initField() {
@@ -102,6 +103,97 @@ class Minesweeper {
         resultsItems.prepend(createElement('li', 'results__item', `${valueLoccalStorage}`));
       }
     }
+  }
+
+  saveGame() {
+    const wrapper = document.querySelector('.wrapper');
+    wrapper.append(createElement('div', 'game-save'));
+    const gameSave = document.querySelector('.game-save');
+    gameSave.setAttribute('title', 'Save game');
+    gameSave.onclick = () => { this.saveStateGameNow() };
+
+    wrapper.append(createElement('button', 'continue-game', 'Continue'));
+    const continueGame = document.querySelector('.continue-game');
+    continueGame.setAttribute('title', 'Game continue');
+    continueGame.onclick = () => { this.continueState() };
+  }
+
+  saveStateGameNow() {
+    const minesweeper = document.querySelector('.minesweeper');
+    localStorage.setItem('noisekov-Minesweeper-HTML', `${minesweeper.innerHTML}`);
+    localStorage.setItem('noisekov-Minesweeper-column', `${this.column}`);
+    localStorage.setItem('noisekov-Minesweeper-countClick', `${this.countClick}`);
+    localStorage.setItem('noisekov-Minesweeper-countFlag', `${this.countFlag}`);
+    localStorage.setItem('noisekov-Minesweeper-countTimer', `${this.countTimer}`);
+    localStorage.setItem('noisekov-Minesweeper-firstClick', `${this.firstClick}`);
+    localStorage.setItem('noisekov-Minesweeper-gameOver', `${this.gameOver}`);
+    localStorage.setItem('noisekov-Minesweeper-mine', `${this.mine}`);
+    localStorage.setItem('noisekov-Minesweeper-youAreWin', `${this.youAreWin}`);
+    localStorage.setItem('noisekov-Minesweeper-row', `${this.row}`);
+    localStorage.setItem('noisekov-Minesweeper-sound', `${this.sound}`);
+    localStorage.setItem('noisekov-Minesweeper-mineLeft', `${this.mineLeft}`);
+    localStorage.setItem('noisekov-Minesweeper-mapElNearMine', `${JSON.stringify(this.mapElNearMine)}`);
+    localStorage.setItem('noisekov-Minesweeper-mineField', `${JSON.stringify([...this.mineField])}`);
+  }
+
+  continueState() {
+    console.log(this)
+    const countClick = localStorage.getItem('noisekov-Minesweeper-countClick');
+    const countFlag = localStorage.getItem('noisekov-Minesweeper-countFlag');
+    const countTimer = localStorage.getItem('noisekov-Minesweeper-countTimer');
+    const firstClick = localStorage.getItem('noisekov-Minesweeper-firstClick');
+    const gameOver = localStorage.getItem('noisekov-Minesweeper-gameOver');
+    const mine = localStorage.getItem('noisekov-Minesweeper-mine');
+    const youAreWin = localStorage.getItem('noisekov-Minesweeper-youAreWin');
+    const row = localStorage.getItem('noisekov-Minesweeper-row');
+    const sound = localStorage.getItem('noisekov-Minesweeper-sound');
+    const mineLeft = localStorage.getItem('noisekov-Minesweeper-mineLeft');
+    const mapElNearMine = localStorage.getItem('noisekov-Minesweeper-mapElNearMine');
+    const mineField = localStorage.getItem('noisekov-Minesweeper-mineField');
+    const HTML = localStorage.getItem('noisekov-Minesweeper-HTML');
+
+    const minesweeperWrap = document.querySelector('.minesweeper-wrap');
+    const results = document.querySelector('.results');
+    const gameSave = document.querySelector('.game-save');
+    const continueGame = document.querySelector('.continue-game');
+    minesweeperWrap.remove();
+    gameSave.remove();
+    results.remove();
+    continueGame.remove();
+    let lastSaveGame = new Minesweeper (+row, +mine);
+    const minesweeper = document.querySelector('.minesweeper');
+    
+    minesweeper.innerHTML = HTML;
+    lastSaveGame.mapElNearMine = JSON.parse(mapElNearMine);
+    lastSaveGame.countClick = +countClick;
+    lastSaveGame.countFlag = +countFlag;
+    lastSaveGame.countTimer = +countTimer;
+    lastSaveGame.firstClick = Boolean(firstClick);
+    lastSaveGame.gameOver = Boolean(gameOver);
+    lastSaveGame.youAreWin = Boolean(youAreWin);
+    lastSaveGame.sound = Boolean(sound);
+    lastSaveGame.mineLeft = Boolean(mineLeft);
+    lastSaveGame.mineField = new Set(JSON.parse(mineField));
+
+    const wrapper = document.querySelector('.wrapper');
+    const modalBtn = document.querySelector('.modal__btn');
+    const menuBtnSound = document.querySelector('.menu__toggle-sound');
+
+    wrapper.onclick = (evt) => {
+      this.click(evt);
+      this.reloadCountMenu();
+      if (!this.gameOver) {
+        if (evt.target.closest('.box') && !evt.target.closest('.box').classList.contains('is-here')) {
+          this.openBox(evt.target.closest('.box'));
+        }
+      }
+    };
+    wrapper.oncontextmenu = (evt) => {
+      this.markMine(evt);
+      this.countFlags();
+    };
+    modalBtn.onclick = () => modal.remove();
+    menuBtnSound.onclick = () => this.toggleSound();
   }
 
   saveResults(timeCounter, clicks) {
@@ -170,30 +262,33 @@ class Minesweeper {
 
   countMineAround() {
     const minesweeper = document.querySelector('.minesweeper');
-    Array.from(minesweeper.children).forEach((box) => {
-      if (box.classList.contains('boomb')) {
-        this.mapElNearMine.push(`${+box.dataset.column + 1} ${+box.dataset.row + 1}`);
-        this.mapElNearMine.push(`${+box.dataset.column - 1} ${+box.dataset.row - 1}`);
-        this.mapElNearMine.push(`${+box.dataset.column + 1} ${+box.dataset.row - 1}`);
-        this.mapElNearMine.push(`${+box.dataset.column - 1} ${+box.dataset.row + 1}`);
-        this.mapElNearMine.push(`${+box.dataset.column} ${+box.dataset.row + 1}`);
-        this.mapElNearMine.push(`${+box.dataset.column} ${+box.dataset.row - 1}`);
-        this.mapElNearMine.push(`${+box.dataset.column + 1} ${+box.dataset.row}`);
-        this.mapElNearMine.push(`${+box.dataset.column - 1} ${+box.dataset.row}`);
-      }
-    })
-    this.mapElNearMine.forEach(val => {
+    if (this.mapElNearMine.length === 0) {
       Array.from(minesweeper.children).forEach((box) => {
-          if (+box.dataset.column === +val.split(' ')[0]
-            && +box.dataset.row === +val.split(' ')[1]
-            && !box.classList.contains('boomb')) {
-              let textInnerBox = +box.innerText;
-              textInnerBox += 1;
-              box.innerText = textInnerBox;
-              box.classList.add(`${this.objColor[+box.innerText]}`);
-          }
+        if (box.classList.contains('boomb')) {
+          this.mapElNearMine.push(`${+box.dataset.column + 1} ${+box.dataset.row + 1}`);
+          this.mapElNearMine.push(`${+box.dataset.column - 1} ${+box.dataset.row - 1}`);
+          this.mapElNearMine.push(`${+box.dataset.column + 1} ${+box.dataset.row - 1}`);
+          this.mapElNearMine.push(`${+box.dataset.column - 1} ${+box.dataset.row + 1}`);
+          this.mapElNearMine.push(`${+box.dataset.column} ${+box.dataset.row + 1}`);
+          this.mapElNearMine.push(`${+box.dataset.column} ${+box.dataset.row - 1}`);
+          this.mapElNearMine.push(`${+box.dataset.column + 1} ${+box.dataset.row}`);
+          this.mapElNearMine.push(`${+box.dataset.column - 1} ${+box.dataset.row}`);
+        }
       })
-    })
+
+      this.mapElNearMine.forEach(val => {
+        Array.from(minesweeper.children).forEach((box) => {
+            if (+box.dataset.column === +val.split(' ')[0]
+              && +box.dataset.row === +val.split(' ')[1]
+              && !box.classList.contains('boomb')) {
+                let textInnerBox = +box.innerText;
+                textInnerBox += 1;
+                box.innerText = textInnerBox;
+                box.classList.add(`${this.objColor[+box.innerText]}`);
+            }
+        })
+      })
+    }
   }
 
   markMine(evt) {

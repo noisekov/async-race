@@ -78,9 +78,13 @@ function settings () {
     if (input.checked) {
       const minesweeperWrap = document.querySelector('.minesweeper-wrap');
       const results = document.querySelector('.results');
+      const gameSave = document.querySelector('.game-save');
+      const continueGame = document.querySelector('.continue-game');
       minesweeperEl = null;
       minesweeperWrap.remove();
+      gameSave.remove();
       results.remove();
+      continueGame.remove();
 
       if (input.id == 1) {
         minesweeperEl = new Minesweeper(10, +levelRange.value);

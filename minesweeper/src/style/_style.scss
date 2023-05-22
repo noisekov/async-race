@@ -15,6 +15,9 @@ body {
   justify-content: center;
   height: 100vh;
 }
+.wrapper {
+  position: relative;
+}
 .minesweeper {
   display: grid;
   border: 2px solid var(--borderField);
@@ -190,7 +193,7 @@ body {
 }
 .menu__toggle-sound {
   position: absolute;
-  top: -22px;
+  top: -27px;
   right: -2px;
   width: 18px;
   height: 18px;
@@ -317,4 +320,24 @@ body {
   &:hover {
     transform: rotate(90deg);
   }
+}
+.game-save {
+  position: absolute;
+  top: 0;
+  left: 36px;
+  background-image: url(./images/save.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+  filter: var(--white);
+  cursor: pointer;
+}
+
+.continue-game {
+  position: absolute;
+  top: 2px;
+  left: 70px;
+  cursor: pointer;
 }
