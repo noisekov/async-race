@@ -71,7 +71,6 @@ class Minesweeper {
       this.markMine(evt);
       this.countFlags();
     };
-    // console.log(this.allField, 'все поле без мин');
   }
 
   initMine(firstElementClick) {
@@ -85,7 +84,6 @@ class Minesweeper {
     [...this.mineField].forEach(mine => {
       minesweeper.children[mine].classList.add('boomb');
     });
-    // console.log([...this.mineField], 'мины');
   }
 
   initResults() {
@@ -137,7 +135,6 @@ class Minesweeper {
   }
 
   continueState() {
-    console.log(this)
     const countClick = localStorage.getItem('noisekov-Minesweeper-countClick');
     const countFlag = localStorage.getItem('noisekov-Minesweeper-countFlag');
     const countTimer = localStorage.getItem('noisekov-Minesweeper-countTimer');
@@ -160,24 +157,32 @@ class Minesweeper {
     gameSave.remove();
     results.remove();
     continueGame.remove();
-    let lastSaveGame = new Minesweeper (+row, +mine);
+    new Minesweeper (+row, +mine);
     const minesweeper = document.querySelector('.minesweeper');
-    
+
     minesweeper.innerHTML = HTML;
-    lastSaveGame.mapElNearMine = JSON.parse(mapElNearMine);
-    lastSaveGame.countClick = +countClick;
-    lastSaveGame.countFlag = +countFlag;
-    lastSaveGame.countTimer = +countTimer;
-    lastSaveGame.firstClick = Boolean(firstClick);
-    lastSaveGame.gameOver = Boolean(gameOver);
-    lastSaveGame.youAreWin = Boolean(youAreWin);
-    lastSaveGame.sound = Boolean(sound);
-    lastSaveGame.mineLeft = Boolean(mineLeft);
-    lastSaveGame.mineField = new Set(JSON.parse(mineField));
+    this.mapElNearMine = JSON.parse(mapElNearMine);
+    this.countClick = +countClick;
+    this.countFlag = +countFlag;
+    this.countTimer = +countTimer;
+    this.firstClick = JSON.parse(firstClick);
+    this.gameOver = JSON.parse(gameOver);
+    this.youAreWin = JSON.parse(youAreWin);
+    this.sound = JSON.parse(sound);
+    this.mineLeft = +mineLeft;
+    this.mineField = new Set(JSON.parse(mineField));
+    const countFlaginGame = document.querySelector('.menu__count-flag');
+    countFlaginGame.innerText = this.countFlag;
+    const countMine = document.querySelector('.menu__count-mine');
+    countMine.innerText = this.mineLeft - this.countFlag;
+    const timer = document.querySelector('.menu__time');
+    timer.innerText = this.countTimer;
+    this.refreshInterval = setInterval(() => {
+        this.countTimer += 1;
+        timer.innerText = `${this.countTimer}`;
+    }, 1000);
 
     const wrapper = document.querySelector('.wrapper');
-    const modalBtn = document.querySelector('.modal__btn');
-    const menuBtnSound = document.querySelector('.menu__toggle-sound');
 
     wrapper.onclick = (evt) => {
       this.click(evt);
@@ -192,8 +197,6 @@ class Minesweeper {
       this.markMine(evt);
       this.countFlags();
     };
-    modalBtn.onclick = () => modal.remove();
-    menuBtnSound.onclick = () => this.toggleSound();
   }
 
   saveResults(timeCounter, clicks) {
@@ -214,6 +217,7 @@ class Minesweeper {
     const countFlag = document.querySelector('.menu__count-flag');
 
     this.countFlag = 0;
+
     Array.from(minesweeper.children).forEach((box) => {
       if (box.classList.contains('is-here')) {
         this.countFlag += 1;
@@ -367,8 +371,8 @@ class Minesweeper {
   startTimer() {
     const timer = document.querySelector('.menu__time');
     this.refreshInterval = setInterval(() => {
-        this.countTimer += 1;
-        timer.innerText = `${this.countTimer}`;
+      this.countTimer += 1;
+      timer.innerText = `${this.countTimer}`;
     }, 1000);
   }
 

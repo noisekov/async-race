@@ -11,14 +11,14 @@ const createLevelMinesweeper = () => {
   settings.append(createElement('div', 'settings__img'));
   const level = document.querySelector('.level');
   const settingsImg = document.querySelector('.settings__img');
-  settingsImg.onclick = (evt) => { 
+  settingsImg.onclick = (evt) => {
     if (evt.target.closest('.settings__img')) {
       level.classList.toggle('level--active');
     }
   };
   level.append(createElement('span', 'level__close'));
   const levelClose = document.querySelector('.level__close');
-  levelClose.onclick = (evt) => { 
+  levelClose.onclick = (evt) => {
     if (evt.target.closest('.level__close')) {
       level.classList.toggle('level--active');
     }
