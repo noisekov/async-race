@@ -2,7 +2,8 @@ const path = require("path");
 const mode = process.env.NODE_ENV || 'development';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { Template } = require("webpack");
+const EslingPlugin = require('eslint-webpack-plugin');
+
 const devMode = mode === 'development';
 
 const target = devMode ? 'web' : 'browserslist';
@@ -17,7 +18,7 @@ module.exports = {
         open: true,
         hot: true, //отключить если будет плохо обновляться браузер
     },
-    entry: ["@babel/polyfill", path.resolve(__dirname, 'src', 'index.js')],
+    entry: ["@babel/polyfill", path.resolve(__dirname, 'src', 'index')],
     output: {
         path: path.resolve(__dirname, 'dist'),
         clean:true,
@@ -31,9 +32,11 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
         }),
+        new EslingPlugin({ extensions: 'ts' })
     ],
     module: {
         rules : [
+            { test: /\.ts$/i, use: 'ts-loader' },
             {
                 test: /\.html$/i,
                 loader: "html-loader",
@@ -42,8 +45,8 @@ module.exports = {
                 test: /\.(c|sa|sc)ss$/i,
                 use: [
                     devMode ? "style-loader" : MiniCssExtractPlugin.loader,
-                     "css-loader",
-                     {
+                    "css-loader",
+                    {
                         loader: "postcss-loader",
                         options: {
                             postcssOptions: {
@@ -54,8 +57,8 @@ module.exports = {
                                 ],
                             },
                         },
-                     },
-                     "sass-loader"
+                    },
+                    "sass-loader"
                 ],
             },
             {
@@ -72,24 +75,24 @@ module.exports = {
                         loader: 'image-webpack-loader',
                         options: {
                             mozjpeg: {
-                              progressive: true,
+                                progressive: true,
                             },
                             // optipng.enabled: false will disable optipng
                             optipng: {
-                              enabled: false,
+                                enabled: false,
                             },
                             pngquant: {
-                              quality: [0.65, 0.90],
-                              speed: 4
+                                quality: [0.65, 0.90],
+                                speed: 4
                             },
                             gifsicle: {
-                              interlaced: false,
+                                interlaced: false,
                             },
                             // the webp option will enable WEBP
                             webp: {
-                              quality: 75
+                                quality: 75
                             }
-                          }
+                        }
                     }
                 ],
                 type: 'asset/resource',
@@ -105,5 +108,8 @@ module.exports = {
                 }
             },
         ]
-    }
+    },
+    resolve: {
+        extensions: ['.ts', '.js'],
+    },
 }
