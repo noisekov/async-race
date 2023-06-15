@@ -1,6 +1,4 @@
 import "./index.scss";
+import App from "./modules/app";
 
-const a = document.querySelector("body");
-const b = document.createElement("h1");
-b.innerText = "Hello";
-a?.append(b);
+new App();
