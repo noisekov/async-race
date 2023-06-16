@@ -1,21 +1,21 @@
 import Element from "../../node";
-import "./aside.scss";
+import "./main.scss";
 
-export default class Aside {
+export default class Main {
   createElement;
   constructor() {
     this.createElement = this.createView();
   }
 
   createView() {
-    const aside = {
-      tagName: "aside",
-      classNames: ["aside"],
+    const main = {
+      tagName: "main",
+      classNames: ["main"],
       textContent: "",
     };
-    const createAside = new Element(aside);
-
-    return createAside;
+    const createNode = new Element(main);
+    createNode.addClass("main__desk");
+    return createNode;
   }
 
   getHtmlElement(): HTMLElement {
