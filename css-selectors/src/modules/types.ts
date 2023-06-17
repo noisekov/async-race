@@ -4,3 +4,7 @@ export type typeElement = {
   addClass(className: string): void;
   destroy(): void;
 };
+
+export type level = {
+  [key: number]: { desk: string; check: string; text: string; code: string };
+};

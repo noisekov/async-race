@@ -105,7 +105,6 @@ export default class Main {
     const editorBody = new Element(mainEditorBody);
 
     const inputBody = new Input().getHtmlEl();
-
     editorBody.getNode().append(inputBody);
     return createNode;
   }
