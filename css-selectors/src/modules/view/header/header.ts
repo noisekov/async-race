@@ -4,10 +4,10 @@ import "./header.scss";
 export default class Header {
   createElement;
   constructor() {
-    this.createElement = this.createView();
+    this.createElement = this.elementView();
   }
 
-  createView() {
+  elementView() {
     const header = {
       tagName: "header",
       classNames: ["header"],
@@ -40,7 +40,7 @@ export default class Header {
     return createHeader;
   }
 
-  getHtmlElement(): HTMLElement {
+  getHtmlEl(): HTMLElement {
     return this.createElement.getNode();
   }
 }

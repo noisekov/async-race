@@ -17,13 +17,13 @@ export default class App {
     wrap.classList.add("wrapper");
 
     document.body.append(wrap);
-    document.body.append(aside.getHtmlElement());
+    document.body.append(aside.getHtmlEl());
     document.body.classList.add("container");
-    if (header.getHtmlElement() && main.getHtmlElement()) {
-      wrap.append(header.getHtmlElement(), main.getHtmlElement());
+    if (header.getHtmlEl() && main.getHtmlEl()) {
+      wrap.append(header.getHtmlEl(), main.getHtmlEl());
     }
-    if (footer.getHtmlElement()) {
-      wrap.append(footer.getHtmlElement());
+    if (footer.getHtmlEl()) {
+      wrap.append(footer.getHtmlEl());
     }
   }
 }

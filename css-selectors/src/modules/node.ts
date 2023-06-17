@@ -1,4 +1,4 @@
-import { typeElement } from "./types";
+// import { typeElement } from "./types";
 
 export default class Element {
   #node;
@@ -22,11 +22,11 @@ export default class Element {
     }
   }
 
-  append(child: typeElement): void {
-    if (child) {
-      this.#node.append(child.getNode());
-    }
-  }
+  // append(child: typeElement): void {
+  //   if (child) {
+  //     this.#node.append(child.getNode());
+  //   }
+  // }
 
   getNode(): HTMLElement {
     return this.#node;
@@ -36,17 +36,17 @@ export default class Element {
     this.#node.setAttribute(attr, attrValue);
   }
 
-  appendChildren(children: typeElement[]) {
-    children.forEach((el) => {
-      this.append(el);
-    });
-  }
+  // appendChildren(children: typeElement[]) {
+  //   children.forEach((el) => {
+  //     this.append(el);
+  //   });
+  // }
 
-  addClass(className: string): void {
-    this.#node.classList.add(className);
-  }
+  // addClass(className: string): void {
+  //   this.#node.classList.add(className);
+  // }
 
-  destroy(): void {
-    this.#node.remove();
-  }
+  // destroy(): void {
+  //   this.#node.remove();
+  // }
 }

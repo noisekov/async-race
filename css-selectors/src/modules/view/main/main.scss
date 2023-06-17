@@ -1,9 +1,37 @@
 .main {
   flex: 1 1 auto;
-  border: 1px solid #fff;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 30% 70%;
   margin: 0 25px;
 }
 
 .main__desk {
+  grid-column: span 2;
   background-image: url("../../../img/desk.jpg");
+  background-size: cover;
+  margin: 15px 20%;
+}
+
+.main__editor,
+.main__code {
+  background-color: #19444A;
+}
+
+.editor__head,
+.code__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  height: 10%;
+}
+
+.editor__body {
+  background-color: #fff;
+  height: 90%;
+}
+
+.code__body {
+  height: 90%;
 }

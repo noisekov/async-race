@@ -4,10 +4,10 @@ import "./aside.scss";
 export default class Aside {
   createElement;
   constructor() {
-    this.createElement = this.createView();
+    this.createElement = this.elementView();
   }
 
-  createView() {
+  elementView() {
     const aside = {
       tagName: "aside",
       classNames: ["aside"],
@@ -18,7 +18,7 @@ export default class Aside {
     return createAside;
   }
 
-  getHtmlElement(): HTMLElement {
+  getHtmlEl(): HTMLElement {
     return this.createElement.getNode();
   }
 }

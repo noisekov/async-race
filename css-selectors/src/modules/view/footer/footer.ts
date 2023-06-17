@@ -4,20 +4,20 @@ import "./footer.scss";
 export default class Footer {
   createElement;
   constructor() {
-    this.createElement = this.createView();
+    this.createElement = this.elementView();
   }
 
-  createView() {
+  elementView() {
     const footer = {
       tagName: "footer",
       classNames: ["footer"],
-      textContent: "Create noisekov",
+      textContent: "Made by noisekov",
     };
     const createFooter = new Element(footer);
 
     return createFooter;
   }
-  getHtmlElement(): HTMLElement {
+  getHtmlEl(): HTMLElement {
     return this.createElement.getNode();
   }
 }
