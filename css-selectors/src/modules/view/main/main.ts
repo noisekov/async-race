@@ -1,11 +1,34 @@
 import Element from "../../node";
 import "./main.scss";
 import Input from "../input/input";
+import { level } from "../../types";
+
+const level: level = {
+  1: {
+    desk: `<plate class="desk__inner"></plate><plate class="desk__inner"></plate>`,
+    check: `plate`,
+    text: `Select all plate element`,
+    code: `
+        <div>&lt;div class="table"&gt;<div class="plate">&lt;plate /&gt;</div><div class="plate">&lt;plate /&gt;</div>&lt;/div&gt</div>
+      `,
+  },
+  2: {
+    desk: `<plate></plate><plate></plate>`,
+    check: `plate`,
+    text: `Select all plate element`,
+    code: `<pre><code><div class="table"><plate/><plate/></div></code></pre>`,
+  },
+};
 
 export default class Main {
   createElement;
+  codeEl: HTMLElement | null;
+  desk: HTMLElement | null;
   constructor() {
     this.createElement = this.elementView();
+    this.codeEl = null;
+    this.desk = null;
+    this.event();
   }
 
   elementView() {
@@ -22,7 +45,7 @@ export default class Main {
       textContent: "",
       parentNode: createNode.getNode(),
     };
-    new Element(mainDesk);
+    this.desk = new Element(mainDesk).getNode();
 
     const mainEditor = {
       tagName: "div",
@@ -70,7 +93,7 @@ export default class Main {
       textContent: "",
       parentNode: mainCodeEl.getNode(),
     };
-    new Element(mainCodeBody);
+    this.codeEl = new Element(mainCodeBody).getNode();
 
     const mainEditorHead = {
       tagName: "div",
@@ -106,7 +129,55 @@ export default class Main {
 
     const inputBody = new Input().getHtmlEl();
     editorBody.getNode().append(inputBody);
+
+    this.chooseLevel(1);
     return createNode;
+  }
+
+  event() {
+    document.addEventListener("mousemove", mouseChoose);
+    document.addEventListener("mouseout", mouseClose);
+
+    function mouseChoose(evt: Event) {
+      if (evt.target) {
+        if ((evt.target as HTMLElement).closest(".plate")) {
+          (evt.target as HTMLElement).closest(".plate")?.classList.add("light");
+        }
+      }
+    }
+
+    function mouseClose(evt: Event) {
+      if (evt.target) {
+        if ((evt.target as HTMLElement).closest(".plate")) {
+          (evt.target as HTMLElement)
+            .closest(".plate")
+            ?.classList.remove("light");
+        }
+      }
+    }
+  }
+
+  chooseLevel(val: number) {
+    if (this.codeEl && this.desk) {
+      this.codeEl.innerHTML = this.getCode(val);
+      this.desk.innerHTML = this.getDesk(val);
+    }
+  }
+
+  getDesk(val: number) {
+    return level[val].desk;
+  }
+
+  getCheck(val: number) {
+    return level[val].check;
+  }
+
+  getText(val: number) {
+    return level[val].text;
+  }
+
+  getCode(val: number) {
+    return level[val].code;
   }
 
   getHtmlEl(): HTMLElement {

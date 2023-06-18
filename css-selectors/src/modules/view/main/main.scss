@@ -11,6 +11,16 @@
   background-image: url("../../../img/desk.jpg");
   background-size: cover;
   margin: 15px 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.desk__inner {
+  display: block;
+  background-image: url("../../../img/plate.png");
+  width: 64px;
+  height: 64px;
 }
 
 .main__editor,
@@ -32,6 +42,26 @@
   height: 90%;
 }
 
+.code__body div {
+  padding-left: 20px;
+}
+
+.table {
+  color: #333;
+}
+
+.code__body * {
+  color: #333;
+}
+
+.light {
+  color: #fff;
+}
+
 .code__body {
   height: 90%;
+}
+
+.code {
+  color: #fff;
 }
