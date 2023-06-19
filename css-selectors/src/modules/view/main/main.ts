@@ -2,6 +2,7 @@ import Element from "../../node";
 import "./main.scss";
 import Input from "../input/input";
 import { level } from "../../types";
+import Aside from "../aside/aside";
 
 const level: level = {
   1: {
@@ -130,7 +131,7 @@ export default class Main {
     const inputBody = new Input().getHtmlEl();
     editorBody.getNode().append(inputBody);
 
-    this.chooseLevel(1);
+    this.findLevel();
     return createNode;
   }
 
@@ -157,10 +158,17 @@ export default class Main {
     }
   }
 
+  findLevel() {
+    this.chooseLevel(1);
+  }
+
   chooseLevel(val: number) {
-    if (this.codeEl && this.desk) {
+    const aside = new Aside();
+    document.body.append(aside.getHtmlEl());
+    if (this.codeEl && this.desk && aside) {
       this.codeEl.innerHTML = this.getCode(val);
       this.desk.innerHTML = this.getDesk(val);
+      aside.getHtmlEl().innerHTML = this.getText(val);
     }
   }
 

@@ -1,7 +1,6 @@
 import Header from "./view/header/header";
 import Footer from "./view/footer/footer";
 import Main from "./view/main/main";
-import Aside from "./view/aside/aside";
 
 export default class App {
   constructor() {
@@ -12,12 +11,10 @@ export default class App {
     const header = new Header();
     const main = new Main();
     const footer = new Footer();
-    const aside = new Aside();
     const wrap = document.createElement("div");
     wrap.classList.add("wrapper");
 
     document.body.append(wrap);
-    document.body.append(aside.getHtmlEl());
     document.body.classList.add("container");
     if (header.getHtmlEl() && main.getHtmlEl()) {
       wrap.append(header.getHtmlEl(), main.getHtmlEl());

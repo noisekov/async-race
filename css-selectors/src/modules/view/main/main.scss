@@ -19,8 +19,10 @@
 .desk__inner {
   display: block;
   background-image: url("../../../img/plate.png");
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .main__editor,
