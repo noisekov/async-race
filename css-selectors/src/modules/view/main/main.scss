@@ -25,6 +25,11 @@
   background-size: cover;
 }
 
+.desk__inner.light {
+  box-shadow: 0 0 5px 2px #fff;
+  border-radius: 100%;
+}
+
 .main__editor,
 .main__code {
   background-color: #19444A;

@@ -136,26 +136,35 @@ export default class Main {
   }
 
   event() {
+    const mouseChoose = (evt: Event) => {
+      if (evt.target) {
+        [...(evt.target as HTMLElement).classList].filter((x, i) => {
+          const whatTag = document.querySelector(".main__desk")?.children[i];
+          if (whatTag?.tagName.toLowerCase() === x.toLowerCase()) {
+            whatTag.classList.add("light");
+            (evt.target as HTMLElement)?.classList.add("light");
+          }
+          // if (document.querySelector(".main__desk")?.children[i] === x) {
+          //   console.log("da");
+          // }
+        });
+        // if ((evt.target as HTMLElement).closest(".plate")) {
+        //   (evt.target as HTMLElement).closest(".plate")?.classList.add("light");
+        // }
+      }
+    };
+
+    // const mouseClose = (evt: Event) => {
+    //   if (evt.target) {
+    //     if ((evt.target as HTMLElement).closest(".plate")) {
+    //       (evt.target as HTMLElement)
+    //         .closest(".plate")
+    //         ?.classList.remove("light");
+    //     }
+    //   }
+    // };
     document.addEventListener("mousemove", mouseChoose);
-    document.addEventListener("mouseout", mouseClose);
-
-    function mouseChoose(evt: Event) {
-      if (evt.target) {
-        if ((evt.target as HTMLElement).closest(".plate")) {
-          (evt.target as HTMLElement).closest(".plate")?.classList.add("light");
-        }
-      }
-    }
-
-    function mouseClose(evt: Event) {
-      if (evt.target) {
-        if ((evt.target as HTMLElement).closest(".plate")) {
-          (evt.target as HTMLElement)
-            .closest(".plate")
-            ?.classList.remove("light");
-        }
-      }
-    }
+    // document.addEventListener("mouseout", mouseClose);
   }
 
   findLevel() {
