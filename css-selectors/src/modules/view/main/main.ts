@@ -6,11 +6,11 @@ import Aside from "../aside/aside";
 
 const level: level = {
   1: {
-    desk: `<plate class="desk__inner"></plate><plate class="desk__inner"></plate>`,
-    check: `plate`,
-    text: `Select all plate element`,
+    desk: `<plate1 class="desk__inner plate1 animate" title="<plate></plate>"></plate1><plate2 class="desk__inner plate2 animate" title="<plate></plate>"></plate2>`,
+    check: `.plate`,
+    text: `Select all plate elements`,
     code: `
-        <div>&lt;div class="table"&gt;<div class="plate">&lt;plate /&gt;</div><div class="plate">&lt;plate /&gt;</div>&lt;/div&gt</div>
+        <div class="desk__elements">&lt;div class="desk"&gt;<div class="plate1">&lt;plate /&gt;</div><div class="plate2">&lt;plate /&gt;</div>&lt;/div&gt</div>
       `,
   },
   2: {
@@ -138,33 +138,50 @@ export default class Main {
   event() {
     const mouseChoose = (evt: Event) => {
       if (evt.target) {
-        [...(evt.target as HTMLElement).classList].filter((x, i) => {
-          const whatTag = document.querySelector(".main__desk")?.children[i];
-          if (whatTag?.tagName.toLowerCase() === x.toLowerCase()) {
-            whatTag.classList.add("light");
-            (evt.target as HTMLElement)?.classList.add("light");
+        [...(evt.target as HTMLElement).classList].filter((x) => {
+          const whatTag = document.querySelector(".main__desk");
+          const codeBody = document.querySelector(".desk__elements");
+          if (whatTag && codeBody) {
+            Array.from(whatTag.children).filter((element) => {
+              if (element.tagName.toLowerCase() === x.toLowerCase()) {
+                element.classList.add("light");
+                (evt.target as HTMLElement)?.classList.add("light");
+              }
+            });
+            Array.from(codeBody.children).filter((element) => {
+              if (element.classList[0].toLowerCase() === x.toLowerCase()) {
+                element.classList.add("light");
+                (evt.target as HTMLElement)?.classList.add("light");
+              }
+            });
           }
-          // if (document.querySelector(".main__desk")?.children[i] === x) {
-          //   console.log("da");
-          // }
         });
-        // if ((evt.target as HTMLElement).closest(".plate")) {
-        //   (evt.target as HTMLElement).closest(".plate")?.classList.add("light");
-        // }
       }
     };
-
-    // const mouseClose = (evt: Event) => {
-    //   if (evt.target) {
-    //     if ((evt.target as HTMLElement).closest(".plate")) {
-    //       (evt.target as HTMLElement)
-    //         .closest(".plate")
-    //         ?.classList.remove("light");
-    //     }
-    //   }
-    // };
+    const mouseClose = (evt: Event) => {
+      if (evt.target) {
+        [...(evt.target as HTMLElement).classList].filter((x) => {
+          const whatTag = document.querySelector(".main__desk");
+          const codeBody = document.querySelector(".desk__elements");
+          if (whatTag && codeBody) {
+            Array.from(whatTag.children).filter((element) => {
+              if (element.tagName.toLowerCase() === x.toLowerCase()) {
+                element.classList.remove("light");
+                (evt.target as HTMLElement)?.classList.remove("light");
+              }
+            });
+            Array.from(codeBody.children).filter((element) => {
+              if (element.classList[0].toLowerCase() === x.toLowerCase()) {
+                element.classList.remove("light");
+                (evt.target as HTMLElement)?.classList.remove("light");
+              }
+            });
+          }
+        });
+      }
+    };
     document.addEventListener("mousemove", mouseChoose);
-    // document.addEventListener("mouseout", mouseClose);
+    document.addEventListener("mouseout", mouseClose);
   }
 
   findLevel() {
