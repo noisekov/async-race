@@ -94,7 +94,26 @@ export default class Main {
       textContent: "",
       parentNode: mainCodeEl.getNode(),
     };
-    this.codeEl = new Element(mainCodeBody).getNode();
+    const mainCodeBodyBlock = new Element(mainCodeBody);
+
+    const mainCodeBodyLine = {
+      tagName: "div",
+      classNames: ["code__body-line"],
+      textContent: "asdasd",
+      parentNode: mainCodeBodyBlock.getNode(),
+    };
+    const mainCodeBodyLineBlock = new Element(mainCodeBodyLine);
+    mainCodeBodyLineBlock.getNode().innerHTML = `1 <br> 2 <br> 3 <br> 4 <br> 5 <br> 6 <br> 7 <br> 8 <br> 9 <br> 10 <br> 11 <br> 12 <br> 13 <br> 14 <br> 15 <br> 16 <br> 17 <br> 18 <br> 19 <br> 20`;
+
+    const mainCodeBodyEditor = {
+      tagName: "div",
+      classNames: ["code__body-editor"],
+      textContent: "",
+      parentNode: mainCodeBodyBlock.getNode(),
+    };
+    const mainCodeBodyEditorBlock = new Element(mainCodeBodyEditor);
+
+    this.codeEl = mainCodeBodyEditorBlock.getNode();
 
     const mainEditorHead = {
       tagName: "div",

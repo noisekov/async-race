@@ -32,16 +32,18 @@
 
 .main__editor,
 .main__code {
-  background-color: #19444A;
+  background-color: #2B211B;
 }
 
 .editor__head,
 .code__head {
+  background-color: #3C2418;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px;
   height: 10%;
+  border-bottom: 1px solid #333;
 }
 
 .editor__body {
@@ -60,7 +62,7 @@
   text-align: right;
 }
 
-.code__body div {
+.code__body-editor div {
   padding-left: 20px;
 }
 
@@ -69,7 +71,7 @@
 }
 
 .code__body * {
-  color: #333;
+  color: #666;
 }
 
 .light {
@@ -78,6 +80,16 @@
 
 .code__body {
   height: 90%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.code__body-line {
+  overflow: hidden;
+  padding: 3px 10px;
+  height: 100%;
+  text-align: right;
+  border-right: solid 1px #333;
 }
 
 .code {
