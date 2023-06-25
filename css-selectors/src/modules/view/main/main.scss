@@ -47,6 +47,17 @@
 .editor__body {
   background-color: #fff;
   height: 90%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.editor__body-line {
+  overflow: hidden;
+  color: #999;
+  background: #DDD;
+  padding: 3px 10px;
+  height: 100%;
+  text-align: right;
 }
 
 .code__body div {

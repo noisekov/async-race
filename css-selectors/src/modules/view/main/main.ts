@@ -8,7 +8,7 @@ const level: level = {
   1: {
     desk: `<plate1 class="desk__inner plate1 animate" title="<plate></plate>"></plate1><plate2 class="desk__inner plate2 animate" title="<plate></plate>"></plate2>`,
     check: `.plate`,
-    text: `Select all plate elements`,
+    text: `Level 1: <br> Select all elements which have animation`,
     code: `
         <div class="desk__elements">&lt;div class="desk"&gt;<div class="plate1">&lt;plate /&gt;</div><div class="plate2">&lt;plate /&gt;</div>&lt;/div&gt</div>
       `,
@@ -127,6 +127,16 @@ export default class Main {
       parentNode: mainEditorEl.getNode(),
     };
     const editorBody = new Element(mainEditorBody);
+
+    const mainEditorBodyLine = {
+      tagName: "div",
+      classNames: ["editor__body-line"],
+      textContent: "",
+      parentNode: editorBody.getNode(),
+    };
+    new Element(
+      mainEditorBodyLine
+    ).getNode().innerHTML = `1 <br> 2 <br> 3 <br> 4 <br> 5 <br> 6 <br> 7 <br> 8 <br> 9 <br> 10 <br> 11 <br> 12 <br> 13 <br> 14 <br> 15 <br> 16 <br> 17 <br> 18 <br> 19 <br> 20`;
 
     const inputBody = new Input().getHtmlEl();
     editorBody.getNode().append(inputBody);
