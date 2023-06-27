@@ -1,11 +1,14 @@
 import Element from "../../node";
 import "./input.scss";
+import allLevel from "../../allLevel";
 
 export default class Input {
   createElement;
+  isTrue;
   constructor() {
     this.createElement = this.elementView();
     this.event();
+    this.isTrue = false;
   }
 
   elementView() {
@@ -28,7 +31,11 @@ export default class Input {
     if (event.target) {
       const input: HTMLInputElement | null = document.querySelector(".input");
       if (input) {
-        console.log(input.value);
+        if (input.value === allLevel[1].check) {
+          this.isTrue = true;
+        } else {
+          this.isTrue = false;
+        }
       }
     }
   }

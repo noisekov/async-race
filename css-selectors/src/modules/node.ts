@@ -42,9 +42,9 @@ export default class Element {
   //   });
   // }
 
-  // addClass(className: string): void {
-  //   this.#node.classList.add(className);
-  // }
+  addClass(className: string): void {
+    this.#node.classList.add(className);
+  }
 
   // destroy(): void {
   //   this.#node.remove();
