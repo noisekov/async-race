@@ -1,14 +1,37 @@
 import Element from "../../node";
 import "./input.scss";
-import allLevel from "../../allLevel";
+import { IObserver, ISubject } from "../../types";
 
-export default class Input {
+export default class Input implements ISubject {
   createElement;
-  isTrue;
+  inputValue: string;
+  #observers: Set<IObserver>;
   constructor() {
     this.createElement = this.elementView();
     this.event();
-    this.isTrue = false;
+    this.inputValue = "";
+    this.#observers = new Set();
+  }
+
+  subscribe(observer: IObserver): void {
+    this.#observers.add(observer);
+  }
+
+  unsubscribe(observer: IObserver): void {
+    this.#observers.delete(observer);
+  }
+
+  notify(event: Event): void {
+    if (event.target) {
+      const input: HTMLInputElement | null = document.querySelector(".input");
+      if (input) {
+        this.inputValue = input.value.trim();
+      }
+    }
+
+    this.#observers.forEach((observer) => {
+      observer.update(this.inputValue);
+    });
   }
 
   elementView() {
@@ -24,20 +47,7 @@ export default class Input {
   }
 
   event() {
-    this.getHtmlEl().addEventListener("input", this.inputElement.bind(this));
-  }
-
-  inputElement(event: Event) {
-    if (event.target) {
-      const input: HTMLInputElement | null = document.querySelector(".input");
-      if (input) {
-        if (input.value === allLevel[1].check) {
-          this.isTrue = true;
-        } else {
-          this.isTrue = false;
-        }
-      }
-    }
+    this.getHtmlEl().addEventListener("input", this.notify.bind(this));
   }
 
   getHtmlEl(): HTMLElement {

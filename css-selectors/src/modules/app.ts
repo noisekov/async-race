@@ -1,6 +1,8 @@
 import Header from "./view/header/header";
 import Footer from "./view/footer/footer";
 import Main from "./view/main/main";
+import Input from "./view/input/input";
+import Enter from "./view/enter/enter";
 
 export default class App {
   constructor() {
@@ -21,6 +23,15 @@ export default class App {
     }
     if (footer.getHtmlEl()) {
       wrap.append(footer.getHtmlEl());
+    }
+
+    const editorBody = document.querySelector(".editor__body");
+    if (editorBody) {
+      const inputBody = new Input();
+      const enterBody = new Enter();
+      inputBody.subscribe(main);
+      editorBody.append(inputBody.getHtmlEl());
+      editorBody.append(enterBody.getHtmlEl());
     }
   }
 }

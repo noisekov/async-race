@@ -1,15 +1,16 @@
 import Element from "../../node";
 import "./main.scss";
-import Input from "../input/input";
-import Enter from "../enter/enter";
 import Aside from "../aside/aside";
 import allLevel from "../../allLevel";
+import { IObserver } from "../../types";
 
-export default class Main {
+export default class Main implements IObserver {
   createElement;
   codeEl: HTMLElement | null;
   desk: HTMLElement | null;
+  levelNow: number;
   constructor() {
+    this.levelNow = 1;
     this.createElement = this.elementView();
     this.codeEl = null;
     this.desk = null;
@@ -141,12 +142,7 @@ export default class Main {
       mainEditorBodyLine
     ).getNode().innerHTML = `1 <br> 2 <br> 3 <br> 4 <br> 5 <br> 6 <br> 7 <br> 8 <br> 9 <br> 10 <br> 11 <br> 12 <br> 13 <br> 14 <br> 15 <br> 16 <br> 17 <br> 18 <br> 19 <br> 20`;
 
-    const inputBody = new Input().getHtmlEl();
-    editorBody.getNode().append(inputBody);
-    const enterBody = new Enter().getHtmlEl();
-    editorBody.getNode().append(enterBody);
-
-    this.findLevel();
+    this.chooseLevel();
     return createNode;
   }
 
@@ -199,34 +195,36 @@ export default class Main {
     document.addEventListener("mouseout", mouseClose);
   }
 
-  findLevel() {
-    this.chooseLevel(1);
-  }
-
-  chooseLevel(val: number) {
+  chooseLevel() {
     const aside = new Aside();
     document.body.append(aside.getHtmlEl());
     if (this.codeEl && this.desk && aside) {
-      this.codeEl.innerHTML = this.getCode(val);
-      this.desk.innerHTML = this.getDesk(val);
-      aside.getHtmlEl().innerHTML = this.getText(val);
+      this.codeEl.innerHTML = this.getCode();
+      this.desk.innerHTML = this.getDesk();
+      aside.getHtmlEl().innerHTML = this.getText();
     }
   }
 
-  getDesk(val: number) {
-    return allLevel[val].desk;
+  update(...args: unknown[]): void {
+    if (args[0] === allLevel[this.levelNow].check) {
+      console.log("da");
+    }
   }
 
-  getCheck(val: number) {
-    return allLevel[val].check;
+  getDesk() {
+    return allLevel[this.levelNow].desk;
   }
 
-  getText(val: number) {
-    return allLevel[val].text;
+  getCheck() {
+    return allLevel[this.levelNow].check;
   }
 
-  getCode(val: number) {
-    return allLevel[val].code;
+  getText() {
+    return allLevel[this.levelNow].text;
+  }
+
+  getCode() {
+    return allLevel[this.levelNow].code;
   }
 
   getHtmlEl(): HTMLElement {
