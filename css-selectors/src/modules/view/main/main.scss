@@ -115,3 +115,22 @@
     animation-timing-function: ease-out;
   }
 }
+
+.false-answer {
+  animation: false-answer .1s 5;
+}
+
+@keyframes false-answer {
+  0%   {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+}

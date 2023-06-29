@@ -9,12 +9,15 @@ export default class Main implements IObserver {
   codeEl: HTMLElement | null;
   desk: HTMLElement | null;
   levelNow: number;
+  isLevelPass: boolean;
   constructor() {
     this.levelNow = 1;
+    this.isLevelPass = false;
     this.createElement = this.elementView();
     this.codeEl = null;
     this.desk = null;
     this.event();
+    this.enterKeyCheck();
   }
 
   elementView() {
@@ -146,6 +149,25 @@ export default class Main implements IObserver {
     return createNode;
   }
 
+  enterKeyCheck() {
+    const checkEnter = (evt: KeyboardEvent) => {
+      if (evt.key === "Enter") {
+        if (this.isLevelPass) {
+          console.log("Level pass");
+        } else {
+          const main: HTMLDivElement | null = document.querySelector(".main");
+          if (main) {
+            main.classList.add("false-answer");
+            setTimeout(() => {
+              main.classList.remove("false-answer");
+            }, 1000);
+          }
+        }
+      }
+    };
+    document.addEventListener("keypress", checkEnter.bind(this));
+  }
+
   event() {
     const mouseChoose = (evt: Event) => {
       if (evt.target) {
@@ -207,7 +229,9 @@ export default class Main implements IObserver {
 
   update(...args: unknown[]): void {
     if (args[0] === allLevel[this.levelNow].check) {
-      console.log("da");
+      this.isLevelPass = true;
+    } else {
+      this.isLevelPass = false;
     }
   }
 
