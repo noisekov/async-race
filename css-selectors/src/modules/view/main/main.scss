@@ -134,3 +134,18 @@
     transform: translateX(3px);
   }
 }
+
+
+.right-answer {
+  animation: right-answer .2s 1;
+  transform: translateY(-1000px);
+}
+
+@keyframes right-answer {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-1000px);
+  }
+}

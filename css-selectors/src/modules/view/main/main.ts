@@ -10,6 +10,7 @@ export default class Main implements IObserver {
   desk: HTMLElement | null;
   levelNow: number;
   isLevelPass: boolean;
+  aside: Aside | null;
   constructor() {
     this.levelNow = 1;
     this.isLevelPass = false;
@@ -18,6 +19,7 @@ export default class Main implements IObserver {
     this.desk = null;
     this.event();
     this.enterKeyCheck();
+    this.aside = null;
   }
 
   elementView() {
@@ -100,7 +102,6 @@ export default class Main implements IObserver {
       parentNode: mainCodeBodyBlock.getNode(),
     };
     const mainCodeBodyEditorBlock = new Element(mainCodeBodyEditor);
-
     this.codeEl = mainCodeBodyEditorBlock.getNode();
 
     const mainEditorHead = {
@@ -144,7 +145,7 @@ export default class Main implements IObserver {
     new Element(
       mainEditorBodyLine
     ).getNode().innerHTML = `1 <br> 2 <br> 3 <br> 4 <br> 5 <br> 6 <br> 7 <br> 8 <br> 9 <br> 10 <br> 11 <br> 12 <br> 13 <br> 14 <br> 15 <br> 16 <br> 17 <br> 18 <br> 19 <br> 20`;
-
+    this.aside = new Aside();
     this.chooseLevel();
     return createNode;
   }
@@ -153,14 +154,31 @@ export default class Main implements IObserver {
     const checkEnter = (evt: KeyboardEvent) => {
       if (evt.key === "Enter") {
         if (this.isLevelPass) {
-          console.log("Level pass");
+          this.levelNow += 1;
+          this.isLevelPass = false;
+          const rightElements: NodeListOf<HTMLElement> | null =
+            document.querySelectorAll(".right");
+          rightElements.forEach((rightEl) => {
+            rightEl.classList.add("right-answer");
+          });
+          const input: HTMLInputElement | null =
+            document.querySelector(".input");
+          if (input) {
+            input.value = "";
+          }
+          this.changeLevel();
         } else {
-          const main: HTMLDivElement | null = document.querySelector(".main");
-          if (main) {
-            main.classList.add("false-answer");
+          const mainEditor: HTMLDivElement | null =
+            document.querySelector(".main__editor");
+          const mainCode: HTMLDivElement | null =
+            document.querySelector(".main__code");
+          if (mainEditor && mainCode) {
+            mainEditor.classList.add("false-answer");
+            mainCode.classList.add("false-answer");
             setTimeout(() => {
-              main.classList.remove("false-answer");
-            }, 1000);
+              mainEditor.classList.remove("false-answer");
+              mainCode.classList.remove("false-answer");
+            }, 500);
           }
         }
       }
@@ -218,12 +236,31 @@ export default class Main implements IObserver {
   }
 
   chooseLevel() {
-    const aside = new Aside();
-    document.body.append(aside.getHtmlEl());
-    if (this.codeEl && this.desk && aside) {
+    if (this.aside) {
+      document.body.append(this.aside.getHtmlEl());
+    }
+    this.changeLevel();
+  }
+
+  changeLevel() {
+    if (this.codeEl && this.desk) {
       this.codeEl.innerHTML = this.getCode();
       this.desk.innerHTML = this.getDesk();
-      aside.getHtmlEl().innerHTML = this.getText();
+      if (this.aside) {
+        this.aside.getHtmlEl().innerHTML = this.getText();
+      }
+    } else {
+      const bodyEditor: HTMLElement | null =
+        document.querySelector(".code__body-editor");
+      const mainDesk: HTMLElement | null =
+        document.querySelector(".main__desk");
+      const aside: HTMLElement | null = document.querySelector(".aside");
+      console.log(bodyEditor);
+      if (bodyEditor && mainDesk && aside) {
+        bodyEditor.innerHTML = this.getCode();
+        mainDesk.innerHTML = this.getDesk();
+        aside.innerHTML = this.getText();
+      }
     }
   }
 
