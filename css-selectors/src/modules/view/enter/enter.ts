@@ -30,6 +30,7 @@ export default class Enter {
         document.querySelector(".button");
       if (button) {
         button.classList.toggle("button--click");
+        console.log("click for enter btn");
       }
     }
   }
