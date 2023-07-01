@@ -166,7 +166,9 @@ export default class Main implements IObserver {
           if (input) {
             input.value = "";
           }
-          this.changeLevel();
+          setTimeout(() => {
+            this.changeLevel();
+          }, 500);
         } else {
           const mainEditor: HTMLDivElement | null =
             document.querySelector(".main__editor");

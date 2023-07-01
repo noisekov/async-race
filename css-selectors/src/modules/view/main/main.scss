@@ -18,11 +18,19 @@
 
 .desk__inner {
   display: block;
-  background-image: url("../../../img/plate.png");
   width: 80px;
   height: 80px;
   background-repeat: no-repeat;
   background-size: cover;
+  &--plate {
+    background-image: url("../../../img/plate.png");
+  }
+  &--spoon {
+    background-image: url("../../../img/spoon.png");
+  }
+  &--plate-for-kids {
+    background-image: url("../../../img/plate-for-kids.png");
+  }
 }
 
 .desk__inner.light {
