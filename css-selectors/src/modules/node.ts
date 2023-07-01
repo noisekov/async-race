@@ -1,5 +1,3 @@
-// import { typeElement } from "./types";
-
 export default class Element {
   #node;
 
@@ -22,11 +20,11 @@ export default class Element {
     }
   }
 
-  // append(child: typeElement): void {
-  //   if (child) {
-  //     this.#node.append(child.getNode());
-  //   }
-  // }
+  append(child: HTMLElement): void {
+    if (child) {
+      this.#node.append(child);
+    }
+  }
 
   getNode(): HTMLElement {
     return this.#node;

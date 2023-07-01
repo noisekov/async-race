@@ -4,6 +4,7 @@ import Aside from "../aside/aside";
 import allLevel from "../../allLevel";
 import { IObserver } from "../../types";
 import Popup from "../popup/popup";
+import Enter from "../enter/enter";
 
 export default class Main implements IObserver {
   createElement;
@@ -13,6 +14,7 @@ export default class Main implements IObserver {
   isLevelPass: boolean;
   aside: Aside | null;
   levelMax: number;
+  enterBtn: HTMLElement | null;
   constructor() {
     this.levelNow = 1;
     this.levelMax = 3;
@@ -23,6 +25,7 @@ export default class Main implements IObserver {
     this.event();
     this.enterKeyCheck();
     this.aside = null;
+    this.enterBtn = null;
   }
 
   elementView() {
@@ -138,6 +141,9 @@ export default class Main implements IObserver {
       parentNode: mainEditorEl.getNode(),
     };
     const editorBody = new Element(mainEditorBody);
+    this.enterBtn = new Enter().getHtmlEl();
+    editorBody.append(this.enterBtn);
+    this.clickEnterBtn();
 
     const mainEditorBodyLine = {
       tagName: "div",
@@ -255,6 +261,57 @@ export default class Main implements IObserver {
     };
     document.addEventListener("mousemove", mouseChoose);
     document.addEventListener("mouseout", mouseClose);
+  }
+
+  clickEnterBtn() {
+    const enterClick = (evt: Event) => {
+      if (evt.target) {
+        (evt.target as HTMLElement).classList.add("button--click");
+        setTimeout(() => {
+          (evt.target as HTMLElement).classList.remove("button--click");
+        }, 100);
+        if (this.isLevelPass) {
+          if (this.levelNow) {
+            if (this.levelNow <= this.levelMax) {
+              this.levelNow += 1;
+            } else {
+              this.levelNow = null;
+            }
+          }
+          this.isLevelPass = false;
+          const rightElements: NodeListOf<HTMLElement> | null =
+            document.querySelectorAll(".right");
+          rightElements.forEach((rightEl) => {
+            rightEl.classList.add("right-answer");
+          });
+          const input: HTMLInputElement | null =
+            document.querySelector(".input");
+          if (input) {
+            input.value = "";
+          }
+          setTimeout(() => {
+            this.changeLevel();
+          }, 500);
+        } else {
+          const mainEditor: HTMLDivElement | null =
+            document.querySelector(".main__editor");
+          const mainCode: HTMLDivElement | null =
+            document.querySelector(".main__code");
+          if (mainEditor && mainCode) {
+            mainEditor.classList.add("false-answer");
+            mainCode.classList.add("false-answer");
+            setTimeout(() => {
+              mainEditor.classList.remove("false-answer");
+              mainCode.classList.remove("false-answer");
+            }, 500);
+          }
+        }
+      }
+    };
+
+    if (this.enterBtn) {
+      this.enterBtn.addEventListener("click", enterClick.bind(this));
+    }
   }
 
   chooseLevel() {

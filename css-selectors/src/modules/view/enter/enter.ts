@@ -5,7 +5,6 @@ export default class Enter {
   createElement;
   constructor() {
     this.createElement = this.elementView();
-    this.event();
   }
 
   elementView() {
@@ -18,21 +17,6 @@ export default class Enter {
     createButton.setAttribute("type", "button");
     createButton.setAttribute("value", "enter");
     return createButton;
-  }
-
-  event() {
-    this.getHtmlEl().addEventListener("click", this.buttonElement.bind(this));
-  }
-
-  buttonElement(event: Event) {
-    if (event.target) {
-      const button: HTMLButtonElement | null =
-        document.querySelector(".button");
-      if (button) {
-        button.classList.toggle("button--click");
-        console.log("click for enter btn");
-      }
-    }
   }
 
   getHtmlEl(): HTMLElement {
