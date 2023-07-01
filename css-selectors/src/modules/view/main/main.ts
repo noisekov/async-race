@@ -17,7 +17,7 @@ export default class Main implements IObserver {
   enterBtn: HTMLElement | null;
   constructor() {
     this.levelNow = 1;
-    this.levelMax = 5;
+    this.levelMax = 6;
     this.isLevelPass = false;
     this.createElement = this.elementView();
     this.codeEl = null;

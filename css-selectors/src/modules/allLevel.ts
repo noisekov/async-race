@@ -97,6 +97,29 @@ const allLevel: level = {
         &lt;/div&gt</div>
       `,
   },
+  6: {
+    desk: `
+    <plate1 class="desk__inner plate1 animate right desk__inner--plate" title="<plate></plate>"></plate1>
+    <plate2-for-kids class="desk__inner plate2-for-kids desk__inner--plate-for-kids" title="<plate></plate>"></plate2-for-kids>
+    <plate3 class="desk__inner plate3 animate right desk__inner--plate" title="<plate></plate>"></plate3>
+    <plate4 class="desk__inner plate4 desk__inner--plate" title="<plate></plate>"></plate4>
+    <plate5 class="desk__inner plate5 animate right desk__inner--plate" title="<plate></plate>"></plate5>
+    `,
+    check: `plate:nth-of-type(odd)`,
+    text: `Congratulated you pass fifth level! <br><br> Level 6: <br> Select all elements which have animation.
+    <br><br>
+    You should use HTML-element:nth-of-type(even or odd)`,
+    code: `
+        <div class="desk__elements">
+        &lt;div class="desk"&gt;
+          <div class="plate1">&lt;plate /&gt;</div>
+          <div class="plate2-for-kids">&lt;plate id="for-kids"/&gt;</div>
+          <div class="plate3">&lt;plate /&gt;</div>
+          <div class="plate4">&lt;plate /&gt;</div>
+          <div class="plate5">&lt;plate /&gt;</div>
+        &lt;/div&gt</div>
+      `,
+  },
 };
 
 export default allLevel;
