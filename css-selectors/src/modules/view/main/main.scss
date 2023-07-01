@@ -23,6 +23,7 @@
   height: 80px;
   background-repeat: no-repeat;
   background-size: cover;
+  position: relative;
   &--plate {
     background-image: url("../../../img/plate.png");
   }
@@ -38,6 +39,18 @@
     width: 50px;
     height: 50px;
     background-position: center;
+  }
+  &--vegetables {
+    background-image: url("../../../img/vegetables.png");
+    width: 35px;
+    height: 35px;
+    background-position: center;
+    position: absolute;
+    top: 23px;
+    left: 21px;
+    &.light.desk__inner {
+      box-shadow: 0 0 5px 2px #000;
+    }
   }
 }
 

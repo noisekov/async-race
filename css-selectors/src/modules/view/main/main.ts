@@ -17,7 +17,7 @@ export default class Main implements IObserver {
   enterBtn: HTMLElement | null;
   constructor() {
     this.levelNow = 1;
-    this.levelMax = 3;
+    this.levelMax = 4;
     this.isLevelPass = false;
     this.createElement = this.elementView();
     this.codeEl = null;
@@ -222,15 +222,41 @@ export default class Main implements IObserver {
           const codeBody = document.querySelector(".desk__elements");
           if (whatTag && codeBody) {
             Array.from(whatTag.children).filter((element) => {
-              if (element.tagName.toLowerCase() === x.toLowerCase()) {
-                element.classList.add("light");
-                (evt.target as HTMLElement)?.classList.add("light");
+              if (element.childNodes.length > 1) {
+                if (
+                  element.children[0].tagName.toLowerCase() === x.toLowerCase()
+                ) {
+                  element.children[0].classList.add("light");
+                  (evt.target as HTMLElement)?.classList.add("light");
+                } else {
+                  if (element.tagName.toLowerCase() === x.toLowerCase()) {
+                    element.classList.add("light");
+                    (evt.target as HTMLElement)?.classList.add("light");
+                  }
+                }
+              } else {
+                if (element.tagName.toLowerCase() === x.toLowerCase()) {
+                  element.classList.add("light");
+                  (evt.target as HTMLElement)?.classList.add("light");
+                }
               }
             });
             Array.from(codeBody.children).filter((element) => {
-              if (element.classList[0].toLowerCase() === x.toLowerCase()) {
-                element.classList.add("light");
-                (evt.target as HTMLElement)?.classList.add("light");
+              if (element.childNodes.length > 1) {
+                const correctEl = element.children[1];
+                if (correctEl.classList[0].toLowerCase() === x.toLowerCase()) {
+                  correctEl.classList.add("light");
+                  (evt.target as HTMLElement)?.classList.add("light");
+                }
+                if (element.classList[0].toLowerCase() === x.toLowerCase()) {
+                  element.classList.add("light");
+                  (evt.target as HTMLElement)?.classList.add("light");
+                }
+              } else {
+                if (element.classList[0].toLowerCase() === x.toLowerCase()) {
+                  element.classList.add("light");
+                  (evt.target as HTMLElement)?.classList.add("light");
+                }
               }
             });
           }
@@ -244,15 +270,41 @@ export default class Main implements IObserver {
           const codeBody = document.querySelector(".desk__elements");
           if (whatTag && codeBody) {
             Array.from(whatTag.children).filter((element) => {
-              if (element.tagName.toLowerCase() === x.toLowerCase()) {
-                element.classList.remove("light");
-                (evt.target as HTMLElement)?.classList.remove("light");
+              if (element.childNodes.length > 1) {
+                if (
+                  element.children[0].tagName.toLowerCase() === x.toLowerCase()
+                ) {
+                  element.children[0].classList.remove("light");
+                  (evt.target as HTMLElement)?.classList.remove("light");
+                } else {
+                  if (element.tagName.toLowerCase() === x.toLowerCase()) {
+                    element.classList.remove("light");
+                    (evt.target as HTMLElement)?.classList.remove("light");
+                  }
+                }
+              } else {
+                if (element.tagName.toLowerCase() === x.toLowerCase()) {
+                  element.classList.remove("light");
+                  (evt.target as HTMLElement)?.classList.remove("light");
+                }
               }
             });
             Array.from(codeBody.children).filter((element) => {
-              if (element.classList[0].toLowerCase() === x.toLowerCase()) {
-                element.classList.remove("light");
-                (evt.target as HTMLElement)?.classList.remove("light");
+              if (element.childNodes.length > 1) {
+                const correctEl = element.children[1];
+                if (correctEl.classList[0].toLowerCase() === x.toLowerCase()) {
+                  correctEl.classList.remove("light");
+                  (evt.target as HTMLElement)?.classList.remove("light");
+                }
+                if (element.classList[0].toLowerCase() === x.toLowerCase()) {
+                  element.classList.remove("light");
+                  (evt.target as HTMLElement)?.classList.remove("light");
+                }
+              } else {
+                if (element.classList[0].toLowerCase() === x.toLowerCase()) {
+                  element.classList.remove("light");
+                  (evt.target as HTMLElement)?.classList.remove("light");
+                }
               }
             });
           }
