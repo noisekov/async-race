@@ -3,16 +3,19 @@ import "./main.scss";
 import Aside from "../aside/aside";
 import allLevel from "../../allLevel";
 import { IObserver } from "../../types";
+import Popup from "../popup/popup";
 
 export default class Main implements IObserver {
   createElement;
   codeEl: HTMLElement | null;
   desk: HTMLElement | null;
-  levelNow: number;
+  levelNow: number | null;
   isLevelPass: boolean;
   aside: Aside | null;
+  levelMax: number;
   constructor() {
     this.levelNow = 1;
+    this.levelMax = 3;
     this.isLevelPass = false;
     this.createElement = this.elementView();
     this.codeEl = null;
@@ -165,7 +168,13 @@ export default class Main implements IObserver {
     const checkEnter = (evt: KeyboardEvent) => {
       if (evt.key === "Enter") {
         if (this.isLevelPass) {
-          this.levelNow += 1;
+          if (this.levelNow) {
+            if (this.levelNow <= this.levelMax) {
+              this.levelNow += 1;
+            } else {
+              this.levelNow = null;
+            }
+          }
           this.isLevelPass = false;
           const rightElements: NodeListOf<HTMLElement> | null =
             document.querySelectorAll(".right");
@@ -256,49 +265,75 @@ export default class Main implements IObserver {
   }
 
   changeLevel() {
-    if (this.codeEl && this.desk) {
-      this.codeEl.innerHTML = this.getCode();
-      this.desk.innerHTML = this.getDesk();
-      if (this.aside) {
-        this.aside.getHtmlEl().innerHTML = this.getText();
+    if (this.getCode() !== "win") {
+      if (this.codeEl && this.desk) {
+        this.codeEl.innerHTML = this.getCode();
+        this.desk.innerHTML = this.getDesk();
+        if (this.aside) {
+          this.aside.getHtmlEl().innerHTML = this.getText();
+        }
+      } else {
+        const bodyEditor: HTMLElement | null =
+          document.querySelector(".code__body-editor");
+        const mainDesk: HTMLElement | null =
+          document.querySelector(".main__desk");
+        const aside: HTMLElement | null = document.querySelector(".aside");
+        if (bodyEditor && mainDesk && aside) {
+          bodyEditor.innerHTML = this.getCode();
+          mainDesk.innerHTML = this.getDesk();
+          aside.innerHTML = this.getText();
+        }
       }
     } else {
-      const bodyEditor: HTMLElement | null =
-        document.querySelector(".code__body-editor");
-      const mainDesk: HTMLElement | null =
-        document.querySelector(".main__desk");
-      const aside: HTMLElement | null = document.querySelector(".aside");
-      console.log(bodyEditor);
-      if (bodyEditor && mainDesk && aside) {
-        bodyEditor.innerHTML = this.getCode();
-        mainDesk.innerHTML = this.getDesk();
-        aside.innerHTML = this.getText();
-      }
+      const container = document.querySelector(".container");
+      container?.append(new Popup().getHtmlEl());
     }
   }
 
   update(...args: unknown[]): void {
-    if (args[0] === allLevel[this.levelNow].check) {
-      this.isLevelPass = true;
-    } else {
-      this.isLevelPass = false;
+    if (this.levelNow) {
+      if (args[0] === allLevel[this.levelNow].check) {
+        this.isLevelPass = true;
+      } else {
+        this.isLevelPass = false;
+      }
     }
   }
 
   getDesk() {
-    return allLevel[this.levelNow].desk;
+    if (this.levelNow) {
+      if (this.levelNow <= this.levelMax) {
+        return allLevel[this.levelNow].desk;
+      }
+    }
+    return "win";
   }
 
   getCheck() {
-    return allLevel[this.levelNow].check;
+    if (this.levelNow) {
+      if (this.levelNow <= this.levelMax) {
+        return allLevel[this.levelNow].check;
+      }
+    }
+    return "win";
   }
 
   getText() {
-    return allLevel[this.levelNow].text;
+    if (this.levelNow) {
+      if (this.levelNow <= this.levelMax) {
+        return allLevel[this.levelNow].text;
+      }
+    }
+    return "win";
   }
 
   getCode() {
-    return allLevel[this.levelNow].code;
+    if (this.levelNow) {
+      if (this.levelNow <= this.levelMax) {
+        return allLevel[this.levelNow].code;
+      }
+    }
+    return "win";
   }
 
   getHtmlEl(): HTMLElement {
