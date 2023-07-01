@@ -27,9 +27,16 @@
   }
   &--spoon {
     background-image: url("../../../img/spoon.png");
+    width: 40px;
+    height: 80px;
+    background-size: contain;
+    background-position: center;
   }
   &--plate-for-kids {
     background-image: url("../../../img/plate-for-kids.png");
+    width: 50px;
+    height: 50px;
+    background-position: center;
   }
 }
 
@@ -59,6 +66,14 @@
   height: 90%;
   display: flex;
   align-items: flex-start;
+  position: relative;
+}
+
+.editor__body-text {
+  position: absolute;
+  top: 21px;
+  left: 39px;
+  color: #AAA;
 }
 
 .editor__body-line {
