@@ -66,6 +66,37 @@ const allLevel: level = {
         &lt;/div&gt</div>
       `,
   },
+  5: {
+    desk: `<spoon class="desk__inner spoon desk__inner--spoon" title="<spoon></spoon>"></spoon>
+    <plate1 class="desk__inner plate1 desk__inner--plate">
+      <vegetables class="desk__inner vegetables desk__inner--vegetables" title="<vegetables></vegetables>"></vegetables>
+    </plate1>
+    <plate3-for-kids class="desk__inner plate3-for-kids desk__inner--plate-for-kids" title="<plate-for-kids></plate-for-kids>">
+      <vegetables-second class="desk__inner right animate vegetables-second desk__inner--kids-vegetables" title="<vegetables></vegetables>"></vegetables-second>
+    </plate3-for-kids>`,
+    check: `#for-kids vegetables`,
+    text: `Congratulated you pass fourth level! <br><br> Level 5: <br> Select all elements which have animation`,
+    code: `
+        <div class="desk__elements">
+        &lt;div class="desk"&gt;
+          <div class="spoon">&lt;spoon /&gt;</div>
+          <div class="plate1">
+            &lt;plate&gt;<br>
+              <div class="vegetables">
+                &lt;vegetables&gt;
+              </div>
+            &lt;plate/&gt;
+          </div>
+          <div class="plate3-for-kids">
+            &lt;plate id="for-kids"&gt;<br>
+              <div class="vegetables-second">
+                &lt;vegetables&gt;
+              </div>
+            &lt;plate/&gt;
+          </div>
+        &lt;/div&gt</div>
+      `,
+  },
 };
 
 export default allLevel;

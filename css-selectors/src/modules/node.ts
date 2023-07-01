@@ -1,6 +1,5 @@
 export default class Element {
-  #node;
-
+  node;
   constructor({
     tagName = "div",
     classNames = [],
@@ -12,26 +11,26 @@ export default class Element {
     textContent: string;
     parentNode?: HTMLElement | null;
   }) {
-    this.#node = document.createElement(tagName);
-    this.#node.classList.add(...classNames);
-    this.#node.textContent = textContent;
+    this.node = document.createElement(tagName);
+    this.node.classList.add(...classNames);
+    this.node.textContent = textContent;
     if (parentNode) {
-      parentNode.append(this.#node);
+      parentNode.append(this.node);
     }
   }
 
   append(child: HTMLElement): void {
     if (child) {
-      this.#node.append(child);
+      this.node.append(child);
     }
   }
 
   getNode(): HTMLElement {
-    return this.#node;
+    return this.node;
   }
 
   setAttribute(attr: string, attrValue: string): void {
-    this.#node.setAttribute(attr, attrValue);
+    this.node.setAttribute(attr, attrValue);
   }
 
   // appendChildren(children: typeElement[]) {
@@ -41,10 +40,10 @@ export default class Element {
   // }
 
   addClass(className: string): void {
-    this.#node.classList.add(className);
+    this.node.classList.add(className);
   }
 
   // destroy(): void {
-  //   this.#node.remove();
+  //   this.node.remove();
   // }
 }

@@ -25,7 +25,7 @@ export default class Popup {
     const popupWrapperWindow = {
       tagName: "div",
       classNames: ["popup"],
-      textContent: "Congratulate! You had passed all levels!",
+      textContent: "Congratulate! You had passed all the levels!",
       parentNode: createInner.getNode(),
     };
     new Element(popupWrapperWindow);

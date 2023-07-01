@@ -52,6 +52,18 @@
       box-shadow: 0 0 5px 2px #000;
     }
   }
+  &--kids-vegetables {
+    background-image: url("../../../img/vegetables.png");
+    width: 23px;
+    height: 23px;
+    background-position: center;
+    position: absolute;
+    top: 13px;
+    left: 14px;
+    &.light.desk__inner {
+      box-shadow: 0 0 5px 2px #000;
+    }
+  }
 }
 
 .desk__inner.light {
