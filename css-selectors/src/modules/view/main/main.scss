@@ -49,7 +49,7 @@
     top: 23px;
     left: 21px;
     &.light.desk__inner {
-      box-shadow: 0 0 5px 2px #000;
+      filter: drop-shadow(4px 4px 10px #333);
     }
   }
   &--kids-vegetables {
@@ -61,14 +61,25 @@
     top: 13px;
     left: 14px;
     &.light.desk__inner {
-      box-shadow: 0 0 5px 2px #000;
+      filter: drop-shadow(4px 4px 10px #333);
+    }
+  }
+  &--pizza {
+    background-image: url("../../../img/pizza.png");
+    width: 35px;
+    height: 35px;
+    background-position: center;
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    &.light.desk__inner {
+      filter: drop-shadow(4px 4px 10px #333);
     }
   }
 }
 
 .desk__inner.light {
-  box-shadow: 0 0 5px 2px #fff;
-  border-radius: 100%;
+  filter: drop-shadow(2px 2px 6px #fff);
 }
 
 .main__editor,
