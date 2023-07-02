@@ -49,7 +49,7 @@
     top: 23px;
     left: 21px;
     &.light.desk__inner {
-      filter: drop-shadow(2px 0 2px #333) drop-shadow(-2px 0 2px #333);
+      filter: drop-shadow(2px 0 2px red) drop-shadow(-2px 0 2px red);
     }
   }
   &--kids-vegetables {
@@ -61,7 +61,7 @@
     top: 13px;
     left: 14px;
     &.light.desk__inner {
-      filter: drop-shadow(2px 0 2px #333) drop-shadow(-2px 0 2px #333);
+      filter: drop-shadow(2px 0 2px red) drop-shadow(-2px 0 2px red);
     }
   }
   &--pizza {
@@ -73,13 +73,37 @@
     top: 22px;
     left: 22px;
     &.light.desk__inner {
-      filter: drop-shadow(2px 0 2px #333) drop-shadow(-2px 0 2px #333);
+      filter: drop-shadow(2px 0 2px red) drop-shadow(-2px 0 2px red);
+    }
+  }
+  &--pizza-first {
+    background-image: url("../../../img/pizza.png");
+    width: 26px;
+    height: 26px;
+    background-position: center;
+    position: absolute;
+    top: 26px;
+    left: 11px;
+    &.light.desk__inner {
+      filter: drop-shadow(2px 0 2px red) drop-shadow(-2px 0 2px red);
+    }
+  }
+  &--pizza-second {
+    background-image: url("../../../img/pizza.png");
+    width: 26px;
+    height: 26px;
+    background-position: center;
+    position: absolute;
+    top: 26px;
+    left: 42px;
+    &.light.desk__inner {
+      filter: drop-shadow(2px 0 2px red) drop-shadow(-2px 0 2px red);
     }
   }
 }
 
 .desk__inner.light {
-  filter: drop-shadow(2px 0 2px #fff) drop-shadow(-2px 0 2px #fff);
+  filter: drop-shadow(2px 0 2px red) drop-shadow(-2px 0 2px red);
 }
 
 .main__editor,

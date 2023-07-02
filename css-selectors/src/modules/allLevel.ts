@@ -7,10 +7,10 @@ const allLevel: level = {
     text: `Level 1: <br> Select all elements which have animation`,
     code: `
         <div class="desk__elements">
-        &lt;div class="desk"&gt;
+        &lt;desk&gt;
           <div class="plate1">&lt;plate /&gt;</div>
           <div class="plate2">&lt;plate /&gt;</div>
-        &lt;/div&gt</div>
+        &lt;/desk&gt</div>
       `,
   },
   2: {
@@ -21,11 +21,11 @@ const allLevel: level = {
     text: `Congratulated you pass first level! <br><br> Level 2: <br> Select all elements which have animation`,
     code: `
         <div class="desk__elements">
-        &lt;div class="desk"&gt;
+        &lt;desk&gt;
           <div class="plate1">&lt;plate /&gt;</div>
           <div class="spoon">&lt;spoon /&gt;</div>
           <div class="plate2">&lt;plate /&gt;</div>
-        &lt;/div&gt</div>
+        &lt;/desk&gt</div>
       `,
   },
   3: {
@@ -36,11 +36,11 @@ const allLevel: level = {
     text: `Congratulated you pass second level! <br><br> Level 3: <br> Select all elements which have animation`,
     code: `
         <div class="desk__elements">
-        &lt;div class="desk"&gt;
+        &lt;desk&gt;
           <div class="spoon">&lt;spoon /&gt;</div>
           <div class="plate3-for-kids">&lt;plate id="for-kids" /&gt;</div>
           <div class="plate2">&lt;plate /&gt;</div>
-        &lt;/div&gt</div>
+        &lt;/desk&gt</div>
       `,
   },
   4: {
@@ -53,7 +53,7 @@ const allLevel: level = {
     text: `Congratulated you pass third level! <br><br> Level 4: <br> Select all elements which have animation`,
     code: `
         <div class="desk__elements">
-        &lt;div class="desk"&gt;
+        &lt;desk&gt;
           <div class="spoon">&lt;spoon /&gt;</div>
           <div class="plate1">
             &lt;plate&gt;<br>
@@ -63,7 +63,7 @@ const allLevel: level = {
             &lt;plate/&gt;
           </div>
           <div class="plate2">&lt;plate /&gt;</div>
-        &lt;/div&gt</div>
+        &lt;/desk&gt</div>
       `,
   },
   5: {
@@ -78,7 +78,7 @@ const allLevel: level = {
     text: `Congratulated you pass fourth level! <br><br> Level 5: <br> Select all elements which have animation`,
     code: `
         <div class="desk__elements">
-        &lt;div class="desk"&gt;
+        &lt;desk&gt;
           <div class="spoon">&lt;spoon /&gt;</div>
           <div class="plate1">
             &lt;plate&gt;<br>
@@ -94,7 +94,7 @@ const allLevel: level = {
               </div>
             &lt;plate/&gt;
           </div>
-        &lt;/div&gt</div>
+        &lt;/desk&gt</div>
       `,
   },
   6: {
@@ -111,13 +111,13 @@ const allLevel: level = {
     You should use HTML-element:nth-of-type(even or odd)`,
     code: `
         <div class="desk__elements">
-        &lt;div class="desk"&gt;
+        &lt;desk&gt;
           <div class="plate1">&lt;plate /&gt;</div>
           <div class="plate2-for-kids">&lt;plate id="for-kids"/&gt;</div>
           <div class="plate3">&lt;plate /&gt;</div>
           <div class="plate4">&lt;plate /&gt;</div>
           <div class="plate5">&lt;plate /&gt;</div>
-        &lt;/div&gt</div>
+        &lt;/desk&gt</div>
       `,
   },
   7: {
@@ -132,7 +132,7 @@ const allLevel: level = {
     text: `Congratulated you pass sixth level! <br><br> Level 7: <br> Select all elements which have animation<br> You should use class.`,
     code: `
         <div class="desk__elements">
-        &lt;div class="desk"&gt;
+        &lt;desk&gt;
           <div class="plate1">
             &lt;plate&gt;<br>
               <div class="vegetables">
@@ -148,7 +148,40 @@ const allLevel: level = {
             </div>
           &lt;plate/&gt;
         </div>
-        &lt;/div&gt</div>
+        &lt;/desk&gt</div>
+      `,
+  },
+  8: {
+    desk: `<plate1 class="desk__inner desk__inner--plate plate1" title="<plate></plate>">
+      <pizza-first class="desk__inner animate right pizza-first desk__inner--pizza-first" title="<pizza></pizza>"></pizza-first>
+      <pizza-second class="desk__inner pizza-second desk__inner--pizza-second" title="<pizza></pizza>"></pizza-second>
+    </plate1>
+    <plate3-for-kids class="desk__inner plate3-for-kids desk__inner--plate-for-kids" title="<plate-for-kids></plate-for-kids>">
+      <vegetables-second class="desk__inner vegetables-second desk__inner--kids-vegetables" title="<vegetables></vegetables>"></vegetables-second>
+    </plate3-for-kids>`,
+    check: `plate pizza:first-child`,
+    text: `Congratulated you pass seventh level! <br><br> Level 8: <br> Select all elements which have animation<br> You should use :first-child.`,
+    code: `
+        <div class="desk__elements">
+        &lt;desk&gt;
+          <div class="plate1">
+            &lt;plate&gt;<br>
+              <div class="pizza-first">
+                &lt;pizza&gt;
+              </div>
+              <div class="pizza-second">
+                &lt;pizza&gt;
+              </div>
+            &lt;plate/&gt;
+          </div>
+          <div class="plate3-for-kids">
+            &lt;plate id="for-kids"&gt;<br>
+              <div class="vegetables-second">
+                &lt;vegetables&gt;
+              </div>
+            &lt;plate/&gt;
+          </div>
+        &lt;/desk&gt</div>
       `,
   },
 };

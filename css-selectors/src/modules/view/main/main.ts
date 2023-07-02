@@ -17,7 +17,7 @@ export default class Main implements IObserver {
   enterBtn: HTMLElement | null;
   constructor() {
     this.levelNow = 1;
-    this.levelMax = 7;
+    this.levelMax = 8;
     this.isLevelPass = false;
     this.createElement = this.elementView();
     this.codeEl = null;
@@ -223,14 +223,20 @@ export default class Main implements IObserver {
           if (whatTag && codeBody) {
             Array.from(whatTag.children).filter((element) => {
               if (element.childNodes.length > 1) {
-                if (
-                  element.children[0].tagName.toLowerCase() === x.toLowerCase()
-                ) {
-                  element.children[0].classList.add("light");
+                const correctEl = element.children[0];
+                if (correctEl.tagName.toLowerCase() === x.toLowerCase()) {
+                  correctEl.classList.add("light");
                   (evt.target as HTMLElement)?.classList.add("light");
                 } else {
                   if (element.tagName.toLowerCase() === x.toLowerCase()) {
                     element.classList.add("light");
+                    (evt.target as HTMLElement)?.classList.add("light");
+                  }
+                }
+                const correctEl2 = element.children[1];
+                if (correctEl2) {
+                  if (correctEl2.tagName.toLowerCase() === x.toLowerCase()) {
+                    correctEl2.classList.add("light");
                     (evt.target as HTMLElement)?.classList.add("light");
                   }
                 }
@@ -247,6 +253,15 @@ export default class Main implements IObserver {
                 if (correctEl.classList[0].toLowerCase() === x.toLowerCase()) {
                   correctEl.classList.add("light");
                   (evt.target as HTMLElement)?.classList.add("light");
+                }
+                if (element.children[2]) {
+                  const correctE2 = element.children[2];
+                  if (
+                    correctE2.classList[0].toLowerCase() === x.toLowerCase()
+                  ) {
+                    correctE2.classList.add("light");
+                    (evt.target as HTMLElement)?.classList.add("light");
+                  }
                 }
                 if (element.classList[0].toLowerCase() === x.toLowerCase()) {
                   element.classList.add("light");
@@ -282,6 +297,13 @@ export default class Main implements IObserver {
                     (evt.target as HTMLElement)?.classList.remove("light");
                   }
                 }
+                const correctEl2 = element.children[1];
+                if (correctEl2) {
+                  if (correctEl2.tagName.toLowerCase() === x.toLowerCase()) {
+                    correctEl2.classList.remove("light");
+                    (evt.target as HTMLElement)?.classList.remove("light");
+                  }
+                }
               } else {
                 if (element.tagName.toLowerCase() === x.toLowerCase()) {
                   element.classList.remove("light");
@@ -291,10 +313,19 @@ export default class Main implements IObserver {
             });
             Array.from(codeBody.children).filter((element) => {
               if (element.childNodes.length > 1) {
-                const correctEl = element.children[1];
-                if (correctEl.classList[0].toLowerCase() === x.toLowerCase()) {
-                  correctEl.classList.remove("light");
+                const correctEl1 = element.children[1];
+                if (correctEl1.classList[0].toLowerCase() === x.toLowerCase()) {
+                  correctEl1.classList.remove("light");
                   (evt.target as HTMLElement)?.classList.remove("light");
+                }
+                if (element.children[2]) {
+                  const correctE2 = element.children[2];
+                  if (
+                    correctE2.classList[0].toLowerCase() === x.toLowerCase()
+                  ) {
+                    correctE2.classList.remove("light");
+                    (evt.target as HTMLElement)?.classList.remove("light");
+                  }
                 }
                 if (element.classList[0].toLowerCase() === x.toLowerCase()) {
                   element.classList.remove("light");
