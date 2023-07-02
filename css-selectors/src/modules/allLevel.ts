@@ -49,7 +49,7 @@ const allLevel: level = {
       <vegetables class="desk__inner vegetables desk__inner--vegetables right animate" title="<vegetables></vegetables>"></vegetables>
     </plate1>
     <plate2 class="desk__inner plate2 desk__inner--plate" title="<plate></plate>"></plate2>`,
-    check: `plate vegetables`,
+    check: `vegetables`,
     text: `Congratulated you pass third level! <br><br> Level 4: <br> Select all elements which have animation`,
     code: `
         <div class="desk__elements">

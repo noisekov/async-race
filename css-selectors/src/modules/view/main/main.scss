@@ -49,7 +49,7 @@
     top: 23px;
     left: 21px;
     &.light.desk__inner {
-      filter: drop-shadow(4px 4px 10px #333);
+      filter: drop-shadow(2px 0 2px #333) drop-shadow(-2px 0 2px #333);
     }
   }
   &--kids-vegetables {
@@ -61,7 +61,7 @@
     top: 13px;
     left: 14px;
     &.light.desk__inner {
-      filter: drop-shadow(4px 4px 10px #333);
+      filter: drop-shadow(2px 0 2px #333) drop-shadow(-2px 0 2px #333);
     }
   }
   &--pizza {
@@ -73,13 +73,13 @@
     top: 22px;
     left: 22px;
     &.light.desk__inner {
-      filter: drop-shadow(4px 4px 10px #333);
+      filter: drop-shadow(2px 0 2px #333) drop-shadow(-2px 0 2px #333);
     }
   }
 }
 
 .desk__inner.light {
-  filter: drop-shadow(2px 2px 6px #fff);
+  filter: drop-shadow(2px 0 2px #fff) drop-shadow(-2px 0 2px #fff);
 }
 
 .main__editor,
