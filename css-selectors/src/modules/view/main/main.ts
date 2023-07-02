@@ -15,17 +15,33 @@ export default class Main implements IObserver {
   aside: Aside | null;
   levelMax: number;
   enterBtn: HTMLElement | null;
+  bthHelp: HTMLElement | null;
   constructor() {
     this.levelNow = 1;
     this.levelMax = 10;
     this.isLevelPass = false;
+    this.enterBtn = null;
+    this.bthHelp = null;
     this.createElement = this.elementView();
     this.codeEl = null;
     this.desk = null;
     this.event();
     this.enterKeyCheck();
     this.aside = null;
-    this.enterBtn = null;
+    this.eventBthHelp();
+  }
+
+  eventBthHelp() {
+    const inputCheck = () => {
+      const input: HTMLInputElement | null = document.querySelector(".input");
+      if (input) {
+        input.value = this.getCheck();
+        this.isLevelPass = true;
+        input.focus();
+      }
+    };
+
+    this.bthHelp?.addEventListener("click", inputCheck.bind(this));
   }
 
   elementView() {
@@ -35,6 +51,15 @@ export default class Main implements IObserver {
       textContent: "",
     };
     const createNode = new Element(main);
+
+    const mainBtnHelp = {
+      tagName: "button",
+      classNames: ["button-help"],
+      textContent: "Help",
+      parentNode: createNode.getNode(),
+    };
+    const btnHelp = new Element(mainBtnHelp);
+    this.bthHelp = btnHelp.getNode();
 
     const mainDesk = {
       tagName: "div",
