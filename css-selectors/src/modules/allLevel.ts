@@ -184,6 +184,43 @@ const allLevel: level = {
         &lt;/desk&gt</div>
       `,
   },
+  9: {
+    desk: `<plate1 class="desk__inner animate-reverse right desk__inner--plate plate1" title="<plate></plate>">
+      <pizza-first class="desk__inner animate right pizza-first desk__inner--pizza-first" title="<pizza></pizza>"></pizza-first>
+      <pizza-second class="desk__inner animate right pizza-second desk__inner--pizza-second" title="<pizza></pizza>"></pizza-second>
+    </plate1>
+    <spoon class="desk__inner spoon desk__inner--spoon right animate" title="<spoon></spoon>"></spoon>
+    <plate3-for-kids class="desk__inner plate3-for-kids right animate desk__inner--plate-for-kids" title="<plate-for-kids></plate-for-kids>">
+      <vegetables-second class="desk__inner vegetables-second right animate desk__inner--kids-vegetables" title="<vegetables></vegetables>"></vegetables-second>
+    </plate3-for-kids>
+    <plate2 class="desk__inner right animate plate2 desk__inner--plate" title="<plate></plate>"></plate2>`,
+    check: `*`,
+    text: `Congratulated you pass eighth level! <br><br> Level 9: <br> Select all elements which have animation<br> You should use *`,
+    code: `
+        <div class="desk__elements">
+        &lt;desk&gt;
+          <div class="plate1">
+            &lt;plate&gt;<br>
+              <div class="pizza-first">
+                &lt;pizza&gt;
+              </div>
+              <div class="pizza-second">
+                &lt;pizza&gt;
+              </div>
+            &lt;plate/&gt;
+          </div>
+          <div class="spoon">&lt;spoon /&gt;</div>
+          <div class="plate3-for-kids">
+            &lt;plate id="for-kids"&gt;<br>
+              <div class="vegetables-second">
+                &lt;vegetables&gt;
+              </div>
+            &lt;plate/&gt;
+          </div>
+          <div class="plate2">&lt;plate /&gt;</div>
+        &lt;/desk&gt</div>
+      `,
+  },
 };
 
 export default allLevel;
