@@ -31,12 +31,13 @@ export default class Header {
     const headerLink = {
       tagName: "a",
       classNames: ["header__link"],
-      textContent: "tg",
+      textContent: "github",
       parentNode: headerWrap.getNode(),
     };
     new Element(headerName);
     const headerLinkEl = new Element(headerLink);
-    headerLinkEl.setAttribute("href", "https://t.me/noisekov");
+    headerLinkEl.setAttribute("href", "https://github.com/noisekov");
+    headerLinkEl.setAttribute("target", "_blank");
     return createHeader;
   }
 
