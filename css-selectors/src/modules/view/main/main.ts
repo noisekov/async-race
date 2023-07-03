@@ -21,6 +21,7 @@ export default class Main implements IObserver {
   constructor() {
     this.levelNow = 1;
     this.levelMax = 10;
+    this.checkLocalStorageLvl();
     this.isLevelPass = false;
     this.enterBtn = null;
     this.bthHelp = null;
@@ -37,10 +38,20 @@ export default class Main implements IObserver {
     this.eventLevelsBtn();
   }
 
+  checkLocalStorageLvl() {
+    const data = localStorage.getItem("noisekov-lvl-css-selector");
+    if (data) {
+      if (+data <= this.levelMax) {
+        this.levelNow = +data;
+      }
+    }
+  }
+
   eventLevelsBtn() {
     const changeLevelbtn = (evt: Event) => {
       if (evt.target) {
         this.levelNow = +(evt.target as HTMLElement).innerText;
+        this.saveLvl();
         this.changeLevel();
       }
     };
@@ -80,6 +91,7 @@ export default class Main implements IObserver {
   eventBthReset() {
     const resetProgress = () => {
       this.levelNow = 1;
+      this.saveLvl();
       this.changeLevel();
       const input: HTMLInputElement | null = document.querySelector(".input");
       if (input) {
@@ -361,6 +373,7 @@ export default class Main implements IObserver {
             input.value = "";
           }
           setTimeout(() => {
+            this.saveLvl();
             this.changeLevel();
           }, 500);
         } else {
@@ -541,6 +554,7 @@ export default class Main implements IObserver {
             input.value = "";
           }
           setTimeout(() => {
+            this.saveLvl();
             this.changeLevel();
           }, 500);
         } else {
@@ -569,7 +583,12 @@ export default class Main implements IObserver {
     if (this.aside) {
       document.body.append(this.aside.getHtmlEl());
     }
+    this.saveLvl();
     this.changeLevel();
+  }
+
+  saveLvl() {
+    localStorage.setItem("noisekov-lvl-css-selector", `${this.levelNow}`);
   }
 
   changeLevel() {
