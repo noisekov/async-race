@@ -67,6 +67,10 @@ export default class Main implements IObserver {
     const resetProgress = () => {
       this.levelNow = 1;
       this.changeLevel();
+      const input: HTMLInputElement | null = document.querySelector(".input");
+      if (input) {
+        input.value = "";
+      }
     };
     this.bthReset?.addEventListener("click", resetProgress.bind(this));
   }
