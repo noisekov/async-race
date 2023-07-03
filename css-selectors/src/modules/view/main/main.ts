@@ -38,7 +38,7 @@ export default class Main implements IObserver {
     this.eventLevelsBtn();
   }
 
-  checkLocalStorageLvl() {
+  private checkLocalStorageLvl() {
     const data = localStorage.getItem("noisekov-lvl-css-selector");
     if (data) {
       if (+data <= this.levelMax) {
@@ -47,7 +47,7 @@ export default class Main implements IObserver {
     }
   }
 
-  eventLevelsBtn() {
+  private eventLevelsBtn() {
     const changeLevelbtn = (evt: Event) => {
       if (evt.target) {
         this.levelNow = +(evt.target as HTMLElement).innerText;
@@ -59,7 +59,7 @@ export default class Main implements IObserver {
     this.levelBlock?.addEventListener("click", changeLevelbtn.bind(this));
   }
 
-  eventBthHelp() {
+  private eventBthHelp() {
     const inputCheck = () => {
       const input: HTMLInputElement | null = document.querySelector(".input");
       if (input) {
@@ -88,7 +88,7 @@ export default class Main implements IObserver {
     this.bthHelp?.addEventListener("click", inputCheck.bind(this));
   }
 
-  eventBthReset() {
+  private eventBthReset() {
     const resetProgress = () => {
       this.levelNow = 1;
       this.saveLvl();
@@ -101,7 +101,7 @@ export default class Main implements IObserver {
     this.bthReset?.addEventListener("click", resetProgress.bind(this));
   }
 
-  elementView() {
+  private elementView() {
     const main = {
       tagName: "main",
       classNames: ["main"],
@@ -350,7 +350,7 @@ export default class Main implements IObserver {
     return createNode;
   }
 
-  enterKeyCheck() {
+  private enterKeyCheck() {
     const checkEnter = (evt: KeyboardEvent) => {
       if (evt.key === "Enter") {
         if (this.isLevelPass) {
@@ -395,7 +395,7 @@ export default class Main implements IObserver {
     document.addEventListener("keypress", checkEnter.bind(this));
   }
 
-  event() {
+  private event() {
     const mouseChoose = (evt: Event) => {
       if (evt.target) {
         [...(evt.target as HTMLElement).classList].filter((x) => {
@@ -527,7 +527,7 @@ export default class Main implements IObserver {
     document.addEventListener("mouseout", mouseClose);
   }
 
-  clickEnterBtn() {
+  private clickEnterBtn() {
     const enterClick = (evt: Event) => {
       if (evt.target) {
         (evt.target as HTMLElement).classList.add("button--click");
@@ -579,7 +579,7 @@ export default class Main implements IObserver {
     }
   }
 
-  chooseLevel() {
+  private chooseLevel() {
     if (this.aside) {
       document.body.append(this.aside.getHtmlEl());
     }
@@ -587,11 +587,11 @@ export default class Main implements IObserver {
     this.changeLevel();
   }
 
-  saveLvl() {
+  private saveLvl() {
     localStorage.setItem("noisekov-lvl-css-selector", `${this.levelNow}`);
   }
 
-  changeLevel() {
+  private changeLevel() {
     if (this.getCode() !== "win") {
       const newArr: HTMLCollection | undefined = this.levelBlock?.children;
       if (newArr) {
@@ -628,7 +628,7 @@ export default class Main implements IObserver {
     }
   }
 
-  update(...args: unknown[]): void {
+  public update(...args: unknown[]): void {
     if (this.levelNow) {
       if (args[0] === allLevel[this.levelNow].check) {
         this.isLevelPass = true;
@@ -638,7 +638,7 @@ export default class Main implements IObserver {
     }
   }
 
-  getDesk() {
+  private getDesk() {
     if (this.levelNow) {
       if (this.levelNow <= this.levelMax) {
         return allLevel[this.levelNow].desk;
@@ -647,7 +647,7 @@ export default class Main implements IObserver {
     return "win";
   }
 
-  getCheck() {
+  private getCheck() {
     if (this.levelNow) {
       if (this.levelNow <= this.levelMax) {
         return allLevel[this.levelNow].check;
@@ -656,7 +656,7 @@ export default class Main implements IObserver {
     return "win";
   }
 
-  getText() {
+  private getText() {
     if (this.levelNow) {
       if (this.levelNow <= this.levelMax) {
         return allLevel[this.levelNow].text;
@@ -665,7 +665,7 @@ export default class Main implements IObserver {
     return "win";
   }
 
-  getCode() {
+  private getCode() {
     if (this.levelNow) {
       if (this.levelNow <= this.levelMax) {
         return allLevel[this.levelNow].code;
@@ -674,7 +674,7 @@ export default class Main implements IObserver {
     return "win";
   }
 
-  getHtmlEl(): HTMLElement {
+  public getHtmlEl(): HTMLElement {
     return this.createElement.getNode();
   }
 }

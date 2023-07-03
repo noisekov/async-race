@@ -7,7 +7,7 @@ export default class Header {
     this.createElement = this.elementView();
   }
 
-  elementView() {
+  private elementView() {
     const header = {
       tagName: "header",
       classNames: ["header"],
@@ -41,7 +41,7 @@ export default class Header {
     return createHeader;
   }
 
-  getHtmlEl(): HTMLElement {
+  public getHtmlEl(): HTMLElement {
     return this.createElement.getNode();
   }
 }

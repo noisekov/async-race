@@ -7,7 +7,7 @@ export default class Enter {
     this.createElement = this.elementView();
   }
 
-  elementView() {
+  private elementView() {
     const button = {
       tagName: "button",
       classNames: ["button"],
@@ -19,7 +19,7 @@ export default class Enter {
     return createButton;
   }
 
-  getHtmlEl(): HTMLElement {
+  public getHtmlEl(): HTMLElement {
     return this.createElement.getNode();
   }
 }

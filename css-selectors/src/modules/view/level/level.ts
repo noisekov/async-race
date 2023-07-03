@@ -6,7 +6,7 @@ export default class Level {
     this.createElement = this.elementView();
   }
 
-  elementView() {
+  private elementView() {
     const level = {
       tagName: "div",
       classNames: ["aside__level"],
@@ -17,7 +17,7 @@ export default class Level {
     return createLevel;
   }
 
-  getHtmlEl(): HTMLElement {
+  public getHtmlEl(): HTMLElement {
     return this.createElement.getNode();
   }
 }

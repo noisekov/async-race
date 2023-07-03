@@ -8,7 +8,7 @@ export default class Popup {
     this.event();
   }
 
-  elementView() {
+  private elementView() {
     const popupWrapper = {
       tagName: "div",
       classNames: ["popup-wrapper"],
@@ -32,15 +32,15 @@ export default class Popup {
     return createWrapper;
   }
 
-  event() {
+  private event() {
     document.addEventListener("click", this.closePopup.bind(this));
   }
 
-  closePopup() {
+  private closePopup() {
     document?.querySelector(".popup-wrapper")?.remove();
   }
 
-  getHtmlEl(): HTMLElement {
+  public getHtmlEl(): HTMLElement {
     return this.createElement.getNode();
   }
 }

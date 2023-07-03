@@ -7,7 +7,7 @@ export default class Aside {
     this.createElement = this.elementView();
   }
 
-  elementView() {
+  private elementView() {
     const aside = {
       tagName: "aside",
       classNames: ["aside"],
@@ -18,7 +18,7 @@ export default class Aside {
     return createAside;
   }
 
-  getHtmlEl(): HTMLElement {
+  public getHtmlEl(): HTMLElement {
     return this.createElement.getNode();
   }
 }

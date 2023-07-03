@@ -7,7 +7,7 @@ export default class Footer {
     this.createElement = this.elementView();
   }
 
-  elementView() {
+  private elementView() {
     const footer = {
       tagName: "footer",
       classNames: ["footer"],
@@ -17,7 +17,7 @@ export default class Footer {
 
     return createFooter;
   }
-  getHtmlEl(): HTMLElement {
+  public getHtmlEl(): HTMLElement {
     return this.createElement.getNode();
   }
 }

@@ -13,15 +13,15 @@ export default class Input implements ISubject {
     this.#observers = new Set();
   }
 
-  subscribe(observer: IObserver): void {
+  public subscribe(observer: IObserver): void {
     this.#observers.add(observer);
   }
 
-  unsubscribe(observer: IObserver): void {
+  public unsubscribe(observer: IObserver): void {
     this.#observers.delete(observer);
   }
 
-  notify(event: Event): void {
+  public notify(event: Event): void {
     if (event.target) {
       const input: HTMLInputElement | null = document.querySelector(".input");
       if (input) {
@@ -34,7 +34,7 @@ export default class Input implements ISubject {
     });
   }
 
-  elementView() {
+  private elementView() {
     const header = {
       tagName: "input",
       classNames: ["input"],
@@ -46,11 +46,11 @@ export default class Input implements ISubject {
     return createHeader;
   }
 
-  event() {
+  private event() {
     this.getHtmlEl().addEventListener("input", this.notify.bind(this));
   }
 
-  getHtmlEl(): HTMLElement {
+  public getHtmlEl(): HTMLElement {
     return this.createElement.getNode();
   }
 }

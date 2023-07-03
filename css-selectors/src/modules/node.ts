@@ -19,31 +19,21 @@ export default class Element {
     }
   }
 
-  append(child: HTMLElement): void {
+  public append(child: HTMLElement): void {
     if (child) {
       this.node.append(child);
     }
   }
 
-  getNode(): HTMLElement {
+  public getNode(): HTMLElement {
     return this.node;
   }
 
-  setAttribute(attr: string, attrValue: string): void {
+  public setAttribute(attr: string, attrValue: string): void {
     this.node.setAttribute(attr, attrValue);
   }
 
-  // appendChildren(children: typeElement[]) {
-  //   children.forEach((el) => {
-  //     this.append(el);
-  //   });
-  // }
-
-  addClass(className: string): void {
+  public addClass(className: string): void {
     this.node.classList.add(className);
   }
-
-  // destroy(): void {
-  //   this.node.remove();
-  // }
 }

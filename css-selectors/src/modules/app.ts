@@ -4,11 +4,7 @@ import Main from "./view/main/main";
 import Input from "./view/input/input";
 
 export default class App {
-  constructor() {
-    this.init();
-  }
-
-  init() {
+  public start() {
     const header = new Header();
     const main = new Main();
     const footer = new Footer();
