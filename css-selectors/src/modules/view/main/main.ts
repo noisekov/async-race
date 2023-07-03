@@ -35,7 +35,23 @@ export default class Main implements IObserver {
     const inputCheck = () => {
       const input: HTMLInputElement | null = document.querySelector(".input");
       if (input) {
-        input.value = this.getCheck();
+        const data = this.getCheck();
+
+        const dataLen = data.split("").length;
+        let i = 0;
+        input.value = "";
+        const writeOneLetter = () => {
+          if (i < dataLen) {
+            input.value += data.charAt(i);
+            setTimeout(() => {
+              i++;
+              input.setAttribute("disabled", "disabled");
+              writeOneLetter();
+            }, 100);
+          }
+          input.removeAttribute("disabled");
+        };
+        writeOneLetter();
         this.isLevelPass = true;
         input.focus();
       }
