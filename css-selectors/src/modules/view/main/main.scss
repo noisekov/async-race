@@ -299,6 +299,9 @@
   margin-bottom: 5px;
   transition: 0.3s all;
   cursor: pointer;
+  &.current {
+    background-color: #EC2578;
+  }
 }
 
 .aside__levels-btn:hover {

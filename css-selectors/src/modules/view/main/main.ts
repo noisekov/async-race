@@ -574,6 +574,17 @@ export default class Main implements IObserver {
 
   changeLevel() {
     if (this.getCode() !== "win") {
+      const newArr: HTMLCollection | undefined = this.levelBlock?.children;
+      if (newArr) {
+        Array.from(newArr).forEach((x) => {
+          if (+x.innerHTML === this.levelNow) {
+            x.classList.add("current");
+          } else {
+            x.classList.remove("current");
+          }
+        });
+      }
+
       if (this.codeEl && this.desk) {
         this.codeEl.innerHTML = this.getCode();
         this.desk.innerHTML = this.getDesk();
