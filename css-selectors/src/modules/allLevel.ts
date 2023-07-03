@@ -58,9 +58,9 @@ const allLevel: level = {
           <div class="plate1">
             &lt;plate&gt;<br>
               <div class="vegetables">
-                &lt;vegetables&gt;
+                &lt;vegetables /&gt;
               </div>
-            &lt;plate/&gt;
+            &lt;/plate&gt;
           </div>
           <div class="plate2">&lt;plate /&gt;</div>
         &lt;/desk&gt</div>
@@ -82,17 +82,17 @@ const allLevel: level = {
           <div class="spoon">&lt;spoon /&gt;</div>
           <div class="plate1">
             &lt;plate&gt;<br>
-              <div class="vegetables">
-                &lt;vegetables&gt;
+              <div class="vegetables /">
+                &lt;vegetables /&gt;
               </div>
-            &lt;plate/&gt;
+            &lt;/plate&gt;
           </div>
           <div class="plate3-for-kids">
             &lt;plate id="for-kids"&gt;<br>
               <div class="vegetables-second">
-                &lt;vegetables&gt;
+                &lt;vegetables /&gt;
               </div>
-            &lt;plate/&gt;
+            &lt;/plate&gt;
           </div>
         &lt;/desk&gt</div>
       `,
@@ -136,17 +136,17 @@ const allLevel: level = {
           <div class="plate1">
             &lt;plate&gt;<br>
               <div class="vegetables">
-                &lt;vegetables&gt;
+                &lt;vegetables /&gt;
               </div>
-            &lt;plate/&gt;
+            &lt;/plate&gt;
           </div>
           <div class="spoon">&lt;spoon /&gt;</div>
           <div class="plate2">
-            &lt;plate&gt;<br>
+            &lt;plate &gt;<br>
             <div class="pizza">
-              &lt;pizza class="peperoni"&gt;
+              &lt;pizza class="peperoni" /&gt;
             </div>
-          &lt;plate/&gt;
+          &lt;/plate&gt;
         </div>
         &lt;/desk&gt</div>
       `,
@@ -167,19 +167,19 @@ const allLevel: level = {
           <div class="plate1">
             &lt;plate&gt;<br>
               <div class="pizza-first">
-                &lt;pizza&gt;
+                &lt;pizza /&gt;
               </div>
               <div class="pizza-second">
-                &lt;pizza&gt;
+                &lt;pizza /&gt;
               </div>
-            &lt;plate/&gt;
+            &lt;/plate&gt;
           </div>
           <div class="plate3-for-kids">
             &lt;plate id="for-kids"&gt;<br>
               <div class="vegetables-second">
-                &lt;vegetables&gt;
+                &lt;vegetables /&gt;
               </div>
-            &lt;plate/&gt;
+            &lt;/plate&gt;
           </div>
         &lt;/desk&gt</div>
       `,
@@ -202,20 +202,20 @@ const allLevel: level = {
           <div class="plate1">
             &lt;plate&gt;<br>
               <div class="pizza-first">
-                &lt;pizza&gt;
+                &lt;pizza /&gt;
               </div>
               <div class="pizza-second">
-                &lt;pizza&gt;
+                &lt;pizza /&gt;
               </div>
-            &lt;plate/&gt;
+            &lt;/plate&gt;
           </div>
           <div class="spoon">&lt;spoon /&gt;</div>
           <div class="plate3-for-kids">
             &lt;plate id="for-kids"&gt;<br>
               <div class="vegetables-second">
-                &lt;vegetables&gt;
+                &lt;vegetables /&gt;
               </div>
-            &lt;plate/&gt;
+            &lt;/plate&gt;
           </div>
           <div class="plate2">&lt;plate /&gt;</div>
         &lt;/desk&gt</div>
@@ -237,7 +237,7 @@ const allLevel: level = {
         <div class="desk__elements">
         &lt;desk&gt;
           <div class="plate1">&lt;plate /&gt;</div>
-          <div class="plate2-for-kids">&lt;plate id="for-kids"/&gt;</div>
+          <div class="plate2-for-kids">&lt;plate id="for-kids" /&gt;</div>
           <div class="plate3">&lt;plate /&gt;</div>
           <div class="plate4">&lt;plate /&gt;</div>
           <div class="plate5">&lt;plate /&gt;</div>

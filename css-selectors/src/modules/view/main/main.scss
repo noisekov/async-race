@@ -281,3 +281,26 @@
   color: #FFFFFF;
   cursor: pointer;
 }
+
+.aside__levels {
+  position: fixed;
+  z-index: 2;
+  bottom: 0;
+  right: 0;
+  width: 5%;
+}
+
+.aside__levels-btn {
+  color: #FFFFFF;
+  background-color: #356203;
+  width: 100%;
+  border: none;
+  outline: none;
+  margin-bottom: 5px;
+  transition: 0.3s all;
+  cursor: pointer;
+}
+
+.aside__levels-btn:hover {
+  transform: translateX(5px);
+}

@@ -17,6 +17,7 @@ export default class Main implements IObserver {
   enterBtn: HTMLElement | null;
   bthHelp: HTMLElement | null;
   bthReset: HTMLElement | null;
+  levelBlock: HTMLElement | null;
   constructor() {
     this.levelNow = 1;
     this.levelMax = 10;
@@ -24,6 +25,7 @@ export default class Main implements IObserver {
     this.enterBtn = null;
     this.bthHelp = null;
     this.bthReset = null;
+    this.levelBlock = null;
     this.createElement = this.elementView();
     this.codeEl = null;
     this.desk = null;
@@ -32,6 +34,18 @@ export default class Main implements IObserver {
     this.aside = null;
     this.eventBthHelp();
     this.eventBthReset();
+    this.eventLevelsBtn();
+  }
+
+  eventLevelsBtn() {
+    const changeLevelbtn = (evt: Event) => {
+      if (evt.target) {
+        this.levelNow = +(evt.target as HTMLElement).innerText;
+        this.changeLevel();
+      }
+    };
+
+    this.levelBlock?.addEventListener("click", changeLevelbtn.bind(this));
   }
 
   eventBthHelp() {
@@ -91,6 +105,95 @@ export default class Main implements IObserver {
     };
     const btnHelp = new Element(mainBtnHelp);
     this.bthHelp = btnHelp.getNode();
+
+    const asideLevels = {
+      tagName: "aside",
+      classNames: ["aside__levels"],
+      textContent: "",
+      parentNode: createNode.getNode(),
+    };
+    const levelsBlock = new Element(asideLevels);
+    this.levelBlock = levelsBlock.getNode();
+
+    const asideLevelsInner1 = {
+      tagName: "button",
+      classNames: ["aside__levels-btn"],
+      textContent: "1",
+      parentNode: levelsBlock.getNode(),
+    };
+    new Element(asideLevelsInner1);
+
+    const asideLevelsInner2 = {
+      tagName: "button",
+      classNames: ["aside__levels-btn"],
+      textContent: "2",
+      parentNode: levelsBlock.getNode(),
+    };
+    new Element(asideLevelsInner2);
+
+    const asideLevelsInner3 = {
+      tagName: "button",
+      classNames: ["aside__levels-btn"],
+      textContent: "3",
+      parentNode: levelsBlock.getNode(),
+    };
+    new Element(asideLevelsInner3);
+
+    const asideLevelsInner4 = {
+      tagName: "button",
+      classNames: ["aside__levels-btn"],
+      textContent: "4",
+      parentNode: levelsBlock.getNode(),
+    };
+    new Element(asideLevelsInner4);
+
+    const asideLevelsInner5 = {
+      tagName: "button",
+      classNames: ["aside__levels-btn"],
+      textContent: "5",
+      parentNode: levelsBlock.getNode(),
+    };
+    new Element(asideLevelsInner5);
+
+    const asideLevelsInner6 = {
+      tagName: "button",
+      classNames: ["aside__levels-btn"],
+      textContent: "6",
+      parentNode: levelsBlock.getNode(),
+    };
+    new Element(asideLevelsInner6);
+
+    const asideLevelsInner7 = {
+      tagName: "button",
+      classNames: ["aside__levels-btn"],
+      textContent: "7",
+      parentNode: levelsBlock.getNode(),
+    };
+    new Element(asideLevelsInner7);
+
+    const asideLevelsInner8 = {
+      tagName: "button",
+      classNames: ["aside__levels-btn"],
+      textContent: "8",
+      parentNode: levelsBlock.getNode(),
+    };
+    new Element(asideLevelsInner8);
+
+    const asideLevelsInner9 = {
+      tagName: "button",
+      classNames: ["aside__levels-btn"],
+      textContent: "9",
+      parentNode: levelsBlock.getNode(),
+    };
+    new Element(asideLevelsInner9);
+
+    const asideLevelsInner10 = {
+      tagName: "button",
+      classNames: ["aside__levels-btn"],
+      textContent: "10",
+      parentNode: levelsBlock.getNode(),
+    };
+    new Element(asideLevelsInner10);
 
     const mainBtnReset = {
       tagName: "button",
