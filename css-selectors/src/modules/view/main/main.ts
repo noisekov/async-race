@@ -16,12 +16,14 @@ export default class Main implements IObserver {
   levelMax: number;
   enterBtn: HTMLElement | null;
   bthHelp: HTMLElement | null;
+  bthReset: HTMLElement | null;
   constructor() {
     this.levelNow = 1;
     this.levelMax = 10;
     this.isLevelPass = false;
     this.enterBtn = null;
     this.bthHelp = null;
+    this.bthReset = null;
     this.createElement = this.elementView();
     this.codeEl = null;
     this.desk = null;
@@ -29,6 +31,7 @@ export default class Main implements IObserver {
     this.enterKeyCheck();
     this.aside = null;
     this.eventBthHelp();
+    this.eventBthReset();
   }
 
   eventBthHelp() {
@@ -60,6 +63,14 @@ export default class Main implements IObserver {
     this.bthHelp?.addEventListener("click", inputCheck.bind(this));
   }
 
+  eventBthReset() {
+    const resetProgress = () => {
+      this.levelNow = 1;
+      this.changeLevel();
+    };
+    this.bthReset?.addEventListener("click", resetProgress.bind(this));
+  }
+
   elementView() {
     const main = {
       tagName: "main",
@@ -76,6 +87,15 @@ export default class Main implements IObserver {
     };
     const btnHelp = new Element(mainBtnHelp);
     this.bthHelp = btnHelp.getNode();
+
+    const mainBtnReset = {
+      tagName: "button",
+      classNames: ["button-reset"],
+      textContent: "Reset",
+      parentNode: createNode.getNode(),
+    };
+    const btnReset = new Element(mainBtnReset);
+    this.bthReset = btnReset.getNode();
 
     const mainDesk = {
       tagName: "div",
