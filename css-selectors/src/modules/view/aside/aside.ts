@@ -13,9 +13,7 @@ export default class Aside {
       classNames: ["aside"],
       textContent: "",
     };
-    const createAside = new Element(aside);
-
-    return createAside;
+    return new Element(aside);
   }
 
   public getHtmlEl(): HTMLElement {

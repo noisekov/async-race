@@ -12,9 +12,7 @@ export default class Level {
       classNames: ["aside__level"],
       textContent: "",
     };
-    const createLevel = new Element(level);
-
-    return createLevel;
+    return new Element(level);
   }
 
   public getHtmlEl(): HTMLElement {
