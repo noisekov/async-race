@@ -30,12 +30,12 @@ export default class Main implements IObserver {
     this.createElement = this.elementView();
     this.codeEl = null;
     this.desk = null;
-    this.event();
-    this.enterKeyCheck();
+    this.addEvent();
+    this.addEnterKeyCheck();
     this.aside = null;
-    this.eventBthHelp();
-    this.eventBthReset();
-    this.eventLevelsBtn();
+    this.addEventBthHelp();
+    this.addEventBthReset();
+    this.addEventLevelsBtn();
   }
 
   private checkLocalStorageLvl() {
@@ -47,7 +47,7 @@ export default class Main implements IObserver {
     }
   }
 
-  private eventLevelsBtn() {
+  private addEventLevelsBtn() {
     const changeLevelbtn = (evt: Event) => {
       if (evt.target) {
         this.levelNow = +(evt.target as HTMLElement).innerText;
@@ -59,7 +59,7 @@ export default class Main implements IObserver {
     this.levelBlock?.addEventListener("click", changeLevelbtn.bind(this));
   }
 
-  private eventBthHelp() {
+  private addEventBthHelp() {
     const inputCheck = () => {
       const input: HTMLInputElement | null = document.querySelector(".input");
       if (input) {
@@ -88,7 +88,7 @@ export default class Main implements IObserver {
     this.bthHelp?.addEventListener("click", inputCheck.bind(this));
   }
 
-  private eventBthReset() {
+  private addEventBthReset() {
     const resetProgress = () => {
       this.levelNow = 1;
       this.saveLvl();
@@ -350,7 +350,7 @@ export default class Main implements IObserver {
     return createNode;
   }
 
-  private enterKeyCheck() {
+  private addEnterKeyCheck() {
     const checkEnter = (evt: KeyboardEvent) => {
       if (evt.key === "Enter") {
         if (this.isLevelPass) {
@@ -395,7 +395,7 @@ export default class Main implements IObserver {
     document.addEventListener("keypress", checkEnter.bind(this));
   }
 
-  private event() {
+  private addEvent() {
     const mouseChoose = (evt: Event) => {
       if (evt.target) {
         [...(evt.target as HTMLElement).classList].filter((x) => {

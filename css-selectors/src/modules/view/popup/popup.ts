@@ -5,7 +5,7 @@ export default class Popup {
   createElement;
   constructor() {
     this.createElement = this.elementView();
-    this.event();
+    this.addEvent();
   }
 
   private elementView() {
@@ -32,7 +32,7 @@ export default class Popup {
     return createWrapper;
   }
 
-  private event() {
+  private addEvent() {
     document.addEventListener("click", this.closePopup.bind(this));
   }
 

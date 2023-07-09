@@ -8,7 +8,7 @@ export default class Input implements ISubject {
   #observers: Set<IObserver>;
   constructor() {
     this.createElement = this.elementView();
-    this.event();
+    this.addEvent();
     this.inputValue = "";
     this.#observers = new Set();
   }
@@ -46,7 +46,7 @@ export default class Input implements ISubject {
     return createHeader;
   }
 
-  private event() {
+  private addEvent() {
     this.getHtmlEl().addEventListener("input", this.notify.bind(this));
   }
 
