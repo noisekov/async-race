@@ -630,11 +630,7 @@ export default class Main implements IObserver {
 
   public update(...args: unknown[]): void {
     if (this.levelNow) {
-      if (args[0] === allLevel[this.levelNow].check) {
-        this.isLevelPass = true;
-      } else {
-        this.isLevelPass = false;
-      }
+      this.isLevelPass = args[0] === allLevel[this.levelNow].check;
     }
   }
 
