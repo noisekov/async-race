@@ -32,8 +32,4 @@ export default class Element {
   public setAttribute(attr: string, attrValue: string): void {
     this.node.setAttribute(attr, attrValue);
   }
-
-  public addClass(className: string): void {
-    this.node.classList.add(className);
-  }
 }
