@@ -191,16 +191,16 @@
 @keyframes animate-reverse {
   0% {
     transform: skew(0) scaleY(1);
-    animation-timing-function: all;
+    animation-timing-function: linear;
   }
 
   50% {
     transform: skew(5deg) scaleY(.9);
-    animation-timing-function: all;
+    animation-timing-function: linear;
   }
   100% {
     transform: skew(0) scaleX(1);
-    animation-timing-function: all;
+    animation-timing-function: linear;
   }
 }
 
