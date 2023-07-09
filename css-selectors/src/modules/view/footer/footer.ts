@@ -2,12 +2,12 @@ import Element from "../../node";
 import "./footer.scss";
 
 export default class Footer {
-  createElement;
+  elementView;
   constructor() {
-    this.createElement = this.elementView();
+    this.elementView = this.createElement();
   }
 
-  private elementView() {
+  private createElement() {
     const footer = {
       tagName: "footer",
       classNames: ["footer"],
@@ -17,6 +17,6 @@ export default class Footer {
   }
 
   public getHtmlEl(): HTMLElement {
-    return this.createElement.getNode();
+    return this.elementView.getNode();
   }
 }

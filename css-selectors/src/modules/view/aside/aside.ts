@@ -2,12 +2,12 @@ import Element from "../../node";
 import "./aside.scss";
 
 export default class Aside {
-  createElement;
+  elementView;
   constructor() {
-    this.createElement = this.elementView();
+    this.elementView = this.createElement();
   }
 
-  private elementView() {
+  private createElement() {
     const aside = {
       tagName: "aside",
       classNames: ["aside"],
@@ -17,6 +17,6 @@ export default class Aside {
   }
 
   public getHtmlEl(): HTMLElement {
-    return this.createElement.getNode();
+    return this.elementView.getNode();
   }
 }

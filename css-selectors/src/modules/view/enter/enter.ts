@@ -2,12 +2,12 @@ import "./enter.scss";
 import Element from "../../node";
 
 export default class Enter {
-  createElement;
+  elementView;
   constructor() {
-    this.createElement = this.elementView();
+    this.elementView = this.createElement();
   }
 
-  private elementView() {
+  private createElement() {
     const button = {
       tagName: "button",
       classNames: ["button"],
@@ -20,6 +20,6 @@ export default class Enter {
   }
 
   public getHtmlEl(): HTMLElement {
-    return this.createElement.getNode();
+    return this.elementView.getNode();
   }
 }

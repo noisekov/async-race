@@ -3,11 +3,11 @@ import "./input.scss";
 import { IObserver, ISubject } from "../../types";
 
 export default class Input implements ISubject {
-  createElement;
+  elementView;
   inputValue: string;
   #observers: Set<IObserver>;
   constructor() {
-    this.createElement = this.elementView();
+    this.elementView = this.createElement();
     this.addEvent();
     this.inputValue = "";
     this.#observers = new Set();
@@ -34,7 +34,7 @@ export default class Input implements ISubject {
     });
   }
 
-  private elementView() {
+  private createElement() {
     const header = {
       tagName: "input",
       classNames: ["input"],
@@ -51,6 +51,6 @@ export default class Input implements ISubject {
   }
 
   public getHtmlEl(): HTMLElement {
-    return this.createElement.getNode();
+    return this.elementView.getNode();
   }
 }

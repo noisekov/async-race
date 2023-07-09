@@ -2,12 +2,12 @@ import Element from "../../node";
 import "./header.scss";
 
 export default class Header {
-  createElement;
+  elementView;
   constructor() {
-    this.createElement = this.elementView();
+    this.elementView = this.createElement();
   }
 
-  private elementView() {
+  private createElement() {
     const header = {
       tagName: "header",
       classNames: ["header"],
@@ -42,6 +42,6 @@ export default class Header {
   }
 
   public getHtmlEl(): HTMLElement {
-    return this.createElement.getNode();
+    return this.elementView.getNode();
   }
 }

@@ -7,7 +7,7 @@ import Popup from "../popup/popup";
 import Enter from "../enter/enter";
 
 export default class Main implements IObserver {
-  createElement;
+  elementView;
   codeEl: HTMLElement | null;
   desk: HTMLElement | null;
   levelNow: number | null;
@@ -27,7 +27,7 @@ export default class Main implements IObserver {
     this.bthHelp = null;
     this.bthReset = null;
     this.levelBlock = null;
-    this.createElement = this.elementView();
+    this.elementView = this.createElement();
     this.codeEl = null;
     this.desk = null;
     this.addEvent();
@@ -101,7 +101,7 @@ export default class Main implements IObserver {
     this.bthReset?.addEventListener("click", resetProgress.bind(this));
   }
 
-  private elementView() {
+  private createElement() {
     const main = {
       tagName: "main",
       classNames: ["main"],
@@ -671,6 +671,6 @@ export default class Main implements IObserver {
   }
 
   public getHtmlEl(): HTMLElement {
-    return this.createElement.getNode();
+    return this.elementView.getNode();
   }
 }
