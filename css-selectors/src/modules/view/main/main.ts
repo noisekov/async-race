@@ -279,46 +279,49 @@ export default class Main implements IObserver {
     return createNode;
   }
 
+  private isAnswerRight() {
+    if (this.isLevelPass) {
+      if (this.levelNow) {
+        if (this.levelNow <= this.levelMax) {
+          this.levelNow += 1;
+        } else {
+          this.levelNow = null;
+        }
+      }
+      this.isLevelPass = false;
+      const rightElements: NodeListOf<HTMLElement> | null =
+        document.querySelectorAll(".right");
+      rightElements.forEach((rightEl) => {
+        rightEl.classList.add("right-answer");
+      });
+      const input: HTMLInputElement | null = document.querySelector(".input");
+      if (input) {
+        input.value = "";
+      }
+      setTimeout(() => {
+        this.saveLvl();
+        this.changeLevel();
+      }, 500);
+    } else {
+      const mainEditor: HTMLDivElement | null =
+        document.querySelector(".main__editor");
+      const mainCode: HTMLDivElement | null =
+        document.querySelector(".main__code");
+      if (mainEditor && mainCode) {
+        mainEditor.classList.add("false-answer");
+        mainCode.classList.add("false-answer");
+        setTimeout(() => {
+          mainEditor.classList.remove("false-answer");
+          mainCode.classList.remove("false-answer");
+        }, 500);
+      }
+    }
+  }
+
   private addEnterKeyCheck() {
     const checkEnter = (evt: KeyboardEvent) => {
       if (evt.key === "Enter") {
-        if (this.isLevelPass) {
-          if (this.levelNow) {
-            if (this.levelNow <= this.levelMax) {
-              this.levelNow += 1;
-            } else {
-              this.levelNow = null;
-            }
-          }
-          this.isLevelPass = false;
-          const rightElements: NodeListOf<HTMLElement> | null =
-            document.querySelectorAll(".right");
-          rightElements.forEach((rightEl) => {
-            rightEl.classList.add("right-answer");
-          });
-          const input: HTMLInputElement | null =
-            document.querySelector(".input");
-          if (input) {
-            input.value = "";
-          }
-          setTimeout(() => {
-            this.saveLvl();
-            this.changeLevel();
-          }, 500);
-        } else {
-          const mainEditor: HTMLDivElement | null =
-            document.querySelector(".main__editor");
-          const mainCode: HTMLDivElement | null =
-            document.querySelector(".main__code");
-          if (mainEditor && mainCode) {
-            mainEditor.classList.add("false-answer");
-            mainCode.classList.add("false-answer");
-            setTimeout(() => {
-              mainEditor.classList.remove("false-answer");
-              mainCode.classList.remove("false-answer");
-            }, 500);
-          }
-        }
+        this.isAnswerRight();
       }
     };
     document.addEventListener("keypress", checkEnter.bind(this));
@@ -463,43 +466,7 @@ export default class Main implements IObserver {
         setTimeout(() => {
           (evt.target as HTMLElement).classList.remove("button--click");
         }, 100);
-        if (this.isLevelPass) {
-          if (this.levelNow) {
-            if (this.levelNow <= this.levelMax) {
-              this.levelNow += 1;
-            } else {
-              this.levelNow = null;
-            }
-          }
-          this.isLevelPass = false;
-          const rightElements: NodeListOf<HTMLElement> | null =
-            document.querySelectorAll(".right");
-          rightElements.forEach((rightEl) => {
-            rightEl.classList.add("right-answer");
-          });
-          const input: HTMLInputElement | null =
-            document.querySelector(".input");
-          if (input) {
-            input.value = "";
-          }
-          setTimeout(() => {
-            this.saveLvl();
-            this.changeLevel();
-          }, 500);
-        } else {
-          const mainEditor: HTMLDivElement | null =
-            document.querySelector(".main__editor");
-          const mainCode: HTMLDivElement | null =
-            document.querySelector(".main__code");
-          if (mainEditor && mainCode) {
-            mainEditor.classList.add("false-answer");
-            mainCode.classList.add("false-answer");
-            setTimeout(() => {
-              mainEditor.classList.remove("false-answer");
-              mainCode.classList.remove("false-answer");
-            }, 500);
-          }
-        }
+        this.isAnswerRight();
       }
     };
 
