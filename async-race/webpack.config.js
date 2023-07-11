@@ -14,7 +14,7 @@ module.exports = {
     target,
     devtool,
     devServer: {
-        port: 3000,
+        port: 4000,
         open: true,
         hot: true, //отключить если будет плохо обновляться браузер
     },
