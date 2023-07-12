@@ -1,0 +1,52 @@
+.input-create,
+.input-update {
+  margin-bottom: 10px;
+}
+
+.input-create,
+.input-update,
+.block-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 360px;
+}
+
+.input-create__text,
+.input-update__text {
+  height: 25px;
+}
+
+.input-create__color,
+.input-update__color {
+  height: 25px;
+  cursor: pointer;
+}
+
+.input-create__submit,
+.input-update__submit,
+.block-btn__input {
+  cursor: pointer;
+  height: 25px;
+  border: none;
+  outline: none;
+  color: #fff;
+  width: 80px;
+  background-color: #333;
+  transition: 0.3s all;
+}
+
+.input-create__submit:hover,
+.input-update__submit:hover,
+.block-btn__input:hover {
+  transform: scale(1.1);
+}
+
+.block-btn__race,
+.block-btn__reset {
+  width: 23%;
+}
+
+.block-btn__generate {
+  width: 48%;
+}
