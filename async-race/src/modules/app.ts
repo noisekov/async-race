@@ -2,6 +2,7 @@ import Header from "./view/header/header.html";
 import Main from "./view/main/main.html";
 import { mainContent } from "./view/main/main";
 import { changeState } from "./view/header/header";
+import { getCars } from "./server/server";
 
 export default class App {
   public start(): void {
@@ -9,5 +10,6 @@ export default class App {
     document.body.insertAdjacentHTML("beforeend", Main);
     mainContent();
     changeState();
+    getCars();
   }
 }

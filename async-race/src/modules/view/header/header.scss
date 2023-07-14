@@ -16,8 +16,7 @@
   background-color: #333;
   color: #fff;
   transition: 0.2s ease;
-}
-
-.nav__btn:hover {
-  transform: translateY(2px);
+  &:hover {
+    transform: translateY(2px);
+  }
 }
