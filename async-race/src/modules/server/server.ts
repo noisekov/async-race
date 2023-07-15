@@ -4,6 +4,9 @@ export const getCars = async () => {
   const url = "http://127.0.0.1:3000";
   const response = await fetch(url + "/garage");
   const data: Promise<IdataCar[]> = await response.json();
+  const countCar = document.querySelector(".garage__all-car");
+  const lenCar = (await data).length;
+  if (countCar) countCar.textContent = lenCar.toString();
   createCar(data);
 };
 
@@ -54,6 +57,10 @@ export const removeCar = async () => {
         carBlock.forEach((car) => {
           if (car.getAttribute("id") === currentId) {
             car.remove();
+            const countCar = document.querySelector(".garage__all-car");
+            if (countCar) {
+              countCar.textContent = (carBlock.length - 1).toString();
+            }
           }
         });
       }
