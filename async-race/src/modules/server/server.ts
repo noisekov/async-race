@@ -67,3 +67,28 @@ export const removeCar = async () => {
     });
   });
 };
+
+export const addNewCar = () => {
+  const btnCreateCar = document.querySelector(".input-create__submit");
+  const inputCreateColor: HTMLInputElement | null = document.querySelector(
+    ".input-create__color"
+  );
+  const inputCreateName: HTMLInputElement | null = document.querySelector(
+    ".input-create__text"
+  );
+
+  btnCreateCar?.addEventListener("click", async () => {
+    const bodyData = {
+      name: inputCreateName?.value,
+      color: inputCreateColor?.value,
+    };
+    const url = "http://127.0.0.1:3000";
+    await fetch(url + "/garage", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyData),
+    });
+  });
+};
