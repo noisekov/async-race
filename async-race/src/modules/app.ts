@@ -2,7 +2,7 @@ import Header from "./view/header/header.html";
 import Main from "./view/main/main.html";
 import { mainContent } from "./view/main/main";
 import { changeState } from "./view/header/header";
-import { getCars, removeCar, addNewCar } from "./server/server";
+import { getCars, removeCar, addNewCar, startCar } from "./server/server";
 
 export default class App {
   public async start() {
@@ -12,6 +12,7 @@ export default class App {
     changeState();
     await getCars();
     await removeCar();
-    await addNewCar();
+    addNewCar();
+    await startCar();
   }
 }

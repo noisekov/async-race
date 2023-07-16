@@ -104,4 +104,45 @@ const addOneCar = (data: IdataCar) => {
   );
   removeCar();
   countCar();
+  startCar();
 };
+
+export const startCar = async () => {
+  const inputCreateName = document.querySelectorAll(".btn-start");
+
+  inputCreateName.forEach((btn) => {
+    btn.addEventListener("click", async (evt: Event) => {
+      if (evt.target instanceof Element) {
+        const currentId = evt.target.closest(".car")?.getAttribute("id");
+        const responseStarted = await fetch(
+          MAIN_URL + `/engine?id=${currentId}&status=started`,
+          {
+            method: "PATCH",
+          }
+        );
+        const data = await responseStarted.json();
+        const result = data.distance / data.velocity;
+        console.log(result, currentId);
+      }
+    });
+  });
+};
+
+// const imgCar: HTMLDivElement | null =
+//       document.querySelector(".current-car");
+//     const raceWidth: HTMLDivElement | null =
+//       document.querySelector(".car__body-race");
+//     if (raceWidth) {
+//       if (imgCar) {
+//         imgCar.style.transform = `translateX(${
+//           raceWidth.offsetWidth - imgCar.offsetWidth
+//         }px)`;
+//         imgCar.style.transition = `${result / 1000}s linear`;
+//       }
+//     }
+//     const responseDrive = await fetch(MAIN_URL + "/engine?id=1&status=drive", {
+//       method: "PATCH",
+//     });
+//     if (responseDrive.status === 500) {
+//       if (imgCar) console.log(imgCar.style.transform);
+//     }
