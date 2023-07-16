@@ -1,12 +1,18 @@
 import { IdataCar } from "../../type/type";
 
-export const getCars = async () => {
-  const url = "http://127.0.0.1:3000";
-  const response = await fetch(url + "/garage");
-  const data: Promise<IdataCar[]> = await response.json();
+const MAIN_URL = "http://127.0.0.1:3000";
+
+export const countCar = async () => {
+  const response = await fetch(MAIN_URL + "/garage?_limit=1");
+  const howMuchCar = response.headers.get("X-Total-Count");
   const countCar = document.querySelector(".garage__all-car");
-  const lenCar = (await data).length;
-  if (countCar) countCar.textContent = lenCar.toString();
+  if (countCar) countCar.textContent = howMuchCar;
+};
+
+export const getCars = async () => {
+  const response = await fetch(MAIN_URL + "/garage");
+  const data: Promise<IdataCar[]> = await response.json();
+  countCar();
   createCar(data);
 };
 
@@ -49,18 +55,14 @@ export const removeCar = async () => {
     btn.addEventListener("click", async (evt: Event) => {
       if (evt.target instanceof Element) {
         const currentId = evt.target.closest(".car")?.getAttribute("id");
-        const url = "http://127.0.0.1:3000";
-        await fetch(url + "/garage" + `/${currentId}`, {
+        await fetch(MAIN_URL + "/garage" + `/${currentId}`, {
           method: "DELETE",
         });
         const carBlock = document.querySelectorAll(".car");
         carBlock.forEach((car) => {
           if (car.getAttribute("id") === currentId) {
             car.remove();
-            const countCar = document.querySelector(".garage__all-car");
-            if (countCar) {
-              countCar.textContent = (carBlock.length - 1).toString();
-            }
+            countCar();
           }
         });
       }
@@ -82,13 +84,24 @@ export const addNewCar = () => {
       name: inputCreateName?.value,
       color: inputCreateColor?.value,
     };
-    const url = "http://127.0.0.1:3000";
-    await fetch(url + "/garage", {
+    const response = await fetch(MAIN_URL + "/garage", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(bodyData),
     });
+    const data = await response.json();
+    addOneCar(data);
   });
+};
+
+const addOneCar = (data: IdataCar) => {
+  const garageBlock = document.querySelector(".garage-with-car");
+  garageBlock?.insertAdjacentHTML(
+    "afterbegin",
+    viewGarage(data.color, data.name, data.id)
+  );
+  removeCar();
+  countCar();
 };
