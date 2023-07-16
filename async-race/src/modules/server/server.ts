@@ -108,38 +108,63 @@ const addOneCar = (data: IdataCar) => {
 };
 
 export const startCar = async () => {
-  const inputCreateName = document.querySelectorAll(".btn-start");
+  const inputCreateName: NodeListOf<HTMLButtonElement> | null =
+    document.querySelectorAll(".btn-start");
 
   inputCreateName.forEach((btn) => {
-    btn.addEventListener("click", async (evt: Event) => {
+    btn.onclick = async (evt: Event) => {
+      console.log("da");
       if (evt.target instanceof Element) {
-        const currentId = evt.target.closest(".car")?.getAttribute("id");
-        const responseStarted = await fetch(
-          MAIN_URL + `/engine?id=${currentId}&status=started`,
-          {
-            method: "PATCH",
+        if (evt.target) {
+          const targetEl = evt.target;
+          const currentId: string | null | undefined = targetEl
+            .closest(".car")
+            ?.getAttribute("id");
+          const responseStarted = await fetch(
+            MAIN_URL + `/engine?id=${currentId}&status=started`,
+            {
+              method: "PATCH",
+            }
+          );
+          const data = await responseStarted.json();
+          const result = data.distance / data.velocity;
+          const raceWidth: HTMLDivElement | null =
+            document.querySelector(".car__body-race");
+          if (raceWidth) {
+            const distance = raceWidth.offsetWidth;
+            animationFn(result, distance, currentId);
           }
-        );
-        const data = await responseStarted.json();
-        const result = data.distance / data.velocity;
-        console.log(result, currentId);
+        }
       }
-    });
+    };
   });
 };
 
-// const imgCar: HTMLDivElement | null =
-//       document.querySelector(".current-car");
-//     const raceWidth: HTMLDivElement | null =
-//       document.querySelector(".car__body-race");
-//     if (raceWidth) {
-//       if (imgCar) {
-//         imgCar.style.transform = `translateX(${
-//           raceWidth.offsetWidth - imgCar.offsetWidth
-//         }px)`;
-//         imgCar.style.transition = `${result / 1000}s linear`;
-//       }
-//     }
+const animationFn = (seconds: number, distance: number, id?: string | null) => {
+  console.log(seconds, distance, id);
+  let startPosition = 0;
+  const framesCount = (seconds / 1000) * 60;
+  const dX = (distance - startPosition) / framesCount;
+
+  const tick = () => {
+    startPosition += dX;
+    const imgCar: NodeListOf<HTMLDivElement> | null =
+      document.querySelectorAll(".current-car");
+    if (id) {
+      const currentCar = imgCar[imgCar.length - +id];
+      if (currentCar) {
+        currentCar.style.transform = `translateX(${
+          startPosition - currentCar.offsetWidth
+        }px)`;
+      }
+    }
+    if (startPosition < distance) {
+      requestAnimationFrame(tick);
+    }
+  };
+  tick();
+};
+
 //     const responseDrive = await fetch(MAIN_URL + "/engine?id=1&status=drive", {
 //       method: "PATCH",
 //     });
