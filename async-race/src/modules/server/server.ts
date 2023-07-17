@@ -107,13 +107,13 @@ const addOneCar = (data: IdataCar) => {
   startCar();
 };
 
+let animateId: number | null = null;
 export const startCar = async () => {
   const inputCreateName: NodeListOf<HTMLButtonElement> | null =
     document.querySelectorAll(".btn-start");
 
   inputCreateName.forEach((btn) => {
     btn.onclick = async (evt: Event) => {
-      console.log("da");
       if (evt.target instanceof Element) {
         if (evt.target) {
           const targetEl = evt.target;
@@ -132,6 +132,7 @@ export const startCar = async () => {
             document.querySelector(".car__body-race");
           if (raceWidth) {
             const distance = raceWidth.offsetWidth;
+            driveOrBroken(currentId);
             animationFn(result, distance, currentId);
           }
         }
@@ -141,33 +142,44 @@ export const startCar = async () => {
 };
 
 const animationFn = (seconds: number, distance: number, id?: string | null) => {
-  console.log(seconds, distance, id);
-  let startPosition = 0;
-  const framesCount = (seconds / 1000) * 60;
-  const dX = (distance - startPosition) / framesCount;
+  const imgCarWidth: HTMLDivElement | null =
+    document.querySelector(".current-car");
+  if (imgCarWidth) {
+    let startPosition = imgCarWidth.offsetWidth;
+    const framesCount = (seconds / 1000) * 60;
+    const dX = (distance - startPosition) / framesCount;
 
-  const tick = () => {
-    startPosition += dX;
-    const imgCar: NodeListOf<HTMLDivElement> | null =
-      document.querySelectorAll(".current-car");
-    if (id) {
-      const currentCar = imgCar[imgCar.length - +id];
-      if (currentCar) {
-        currentCar.style.transform = `translateX(${
-          startPosition - currentCar.offsetWidth
-        }px)`;
+    const tick = () => {
+      startPosition += dX;
+      const imgCar: NodeListOf<HTMLDivElement> | null =
+        document.querySelectorAll(".current-car");
+      if (id) {
+        const currentCar = imgCar[imgCar.length - +id];
+        if (currentCar) {
+          currentCar.style.transform = `translateX(${
+            startPosition - currentCar.offsetWidth
+          }px)`;
+        }
       }
-    }
-    if (startPosition < distance) {
-      requestAnimationFrame(tick);
-    }
-  };
-  tick();
+      if (startPosition < distance) {
+        animateId = requestAnimationFrame(tick);
+      }
+    };
+    tick();
+  }
 };
 
-//     const responseDrive = await fetch(MAIN_URL + "/engine?id=1&status=drive", {
-//       method: "PATCH",
-//     });
-//     if (responseDrive.status === 500) {
-//       if (imgCar) console.log(imgCar.style.transform);
-//     }
+const driveOrBroken = async (id?: string | null) => {
+  const responseDrive = await fetch(
+    MAIN_URL + `/engine?id=${id}&status=drive`,
+    {
+      method: "PATCH",
+    }
+  );
+  if (responseDrive.status === 500) {
+    if (animateId) {
+      console.log(animateId, id);
+      cancelAnimationFrame(animateId);
+    }
+  }
+};
