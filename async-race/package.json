@@ -8,7 +8,7 @@
     "build-dev": "webpack",
     "build-prod": "webpack --node-env=production",
     "clear": "rd /s /q dist",
-    "deploy": "npm run build-prod && npx gh-pages -d dist -e async-race -m \"feat: update deploy\""
+    "deploy": "npm run build-prod && npx gh-pages -d dist -e async-race -m \"init: start async-race\""
   },
   "keywords": [],
   "author": "",
