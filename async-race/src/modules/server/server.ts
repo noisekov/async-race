@@ -152,18 +152,19 @@ const animationFn = (seconds: number, distance: number, id?: string | null) => {
 
     const tick = () => {
       startPosition += dX;
-      const imgCar: NodeListOf<HTMLDivElement> | null =
-        document.querySelectorAll(".current-car");
-      if (id) {
-        const currentCar = imgCar[imgCar.length - +id];
-        if (currentCar) {
+      const findCar = document.getElementById(`${id}`);
+
+      if (findCar) {
+        const currentCar: HTMLDivElement | null =
+          findCar.querySelector(".current-car");
+        if (id && currentCar) {
           currentCar.style.transform = `translateX(${
             startPosition - currentCar.offsetWidth
           }px)`;
         }
-      }
-      if (startPosition < distance) {
-        animateId = requestAnimationFrame(tick);
+        if (startPosition < distance) {
+          animateId = requestAnimationFrame(tick);
+        }
       }
     };
     tick();
