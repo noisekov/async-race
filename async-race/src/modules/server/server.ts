@@ -1,6 +1,6 @@
 import { IdataCar } from "../../type/type";
 
-const MAIN_URL = "http://127.0.0.1:3000";
+export const MAIN_URL = "http://127.0.0.1:3000";
 
 export const countCar = async () => {
   const response = await fetch(MAIN_URL + "/garage?_limit=1");
@@ -96,7 +96,7 @@ export const addNewCar = () => {
   });
 };
 
-const addOneCar = (data: IdataCar) => {
+export const addOneCar = (data: IdataCar) => {
   const garageBlock = document.querySelector(".garage-with-car");
   garageBlock?.insertAdjacentHTML(
     "afterbegin",
@@ -105,6 +105,7 @@ const addOneCar = (data: IdataCar) => {
   removeCar();
   countCar();
   startCar();
+  stopCar();
   selectCar();
 };
 

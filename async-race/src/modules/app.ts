@@ -10,6 +10,7 @@ import {
   selectCar,
   stopCar,
 } from "./server/server";
+import { generateCarsBtn } from "./server/generate-cars";
 
 export default class App {
   public async start() {
@@ -17,6 +18,7 @@ export default class App {
     document.body.insertAdjacentHTML("beforeend", Main);
     mainContent();
     changeState();
+    generateCarsBtn();
     await getCars();
     await removeCar();
     selectCar();
