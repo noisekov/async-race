@@ -2,15 +2,19 @@ import { MAIN_URL } from "./server";
 import { getCars, removeCar, startCar, stopCar, selectCar } from "./server";
 
 export const generateCarsBtn = () => {
-  const generateBtn = document.querySelector(".block-btn__generate");
+  const generateBtn: HTMLButtonElement | null = document.querySelector(
+    ".block-btn__generate"
+  );
 
   generateBtn?.addEventListener("click", async () => {
+    generateBtn.disabled = true;
     await generateCars();
     await getCars();
     await removeCar();
     await startCar();
     await stopCar();
     selectCar();
+    generateBtn.disabled = false;
   });
 };
 

@@ -29,8 +29,8 @@ const viewGarage = (color: string, name: string, id: number): string => {
     </div>
     <div class="car__body">
         <div class="car__body-btn">
-            <button class="btn-start" type="button">A</button>
-            <button class="btn-stop" type="button">B</button>
+            <button class="btn-start">A</button>
+            <button class="btn-stop" disabled>B</button>
         </div>
         <div class="car__body-race">
             <div class="current-car">${carImg(color)}</div>
@@ -110,6 +110,7 @@ export const addOneCar = (data: IdataCar) => {
 };
 
 let animateId: number | null = null;
+
 export const startCar = async () => {
   const inputCreateName: NodeListOf<HTMLButtonElement> | null =
     document.querySelectorAll(".btn-start");
@@ -122,6 +123,11 @@ export const startCar = async () => {
           const currentId: string | null | undefined = targetEl
             .closest(".car")
             ?.getAttribute("id");
+          btn.disabled = true;
+          const currentStopBtn: HTMLButtonElement | null | undefined = targetEl
+            .closest(".car")
+            ?.querySelector(".btn-stop");
+          if (currentStopBtn) currentStopBtn.disabled = false;
           const responseStarted = await fetch(
             MAIN_URL + `/engine?id=${currentId}&status=started`,
             {
@@ -155,9 +161,14 @@ export const stopCar = async () => {
           const currentId: string | null | undefined = targetEl
             .closest(".car")
             ?.getAttribute("id");
+          const currentStartBtn: HTMLButtonElement | null | undefined = targetEl
+            .closest(".car")
+            ?.querySelector(".btn-start");
           await fetch(MAIN_URL + `/engine?id=${currentId}&status=stopped`, {
             method: "PATCH",
           });
+          if (currentStartBtn) currentStartBtn.disabled = false;
+          btn.disabled = true;
           const findCar = document.getElementById(`${currentId}`);
           if (findCar) {
             const currentCar: HTMLDivElement | null =
