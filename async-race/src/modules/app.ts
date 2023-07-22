@@ -8,6 +8,7 @@ import {
   addNewCar,
   startCar,
   selectCar,
+  stopCar,
 } from "./server/server";
 
 export default class App {
@@ -18,8 +19,9 @@ export default class App {
     changeState();
     await getCars();
     await removeCar();
-    await selectCar();
+    selectCar();
     addNewCar();
     await startCar();
+    await stopCar();
   }
 }

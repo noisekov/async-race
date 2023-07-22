@@ -142,6 +142,34 @@ export const startCar = async () => {
   });
 };
 
+export const stopCar = async () => {
+  const inputCreateName: NodeListOf<HTMLButtonElement> | null =
+    document.querySelectorAll(".btn-stop");
+
+  inputCreateName.forEach((btn) => {
+    btn.onclick = async (evt: Event) => {
+      if (evt.target instanceof Element) {
+        if (evt.target) {
+          const targetEl = evt.target;
+          const currentId: string | null | undefined = targetEl
+            .closest(".car")
+            ?.getAttribute("id");
+          await fetch(MAIN_URL + `/engine?id=${currentId}&status=stopped`, {
+            method: "PATCH",
+          });
+          const findCar = document.getElementById(`${currentId}`);
+          if (findCar) {
+            const currentCar: HTMLDivElement | null =
+              findCar.querySelector(".current-car");
+            if (currentCar) currentCar.style.transform = `translateX(0px)`;
+          }
+          if (animateId) cancelAnimationFrame(animateId);
+        }
+      }
+    };
+  });
+};
+
 const animationFn = (seconds: number, distance: number, id?: string | null) => {
   const imgCarWidth: HTMLDivElement | null =
     document.querySelector(".current-car");
