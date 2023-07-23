@@ -1,6 +1,6 @@
-import { MAIN_URL } from "./server";
+import { MAIN_URL } from "./server-garage";
 import { IdataWinner, IdataCar, IObjectWinners } from "../../type/type";
-import { carImg } from "./server";
+import { carImg } from "./server-garage";
 
 let dataWinCar: IObjectWinners<IdataWinner> = {};
 let WINNERS_CAR_COUNT = 1;
@@ -9,12 +9,13 @@ export const getWinners = async () => {
   const response = await fetch(MAIN_URL + "/winners");
   const data: IdataWinner[] = await response.json();
 
-  WINNERS_CAR_COUNT = 1; //if not add then each click to winners increment count
+  WINNERS_CAR_COUNT = 1;
   dataWinCar = data;
 
   data.forEach((winCar) => {
     getCarsForWinner(winCar.id);
   });
+  countWinners();
 };
 
 const getCarsForWinner = async (id: number) => {
@@ -48,4 +49,14 @@ const renderWinnerPage = (viewHtml: string) => {
   if (tableBody) {
     tableBody.insertAdjacentHTML("beforeend", viewHtml);
   }
+};
+
+const countWinners = async () => {
+  const response = await fetch(MAIN_URL + "/winners?_limit=1");
+  const howMuchCar = response.headers.get("X-Total-Count");
+  const headerHowWinners = document.querySelector(".winners__all-car");
+  if (headerHowWinners) headerHowWinners.textContent = howMuchCar;
+
+  const headerWhatPage = document.querySelector(".winners__page");
+  if (headerWhatPage) headerWhatPage.textContent = "1";
 };

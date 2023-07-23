@@ -1,4 +1,4 @@
-import { getWinners } from "../../server/generate-winners";
+import { getWinners } from "../../server/server-winners";
 
 export const changeState = () => {
   const navigationBtn = document.querySelectorAll(".nav__btn");

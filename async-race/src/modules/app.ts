@@ -9,8 +9,8 @@ import {
   startCar,
   selectCar,
   stopCar,
-} from "./server/server";
-import { generateCarsBtn } from "./server/generate-cars";
+} from "./server/server-garage";
+import { generateCarsBtn } from "./server/hundred-cars";
 
 export default class App {
   public async start() {

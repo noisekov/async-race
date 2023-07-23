@@ -1,5 +1,11 @@
-import { MAIN_URL } from "./server";
-import { getCars, removeCar, startCar, stopCar, selectCar } from "./server";
+import { MAIN_URL } from "./server-garage";
+import {
+  getCars,
+  removeCar,
+  startCar,
+  stopCar,
+  selectCar,
+} from "./server-garage";
 
 export const generateCarsBtn = () => {
   const generateBtn: HTMLButtonElement | null = document.querySelector(
