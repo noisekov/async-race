@@ -196,7 +196,11 @@ export const stopCar = async () => {
   });
 };
 
-const animationFn = (seconds: number, distance: number, id?: string | null) => {
+export const animationFn = (
+  seconds: number,
+  distance: number,
+  id?: string | null
+) => {
   const imgCarWidth: HTMLDivElement | null =
     document.querySelector(".current-car");
   if (imgCarWidth) {
@@ -225,7 +229,7 @@ const animationFn = (seconds: number, distance: number, id?: string | null) => {
   }
 };
 
-const driveOrBroken = async (id?: string | null) => {
+export const driveOrBroken = async (id?: string | null) => {
   const responseDrive = await fetch(
     MAIN_URL + `/engine?id=${id}&status=drive`,
     {
