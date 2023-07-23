@@ -1,18 +1,23 @@
 import { IdataCar } from "../../type/type";
 
+export let PAGE_NOW = 1;
 export const MAIN_URL = "http://127.0.0.1:3000";
 
 export const countCar = async () => {
-  const response = await fetch(MAIN_URL + "/garage?_limit=1");
+  const response = await fetch(MAIN_URL + `/garage?_limit=1`);
   const howMuchCar = response.headers.get("X-Total-Count");
   const countCar = document.querySelector(".garage__all-car");
   if (countCar) countCar.textContent = howMuchCar;
 };
 
-export const getCars = async () => {
-  const response = await fetch(MAIN_URL + "/garage");
+export const getCars = async (page: number) => {
+  const response = await fetch(MAIN_URL + `/garage?_page=${page}&_limit=7`);
   const data: Promise<IdataCar[]> = await response.json();
+  const countPage = document.querySelector(".garage__page");
+  if (countPage) countPage.textContent = `${page}`;
   countCar();
+  const garageBlock = document.querySelector(".garage-with-car");
+  if (garageBlock) garageBlock.innerHTML = "";
   createCar(data);
 };
 
@@ -43,7 +48,7 @@ const createCar = async (data: Promise<IdataCar[]>) => {
   const garageBlock = document.querySelector(".garage-with-car");
   (await data).forEach((elem) => {
     garageBlock?.insertAdjacentHTML(
-      "afterbegin",
+      "beforeend",
       viewGarage(elem.color, elem.name, elem.id)
     );
   });
@@ -71,14 +76,15 @@ export const removeCar = async () => {
 };
 
 export const addNewCar = () => {
-  const btnCreateCar = document.querySelector(".input-create__submit");
+  const btnCreateCar: HTMLInputElement | null = document.querySelector(
+    ".input-create__submit"
+  );
   const inputCreateColor: HTMLInputElement | null = document.querySelector(
     ".input-create__color"
   );
   const inputCreateName: HTMLInputElement | null = document.querySelector(
     ".input-create__text"
   );
-
   btnCreateCar?.addEventListener("click", async () => {
     const bodyData = {
       name: inputCreateName?.value,
@@ -93,20 +99,28 @@ export const addNewCar = () => {
     });
     const data = await response.json();
     addOneCar(data);
+    if (inputCreateName) inputCreateName.value = ``;
   });
 };
 
 export const addOneCar = (data: IdataCar) => {
   const garageBlock = document.querySelector(".garage-with-car");
-  garageBlock?.insertAdjacentHTML(
-    "afterbegin",
-    viewGarage(data.color, data.name, data.id)
-  );
-  removeCar();
-  countCar();
-  startCar();
-  stopCar();
-  selectCar();
+  const countPage = document.querySelector(".garage__page");
+  if (countPage) {
+    const carBlock = document.querySelectorAll(".car");
+
+    if (carBlock.length < 7) {
+      garageBlock?.insertAdjacentHTML(
+        "beforeend",
+        viewGarage(data.color, data.name, data.id)
+      );
+      removeCar();
+      startCar();
+      stopCar();
+      selectCar();
+    }
+    countCar();
+  }
 };
 
 let animateId: number | null = null;
@@ -298,6 +312,68 @@ const updateCurrentCar = (data: IdataCar) => {
       nameCarUpdate.textContent = data.name;
       const newColor = carImg(data.color);
       colorCarUpdate.innerHTML = newColor;
+    }
+  }
+};
+
+export const changePage = () => {
+  const btnNext: HTMLButtonElement | null = document.querySelector(
+    ".pagination-garage__next"
+  );
+  const btnPrev: HTMLButtonElement | null = document.querySelector(
+    ".pagination-garage__prev"
+  );
+
+  btnNext?.addEventListener("click", pageRight);
+  btnPrev?.addEventListener("click", pageLeft);
+};
+
+const pageRight = async () => {
+  const btnNext: HTMLButtonElement | null = document.querySelector(
+    ".pagination-garage__next"
+  );
+  const btnPrev: HTMLButtonElement | null = document.querySelector(
+    ".pagination-garage__prev"
+  );
+  const countCar = document.querySelector(".garage__all-car");
+  const countPage = document.querySelector(".garage__page");
+  if (countCar && countPage && btnPrev) {
+    if (+countCar.innerHTML > 7 * PAGE_NOW) {
+      PAGE_NOW++;
+      await getCars(PAGE_NOW);
+      btnPrev.disabled = false;
+      removeCar();
+      startCar();
+      stopCar();
+      selectCar();
+      if (+countCar.innerHTML < 7 * PAGE_NOW) {
+        if (btnNext) btnNext.disabled = true;
+      }
+    }
+  }
+};
+
+const pageLeft = async () => {
+  const btnNext: HTMLButtonElement | null = document.querySelector(
+    ".pagination-garage__next"
+  );
+  const btnPrev: HTMLButtonElement | null = document.querySelector(
+    ".pagination-garage__prev"
+  );
+  const countCar = document.querySelector(".garage__all-car");
+  const countPage = document.querySelector(".garage__page");
+  if (countCar && countPage && btnPrev) {
+    if (PAGE_NOW > 1) {
+      PAGE_NOW--;
+      await getCars(PAGE_NOW);
+      removeCar();
+      startCar();
+      stopCar();
+      selectCar();
+      if (PAGE_NOW === 1 && btnPrev && btnNext) {
+        btnPrev.disabled = true;
+        btnNext.disabled = false;
+      }
     }
   }
 };

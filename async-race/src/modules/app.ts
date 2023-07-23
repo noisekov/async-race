@@ -9,6 +9,8 @@ import {
   startCar,
   selectCar,
   stopCar,
+  PAGE_NOW,
+  changePage,
 } from "./server/server-garage";
 import { generateCarsBtn } from "./server/hundred-cars";
 
@@ -19,11 +21,12 @@ export default class App {
     mainContent();
     changeState();
     generateCarsBtn();
-    await getCars();
+    await getCars(PAGE_NOW);
     await removeCar();
     selectCar();
     addNewCar();
     await startCar();
     await stopCar();
+    changePage();
   }
 }

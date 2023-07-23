@@ -1,4 +1,4 @@
-import { MAIN_URL } from "./server-garage";
+import { MAIN_URL, PAGE_NOW } from "./server-garage";
 import {
   getCars,
   removeCar,
@@ -15,11 +15,16 @@ export const generateCarsBtn = () => {
   generateBtn?.addEventListener("click", async () => {
     generateBtn.disabled = true;
     await generateCars();
-    await getCars();
+    await getCars(PAGE_NOW);
     await removeCar();
     await startCar();
     await stopCar();
     selectCar();
+
+    const btnNext: HTMLButtonElement | null = document.querySelector(
+      ".pagination-garage__next"
+    );
+    if (btnNext) btnNext.disabled = false;
     generateBtn.disabled = false;
   });
 };
