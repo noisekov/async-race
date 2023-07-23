@@ -46,5 +46,29 @@ export const resetAllCar = () => {
 };
 
 const raceReset = () => {
-  console.log("da");
+  const findCar: NodeListOf<HTMLDivElement> = document.querySelectorAll(".car");
+  findCar.forEach(async (car) => {
+    await fetch(MAIN_URL + `/engine?id=${car.id}&status=stopped`, {
+      method: "PATCH",
+    });
+    const raceBtn: HTMLButtonElement | null =
+      document.querySelector(".block-btn__race");
+    const resetBtn: HTMLButtonElement | null =
+      document.querySelector(".block-btn__reset");
+    if (raceBtn) raceBtn.disabled = false;
+    if (resetBtn) resetBtn.disabled = true;
+    const inputStart: NodeListOf<HTMLButtonElement> | null =
+      document.querySelectorAll(".btn-start");
+    const inputStop: NodeListOf<HTMLButtonElement> | null =
+      document.querySelectorAll(".btn-stop");
+    inputStart.forEach((btn) => (btn.disabled = false));
+    inputStop.forEach((btn) => (btn.disabled = true));
+    const currentCar: NodeListOf<HTMLDivElement> =
+      document.querySelectorAll(".current-car");
+    if (currentCar) {
+      currentCar.forEach((currentCar) => {
+        currentCar.style.transform = `translateX(0px)`;
+      });
+    }
+  });
 };
