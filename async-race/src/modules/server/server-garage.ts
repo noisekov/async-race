@@ -350,6 +350,7 @@ const pageRight = async () => {
       startCar();
       stopCar();
       selectCar();
+      refreshBtnRaceAndReset();
       if (+countCar.innerHTML < 7 * PAGE_NOW) {
         if (btnNext) btnNext.disabled = true;
       }
@@ -374,10 +375,20 @@ const pageLeft = async () => {
       startCar();
       stopCar();
       selectCar();
+      refreshBtnRaceAndReset();
       if (PAGE_NOW === 1 && btnPrev && btnNext) {
         btnPrev.disabled = true;
         btnNext.disabled = false;
       }
     }
   }
+};
+
+const refreshBtnRaceAndReset = () => {
+  const raceBtn: HTMLButtonElement | null =
+    document.querySelector(".block-btn__race");
+  const resetBtn: HTMLButtonElement | null =
+    document.querySelector(".block-btn__reset");
+  if (raceBtn) raceBtn.disabled = false;
+  if (resetBtn) resetBtn.disabled = true;
 };

@@ -13,7 +13,7 @@ import {
   changePage,
 } from "./server/server-garage";
 import { generateCarsBtn } from "./server/hundred-cars";
-import { raceAllCar } from "./server/server-race";
+import { raceAllCar, resetAllCar } from "./server/server-race";
 
 export default class App {
   public async start() {
@@ -30,5 +30,6 @@ export default class App {
     await stopCar();
     changePage();
     raceAllCar();
+    resetAllCar();
   }
 }

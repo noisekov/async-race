@@ -25,12 +25,8 @@ const raceStart = () => {
       document.querySelectorAll(".btn-start");
     const inputStop: NodeListOf<HTMLButtonElement> | null =
       document.querySelectorAll(".btn-stop");
-    inputStart.forEach((btn) => {
-      btn.disabled = true;
-    });
-    inputStop.forEach((btn) => {
-      btn.disabled = false;
-    });
+    inputStart.forEach((btn) => (btn.disabled = true));
+    inputStop.forEach((btn) => (btn.disabled = false));
     const data = await response.json();
     const result = data.distance / data.velocity;
     const raceWidth: HTMLDivElement | null =
@@ -41,4 +37,14 @@ const raceStart = () => {
       animationFn(result, distance, car.id);
     }
   });
+};
+
+export const resetAllCar = () => {
+  const resetBtn = document.querySelector(".block-btn__reset");
+
+  resetBtn?.addEventListener("click", raceReset);
+};
+
+const raceReset = () => {
+  console.log("da");
 };
