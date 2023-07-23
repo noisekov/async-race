@@ -42,6 +42,10 @@
 .block-btn__race,
 .block-btn__reset {
   width: 23%;
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
 }
 
 .block-btn__generate {
