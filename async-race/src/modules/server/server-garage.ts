@@ -1,7 +1,8 @@
 import { IDataCar } from "../../type/type";
+import { MAIN_URL } from "../data/global-var";
+import { CARS_PER_PAGE } from "../data/global-var";
 
-export let PAGE_NOW = 1;
-export const MAIN_URL = "http://127.0.0.1:3000";
+export let pageNow = 1;
 
 export const countCar = async () => {
   const response = await fetch(MAIN_URL + `/garage?_limit=1`);
@@ -11,7 +12,9 @@ export const countCar = async () => {
 };
 
 export const getCars = async (page: number) => {
-  const response = await fetch(MAIN_URL + `/garage?_page=${page}&_limit=7`);
+  const response = await fetch(
+    MAIN_URL + `/garage?_page=${page}&_limit=${CARS_PER_PAGE}`
+  );
   const data: Promise<IDataCar[]> = await response.json();
   const countPage = document.querySelector(".garage__page");
   if (countPage) countPage.textContent = `${page}`;
@@ -109,7 +112,7 @@ export const addOneCar = (data: IDataCar) => {
   if (countPage) {
     const carBlock = document.querySelectorAll(".car");
 
-    if (carBlock.length < 7) {
+    if (carBlock.length < CARS_PER_PAGE) {
       garageBlock?.insertAdjacentHTML(
         "beforeend",
         viewGarage(data.color, data.name, data.id)
@@ -342,16 +345,16 @@ const pageRight = async () => {
   const countCar = document.querySelector(".garage__all-car");
   const countPage = document.querySelector(".garage__page");
   if (countCar && countPage && btnPrev) {
-    if (+countCar.innerHTML > 7 * PAGE_NOW) {
-      PAGE_NOW++;
-      await getCars(PAGE_NOW);
+    if (+countCar.innerHTML > CARS_PER_PAGE * pageNow) {
+      pageNow++;
+      await getCars(pageNow);
       btnPrev.disabled = false;
       removeCar();
       startCar();
       stopCar();
       selectCar();
       refreshBtnRaceAndReset();
-      if (+countCar.innerHTML < 7 * PAGE_NOW) {
+      if (+countCar.innerHTML < CARS_PER_PAGE * pageNow) {
         if (btnNext) btnNext.disabled = true;
       }
     }
@@ -368,15 +371,15 @@ const pageLeft = async () => {
   const countCar = document.querySelector(".garage__all-car");
   const countPage = document.querySelector(".garage__page");
   if (countCar && countPage && btnPrev) {
-    if (PAGE_NOW > 1) {
-      PAGE_NOW--;
-      await getCars(PAGE_NOW);
+    if (pageNow > 1) {
+      pageNow--;
+      await getCars(pageNow);
       removeCar();
       startCar();
       stopCar();
       selectCar();
       refreshBtnRaceAndReset();
-      if (PAGE_NOW === 1 && btnPrev && btnNext) {
+      if (pageNow === 1 && btnPrev && btnNext) {
         btnPrev.disabled = true;
         btnNext.disabled = false;
       }

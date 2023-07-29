@@ -1,15 +1,15 @@
-import { MAIN_URL } from "./server-garage";
 import { IDataWinner, IDataCar, IObjectWinners } from "../../type/type";
 import { carImg } from "./server-garage";
+import { MAIN_URL } from "../data/global-var";
 
 let dataWinCar: IObjectWinners<IDataWinner> = {};
-let WINNERS_CAR_COUNT = 1;
+let winnersCount = 1;
 
 export const getWinners = async () => {
   const response = await fetch(MAIN_URL + "/winners");
   const data: IDataWinner[] = await response.json();
 
-  WINNERS_CAR_COUNT = 1;
+  winnersCount = 1;
   dataWinCar = data;
 
   data.forEach((winCar) => {
@@ -36,7 +36,7 @@ const getCarsForWinner = async (id: number) => {
 
 const createWinnersView = (obj: IDataWinner): string => {
   return `<tr>
-      <td>${WINNERS_CAR_COUNT++}</td>
+      <td>${winnersCount++}</td>
       <td>${carImg(obj.color)}</td>
       <td>${obj.name}</td>
       <td>${obj.wins}</td>

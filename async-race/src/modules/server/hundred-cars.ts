@@ -1,4 +1,5 @@
-import { MAIN_URL, PAGE_NOW } from "./server-garage";
+import { pageNow } from "./server-garage";
+import { MAIN_URL } from "../data/global-var";
 import {
   getCars,
   removeCar,
@@ -6,8 +7,8 @@ import {
   stopCar,
   selectCar,
 } from "./server-garage";
-import { modelsCars } from "../data/modelsCars";
-import { brandsCars } from "../data/brandsCars";
+import { modelsCars } from "../data/models-cars";
+import { brandsCars } from "../data/brands-cars";
 
 export const generateCarsBtn = () => {
   const generateBtn: HTMLButtonElement | null = document.querySelector(
@@ -17,7 +18,7 @@ export const generateCarsBtn = () => {
   generateBtn?.addEventListener("click", async () => {
     generateBtn.disabled = true;
     await generateCars();
-    await getCars(PAGE_NOW);
+    await getCars(pageNow);
     await removeCar();
     await startCar();
     await stopCar();

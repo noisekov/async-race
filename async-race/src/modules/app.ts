@@ -9,7 +9,7 @@ import {
   startCar,
   selectCar,
   stopCar,
-  PAGE_NOW,
+  pageNow,
   changePage,
 } from "./server/server-garage";
 import { generateCarsBtn } from "./server/hundred-cars";
@@ -22,7 +22,7 @@ export default class App {
     mainContent();
     changeState();
     generateCarsBtn();
-    await getCars(PAGE_NOW);
+    await getCars(pageNow);
     await removeCar();
     selectCar();
     addNewCar();

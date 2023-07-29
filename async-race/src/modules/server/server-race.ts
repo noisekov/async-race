@@ -1,4 +1,5 @@
-import { MAIN_URL, driveOrBroken, animationFn } from "./server-garage";
+import { driveOrBroken, animationFn } from "./server-garage";
+import { MAIN_URL } from "../data/global-var";
 
 export const raceAllCar = () => {
   const raceBtn = document.querySelector(".block-btn__race");
