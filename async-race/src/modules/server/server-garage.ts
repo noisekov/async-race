@@ -11,7 +11,7 @@ export const countCar = async () => {
   if (countCar) countCar.textContent = howMuchCar;
 };
 
-export const getCars = async (page: number) => {
+export const getCarsOnPage = async (page: number) => {
   const response = await fetch(
     MAIN_URL + `/garage?_page=${page}&_limit=${CARS_PER_PAGE}`
   );
@@ -24,11 +24,15 @@ export const getCars = async (page: number) => {
   createCar(data);
 };
 
-export const carImg = (color: string): string => {
+export const createCarImg = (color: string): string => {
   return `<svg class="${color}" xmlns="http://www.w3.org/2000/svg" width="52" height="50" viewBox="0 0 100 100"><g><path d="M74.61 56.44c-5.08 0-9.22 4.13-9.22 9.21s4.14 9.22 9.22 9.22 9.21-4.14 9.21-9.22-4.13-9.21-9.21-9.21zM23.79 56.44c-5.08 0-9.22 4.13-9.22 9.21s4.14 9.22 9.22 9.22S33 70.73 33 65.65s-4.13-9.21-9.21-9.21z" fill="${color}" data-original="#000000" class=""></path><path d="M92 55.37c-1.1 0-2-.9-2-2s.9-2 2-2h5.01v-1.69c0-3.36-2.28-6.26-5.54-7.05-.02-.01-.05-.01-.08-.02a92.775 92.775 0 0 0-15.18-2.86L65 28.55c-1.92-1.92-5.54-3.42-8.24-3.42H32.11c-2.72.04-6.2 1.49-8.13 3.41L12.86 39.68H9c-3.31 0-6 2.69-6 6v3.43h4.94c1.1 0 2 .9 2 2s-.9 2-2 2H3v8.56c0 3.3 2.68 5.98 5.98 5.98h.6c1.1 0 2-.9 2-2 0-6.73 5.48-12.21 12.22-12.21s12.22 5.48 12.22 12.21c0 1.1.9 2 2 2H60.4c1.1 0 2-.9 2-2 0-6.73 5.48-12.21 12.22-12.21 6.73 0 12.21 5.48 12.21 12.21 0 1.1.9 2 2 2h.83c4.06 0 7.36-3.3 7.36-7.36v-4.92zm-43.67-15.7H29.59l4.02-10.54h14.72zm8.36 7.72H54c-1.1 0-2-.9-2-2s.9-2 2-2h2.69c1.1 0 2 .9 2 2s-.9 2-2 2zm-4.36-7.72V29.13h4.43c1.66 0 4.24 1.07 5.42 2.25l8.3 8.29z" fill="${color}" data-original="#000000"></path></g></svg>`;
 };
 
-const viewGarage = (color: string, name: string, id: number): string => {
+const createLayoutNewCar = (
+  color: string,
+  name: string,
+  id: number
+): string => {
   return `<div class="car" id="${id}">
     <div class="car__header">
         <button class="car__header-select">select</button>
@@ -41,7 +45,7 @@ const viewGarage = (color: string, name: string, id: number): string => {
             <button class="btn-stop" disabled>B</button>
         </div>
         <div class="car__body-race">
-            <div class="current-car">${carImg(color)}</div>
+            <div class="current-car">${createCarImg(color)}</div>
         </div>
     </div>
   </div>`;
@@ -52,12 +56,12 @@ const createCar = async (data: Promise<IDataCar[]>) => {
   (await data).forEach((elem) => {
     garageBlock?.insertAdjacentHTML(
       "beforeend",
-      viewGarage(elem.color, elem.name, elem.id)
+      createLayoutNewCar(elem.color, elem.name, elem.id)
     );
   });
 };
 
-export const removeCar = async () => {
+export const removeCurrentCar = async () => {
   const removeBtn = document.querySelectorAll(".car__header-remove");
   removeBtn.forEach((btn) => {
     btn.addEventListener("click", async (evt: Event) => {
@@ -78,7 +82,7 @@ export const removeCar = async () => {
   });
 };
 
-export const addNewCar = () => {
+export const addCreateBtnListener = () => {
   const btnCreateCar: HTMLInputElement | null = document.querySelector(
     ".input-create__submit"
   );
@@ -101,12 +105,12 @@ export const addNewCar = () => {
       body: JSON.stringify(bodyData),
     });
     const data = await response.json();
-    addOneCar(data);
+    renderOneCar(data);
     if (inputCreateName) inputCreateName.value = ``;
   });
 };
 
-export const addOneCar = (data: IDataCar) => {
+export const renderOneCar = (data: IDataCar) => {
   const garageBlock = document.querySelector(".garage-with-car");
   const countPage = document.querySelector(".garage__page");
   if (countPage) {
@@ -115,12 +119,12 @@ export const addOneCar = (data: IDataCar) => {
     if (carBlock.length < CARS_PER_PAGE) {
       garageBlock?.insertAdjacentHTML(
         "beforeend",
-        viewGarage(data.color, data.name, data.id)
+        createLayoutNewCar(data.color, data.name, data.id)
       );
-      removeCar();
-      startCar();
-      stopCar();
-      selectCar();
+      removeCurrentCar();
+      startCurrentCar();
+      stopCurrentCar();
+      selectCurrentCar();
     }
     countCar();
   }
@@ -128,7 +132,7 @@ export const addOneCar = (data: IDataCar) => {
 
 let animateId: number | null = null;
 
-export const startCar = async () => {
+export const startCurrentCar = async () => {
   const inputCreateName: NodeListOf<HTMLButtonElement> | null =
     document.querySelectorAll(".btn-start");
 
@@ -157,7 +161,7 @@ export const startCar = async () => {
             document.querySelector(".car__body-race");
           if (raceWidth) {
             const distance = raceWidth.offsetWidth;
-            driveOrBroken(currentId);
+            checkStatusDriveOrBroken(currentId);
             animationFn(result, distance, currentId);
           }
         }
@@ -166,7 +170,7 @@ export const startCar = async () => {
   });
 };
 
-export const stopCar = async () => {
+export const stopCurrentCar = async () => {
   const inputCreateName: NodeListOf<HTMLButtonElement> | null =
     document.querySelectorAll(".btn-stop");
 
@@ -232,7 +236,7 @@ export const animationFn = (
   }
 };
 
-export const driveOrBroken = async (id?: string | null) => {
+export const checkStatusDriveOrBroken = async (id?: string | null) => {
   const responseDrive = await fetch(
     MAIN_URL + `/engine?id=${id}&status=drive`,
     {
@@ -246,7 +250,7 @@ export const driveOrBroken = async (id?: string | null) => {
   }
 };
 
-export const selectCar = () => {
+export const selectCurrentCar = () => {
   const selectBtn: NodeListOf<HTMLButtonElement> | null =
     document.querySelectorAll(".car__header-select");
   const inputSelectName: HTMLInputElement | null = document.querySelector(
@@ -272,14 +276,14 @@ export const selectCar = () => {
             inputSelectName.value = currentName;
           }
           inputSelectName?.focus();
-          requestSelectCat(currentId);
+          requestUpdateParamCurrentCar(currentId);
         }
       }
     };
   });
 };
 
-const requestSelectCat = (id?: string | null) => {
+const requestUpdateParamCurrentCar = (id?: string | null) => {
   const inputSelectName: HTMLInputElement | null = document.querySelector(
     ".input-update__text"
   );
@@ -317,13 +321,13 @@ const updateCurrentCar = (data: IDataCar) => {
 
     if (nameCarUpdate && colorCarUpdate) {
       nameCarUpdate.textContent = data.name;
-      const newColor = carImg(data.color);
+      const newColor = createCarImg(data.color);
       colorCarUpdate.innerHTML = newColor;
     }
   }
 };
 
-export const changePage = () => {
+export const addPaginationBtnListener = () => {
   const btnNext: HTMLButtonElement | null = document.querySelector(
     ".pagination-garage__next"
   );
@@ -347,12 +351,12 @@ const pageRight = async () => {
   if (countCar && countPage && btnPrev) {
     if (+countCar.innerHTML > CARS_PER_PAGE * pageNow) {
       pageNow++;
-      await getCars(pageNow);
+      await getCarsOnPage(pageNow);
       btnPrev.disabled = false;
-      removeCar();
-      startCar();
-      stopCar();
-      selectCar();
+      removeCurrentCar();
+      startCurrentCar();
+      stopCurrentCar();
+      selectCurrentCar();
       refreshBtnRaceAndReset();
       if (+countCar.innerHTML < CARS_PER_PAGE * pageNow) {
         if (btnNext) btnNext.disabled = true;
@@ -373,11 +377,11 @@ const pageLeft = async () => {
   if (countCar && countPage && btnPrev) {
     if (pageNow > 1) {
       pageNow--;
-      await getCars(pageNow);
-      removeCar();
-      startCar();
-      stopCar();
-      selectCar();
+      await getCarsOnPage(pageNow);
+      removeCurrentCar();
+      startCurrentCar();
+      stopCurrentCar();
+      selectCurrentCar();
       refreshBtnRaceAndReset();
       if (pageNow === 1 && btnPrev && btnNext) {
         btnPrev.disabled = true;

@@ -1,28 +1,28 @@
 import { pageNow } from "./server-garage";
 import { MAIN_URL } from "../data/global-var";
 import {
-  getCars,
-  removeCar,
-  startCar,
-  stopCar,
-  selectCar,
+  getCarsOnPage,
+  removeCurrentCar,
+  startCurrentCar,
+  stopCurrentCar,
+  selectCurrentCar,
 } from "./server-garage";
 import { modelsCars } from "../data/models-cars";
 import { brandsCars } from "../data/brands-cars";
 
-export const generateCarsBtn = () => {
+export const addGenerateCarsListener = () => {
   const generateBtn: HTMLButtonElement | null = document.querySelector(
     ".block-btn__generate"
   );
 
   generateBtn?.addEventListener("click", async () => {
     generateBtn.disabled = true;
-    await generateCars();
-    await getCars(pageNow);
-    await removeCar();
-    await startCar();
-    await stopCar();
-    selectCar();
+    await generateHundredCars();
+    await getCarsOnPage(pageNow);
+    await removeCurrentCar();
+    await startCurrentCar();
+    await stopCurrentCar();
+    selectCurrentCar();
 
     const btnNext: HTMLButtonElement | null = document.querySelector(
       ".pagination-garage__next"
@@ -32,7 +32,7 @@ export const generateCarsBtn = () => {
   });
 };
 
-const generateCars = async () => {
+const generateHundredCars = async () => {
   const MIN_RANDOM_VALUE = 0;
   const MAX_RANDOM_VALUE = modelsCars.length - 1;
   const MAX_RANDOM_COLOR = 255;

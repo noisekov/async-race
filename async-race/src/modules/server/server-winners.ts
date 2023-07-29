@@ -1,5 +1,5 @@
 import { IDataWinner, IDataCar, IObjectWinners } from "../../type/type";
-import { carImg } from "./server-garage";
+import { createCarImg } from "./server-garage";
 import { MAIN_URL } from "../data/global-var";
 
 let dataWinCar: IObjectWinners<IDataWinner> = {};
@@ -37,7 +37,7 @@ const getCarsForWinner = async (id: number) => {
 const createWinnersView = (obj: IDataWinner): string => {
   return `<tr>
       <td>${winnersCount++}</td>
-      <td>${carImg(obj.color)}</td>
+      <td>${createCarImg(obj.color)}</td>
       <td>${obj.name}</td>
       <td>${obj.wins}</td>
       <td>${obj.time}</td>

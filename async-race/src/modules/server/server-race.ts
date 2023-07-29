@@ -1,7 +1,7 @@
-import { driveOrBroken, animationFn } from "./server-garage";
+import { checkStatusDriveOrBroken, animationFn } from "./server-garage";
 import { MAIN_URL } from "../data/global-var";
 
-export const raceAllCar = () => {
+export const addRaceBtnListener = () => {
   const raceBtn = document.querySelector(".block-btn__race");
 
   raceBtn?.addEventListener("click", raceStart);
@@ -34,13 +34,13 @@ const raceStart = () => {
       document.querySelector(".car__body-race");
     if (raceWidth) {
       const distance = raceWidth.offsetWidth;
-      driveOrBroken(car.id);
+      checkStatusDriveOrBroken(car.id);
       animationFn(result, distance, car.id);
     }
   });
 };
 
-export const resetAllCar = () => {
+export const addResetBtnListener = () => {
   const resetBtn = document.querySelector(".block-btn__reset");
 
   resetBtn?.addEventListener("click", raceReset);

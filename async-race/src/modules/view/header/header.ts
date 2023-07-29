@@ -1,6 +1,6 @@
 import { getWinners } from "../../server/server-winners";
 
-export const changeState = () => {
+export const addChangePageListener = () => {
   const navigationBtn = document.querySelectorAll(".nav__btn");
 
   navigationBtn.forEach((btn) => {
