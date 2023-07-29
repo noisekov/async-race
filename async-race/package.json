@@ -7,7 +7,7 @@
     "start": "webpack serve",
     "build-dev": "webpack",
     "build-prod": "webpack --node-env=production",
-    "clear": "rd /s /q dist",
+    "lint": "eslint --ext js,ts,tsx src",
     "deploy": "npm run build-prod && npx gh-pages -d dist -e async-race -m \"feat: update deploy\""
   },
   "keywords": [],
