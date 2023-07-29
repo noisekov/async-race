@@ -13,3 +13,8 @@ export interface IDataWinner extends IDataCar {
 export interface IObjectWinners<T> {
   [index: number]: T;
 }
+
+export interface IPostData {
+  name: string;
+  color: string;
+}

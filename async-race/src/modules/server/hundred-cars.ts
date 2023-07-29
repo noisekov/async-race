@@ -1,5 +1,4 @@
 import { pageNow } from "./server-garage";
-import { MAIN_URL } from "../data/global-var";
 import {
   getCarsOnPage,
   removeCurrentCar,
@@ -9,6 +8,7 @@ import {
 } from "./server-garage";
 import { modelsCars } from "../data/models-cars";
 import { brandsCars } from "../data/brands-cars";
+import { SendRequest } from "./request-service";
 
 export const addGenerateCarsListener = () => {
   const generateBtn: HTMLButtonElement | null = document.querySelector(
@@ -60,12 +60,6 @@ const generateHundredCars = async () => {
       name: splitString,
       color: colorValue,
     };
-    await fetch(MAIN_URL + "/garage", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bodyData),
-    });
+    SendRequest.post(bodyData);
   }
 };
