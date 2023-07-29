@@ -1,10 +1,10 @@
-export interface IdataCar {
+export interface IDataCar {
   color: string;
   id: number;
   name: string;
 }
 
-export interface IdataWinner extends IdataCar {
+export interface IDataWinner extends IDataCar {
   id: number;
   time: number;
   wins: number;

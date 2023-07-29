@@ -1,4 +1,4 @@
-import { IdataCar } from "../../type/type";
+import { IDataCar } from "../../type/type";
 
 export let PAGE_NOW = 1;
 export const MAIN_URL = "http://127.0.0.1:3000";
@@ -12,7 +12,7 @@ export const countCar = async () => {
 
 export const getCars = async (page: number) => {
   const response = await fetch(MAIN_URL + `/garage?_page=${page}&_limit=7`);
-  const data: Promise<IdataCar[]> = await response.json();
+  const data: Promise<IDataCar[]> = await response.json();
   const countPage = document.querySelector(".garage__page");
   if (countPage) countPage.textContent = `${page}`;
   countCar();
@@ -44,7 +44,7 @@ const viewGarage = (color: string, name: string, id: number): string => {
   </div>`;
 };
 
-const createCar = async (data: Promise<IdataCar[]>) => {
+const createCar = async (data: Promise<IDataCar[]>) => {
   const garageBlock = document.querySelector(".garage-with-car");
   (await data).forEach((elem) => {
     garageBlock?.insertAdjacentHTML(
@@ -103,7 +103,7 @@ export const addNewCar = () => {
   });
 };
 
-export const addOneCar = (data: IdataCar) => {
+export const addOneCar = (data: IDataCar) => {
   const garageBlock = document.querySelector(".garage-with-car");
   const countPage = document.querySelector(".garage__page");
   if (countPage) {
@@ -306,7 +306,7 @@ const requestSelectCat = (id?: string | null) => {
   }
 };
 
-const updateCurrentCar = (data: IdataCar) => {
+const updateCurrentCar = (data: IDataCar) => {
   const findId = document.getElementById(`${data.id}`);
   if (findId) {
     const nameCarUpdate = findId.querySelector(".car__header-name");
