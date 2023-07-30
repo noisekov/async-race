@@ -1,0 +1,50 @@
+Hi everyone, the topic of today's presentation is Software Licenses
+
+1
+What is a software license?
+A software license is a document that provides legally binding guidelines for the use and distribution of software.
+
+2
+How do software licenses work?
+A software license is a document that states the rights of the developer and user of a piece of software. It defines how the software can be used and how it will be paid for. The following are some examples of specifications a license might include:
+-- how many times the software can be downloaded
+-- what the software will cost;
+-- what level of access users will have to the source code.
+
+Open source licenses grant permission for anybody to use, modify, and share licensed software for any purpose, subject to conditions preserving the provenance and openness of the software.
+The following licenses are sorted by the number of conditions, from most (GNU AGPLv3) to none (Unlicense).
+
+3 The first license  is GNU AGPLv3
+Permissions of this strongest copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. When a modified version is used to provide a service over a network, the complete source code of the modified version must be made available.
+
+4 The second license  is GNU GPLv3
+Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+The GNU GPLv3 also lets people do almost anything they want with your project, except distributing closed source versions.
+
+Ansible, Bash, and GIMP use the GNU GPLv3.
+
+5 The third license  is GNU LGPLv3
+Permissions of this copyleft license are conditioned on making available complete source code of licensed works and modifications under the same license or the GNU GPLv3. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. However, a larger work using the licensed work through interfaces provided by the licensed work may be distributed under different terms and without source code for the larger work.
+
+6 the fourth license  is Mozilla Public License 2.0
+Permissions of this weak copyleft license are conditioned on making available source code of licensed files and modifications of those files under the same license (or in certain cases, one of the GNU licenses). Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. However, a larger work using the licensed work may be distributed under different terms and without source code for files added in the larger work.
+
+7 the fifth license  is Apache License 2.0
+A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
+
+8 the sixth license  is  MIT License
+A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
+The MIT License is short and to the point. It lets people do almost anything they want with your project, like making and distributing closed source versions.
+
+Babel, .NET, and Rails use the MIT License.
+
+9 the seventh license  is Boost Software License 1.0
+A simple permissive license only requiring preservation of copyright and license notices for source (and not binary) distribution. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
+
+10 the last license  is The Unlicense
+A license with no conditions whatsoever which dedicates works to the public domain. Unlicensed works, modifications, and larger works may be distributed under different terms and without source code.
+
+The above licenses represent the entire spectrum of open source licenses, from highly protective to unconditional. One of these should work for most new open source projects. Many other open source licenses exist, including older versions of and close substitutes for some of the above.
+
+I hope my presentation helped you understand this topic.
+thank you for your attention
