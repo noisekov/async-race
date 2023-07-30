@@ -1,5 +1,5 @@
 import { checkStatusDriveOrBroken, animationFn } from "./server-garage";
-import { MAIN_URL } from "../data/global-var";
+import { APIService } from "./api-service";
 
 export const addRaceBtnListener = () => {
   const raceBtn = document.querySelector(".block-btn__race");
@@ -10,12 +10,7 @@ export const addRaceBtnListener = () => {
 const raceStart = () => {
   const findCar: NodeListOf<HTMLDivElement> = document.querySelectorAll(".car");
   findCar.forEach(async (car) => {
-    const response = await fetch(
-      MAIN_URL + `/engine?id=${car.id}&status=started`,
-      {
-        method: "PATCH",
-      }
-    );
+    const response = await APIService.patch(car.id, "started");
     const raceBtn: HTMLButtonElement | null =
       document.querySelector(".block-btn__race");
     const resetBtn: HTMLButtonElement | null =
@@ -49,9 +44,7 @@ export const addResetBtnListener = () => {
 const raceReset = () => {
   const findCar: NodeListOf<HTMLDivElement> = document.querySelectorAll(".car");
   findCar.forEach(async (car) => {
-    await fetch(MAIN_URL + `/engine?id=${car.id}&status=stopped`, {
-      method: "PATCH",
-    });
+    await APIService.patch(car.id, "stopped");
     const raceBtn: HTMLButtonElement | null =
       document.querySelector(".block-btn__race");
     const resetBtn: HTMLButtonElement | null =

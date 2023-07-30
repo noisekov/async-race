@@ -1,19 +1,19 @@
 import { IDataCar } from "../../type/type";
-import { MAIN_URL } from "../data/global-var";
 import { CARS_PER_PAGE } from "../data/global-var";
+import { APIService } from "./api-service";
 
 export let pageNow = 1;
 
 export const countCar = async () => {
-  const response = await fetch(MAIN_URL + `/garage?_limit=1`);
+  const response = await APIService.get("/garage?_limit=1");
   const howMuchCar = response.headers.get("X-Total-Count");
   const countCar = document.querySelector(".garage__all-car");
   if (countCar) countCar.textContent = howMuchCar;
 };
 
 export const getCarsOnPage = async (page: number) => {
-  const response = await fetch(
-    MAIN_URL + `/garage?_page=${page}&_limit=${CARS_PER_PAGE}`
+  const response = await APIService.get(
+    `/garage?_page=${page}&_limit=${CARS_PER_PAGE}`
   );
   const data: Promise<IDataCar[]> = await response.json();
   const countPage = document.querySelector(".garage__page");
@@ -67,9 +67,7 @@ export const removeCurrentCar = async () => {
     btn.addEventListener("click", async (evt: Event) => {
       if (evt.target instanceof Element) {
         const currentId = evt.target.closest(".car")?.getAttribute("id");
-        await fetch(MAIN_URL + "/garage" + `/${currentId}`, {
-          method: "DELETE",
-        });
+        await APIService.delete(`/garage/${currentId}`);
         const carBlock = document.querySelectorAll(".car");
         carBlock.forEach((car) => {
           if (car.getAttribute("id") === currentId) {
@@ -97,13 +95,7 @@ export const addCreateBtnListener = () => {
       name: inputCreateName?.value,
       color: inputCreateColor?.value,
     };
-    const response = await fetch(MAIN_URL + "/garage", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bodyData),
-    });
+    const response = await APIService.post(bodyData);
     const data = await response.json();
     renderOneCar(data);
     if (inputCreateName) inputCreateName.value = ``;
@@ -149,12 +141,7 @@ export const startCurrentCar = async () => {
             .closest(".car")
             ?.querySelector(".btn-stop");
           if (currentStopBtn) currentStopBtn.disabled = false;
-          const responseStarted = await fetch(
-            MAIN_URL + `/engine?id=${currentId}&status=started`,
-            {
-              method: "PATCH",
-            }
-          );
+          const responseStarted = await APIService.patch(currentId, "started");
           const data = await responseStarted.json();
           const result = data.distance / data.velocity;
           const raceWidth: HTMLDivElement | null =
@@ -185,9 +172,7 @@ export const stopCurrentCar = async () => {
           const currentStartBtn: HTMLButtonElement | null | undefined = targetEl
             .closest(".car")
             ?.querySelector(".btn-start");
-          await fetch(MAIN_URL + `/engine?id=${currentId}&status=stopped`, {
-            method: "PATCH",
-          });
+          await APIService.patch(currentId, "stopped");
           if (currentStartBtn) currentStartBtn.disabled = false;
           btn.disabled = true;
           const findCar = document.getElementById(`${currentId}`);
@@ -237,12 +222,7 @@ export const animationFn = (
 };
 
 export const checkStatusDriveOrBroken = async (id?: string | null) => {
-  const responseDrive = await fetch(
-    MAIN_URL + `/engine?id=${id}&status=drive`,
-    {
-      method: "PATCH",
-    }
-  );
+  const responseDrive = await APIService.patch(id, "drive");
   if (responseDrive.status === 500) {
     if (animateId) {
       cancelAnimationFrame(animateId);
@@ -300,13 +280,7 @@ const requestUpdateParamCurrentCar = (id?: string | null) => {
         name: inputSelectName?.value,
         color: inputSelectColor?.value,
       };
-      const response = await fetch(MAIN_URL + "/garage" + `/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bodyData),
-      });
+      const response = await APIService.put(id, bodyData);
       const data = await response.json();
       updateCurrentCar(data);
     };

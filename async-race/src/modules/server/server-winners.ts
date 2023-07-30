@@ -1,12 +1,12 @@
 import { IDataWinner, IDataCar, IObjectWinners } from "../../type/type";
 import { createCarImg } from "./server-garage";
-import { MAIN_URL } from "../data/global-var";
+import { APIService } from "./api-service";
 
 let dataWinCar: IObjectWinners<IDataWinner> = {};
 let winnersCount = 1;
 
 export const getWinners = async () => {
-  const response = await fetch(MAIN_URL + "/winners");
+  const response = await APIService.get("/winners");
   const data: IDataWinner[] = await response.json();
 
   winnersCount = 1;
@@ -19,7 +19,7 @@ export const getWinners = async () => {
 };
 
 const getCarsForWinner = async (id: number) => {
-  const response = await fetch(MAIN_URL + "/garage");
+  const response = await APIService.get("/garage");
   const data: Promise<IDataCar[]> = await response.json();
   (await data).filter((carWin) => {
     if (carWin.id === id) {
@@ -52,7 +52,7 @@ const renderWinnerPage = (viewHtml: string) => {
 };
 
 const countWinners = async () => {
-  const response = await fetch(MAIN_URL + "/winners?_limit=1");
+  const response = await APIService.get("/winners?_limit=1");
   const howMuchCar = response.headers.get("X-Total-Count");
   const headerHowWinners = document.querySelector(".winners__all-car");
   if (headerHowWinners) headerHowWinners.textContent = howMuchCar;

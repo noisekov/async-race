@@ -14,7 +14,7 @@ export interface IObjectWinners<T> {
   [index: number]: T;
 }
 
-export interface IPostData {
-  name: string;
-  color: string;
+export interface ISendBodyData {
+  name?: string;
+  color?: string;
 }

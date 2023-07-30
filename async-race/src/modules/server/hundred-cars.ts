@@ -8,7 +8,7 @@ import {
 } from "./server-garage";
 import { modelsCars } from "../data/models-cars";
 import { brandsCars } from "../data/brands-cars";
-import { SendRequest } from "./request-service";
+import { APIService } from "./api-service";
 
 export const addGenerateCarsListener = () => {
   const generateBtn: HTMLButtonElement | null = document.querySelector(
@@ -60,6 +60,6 @@ const generateHundredCars = async () => {
       name: splitString,
       color: colorValue,
     };
-    SendRequest.post(bodyData);
+    APIService.post(bodyData);
   }
 };
