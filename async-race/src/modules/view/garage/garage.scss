@@ -1,0 +1,91 @@
+.input-create,
+.input-update {
+  margin-bottom: 10px;
+}
+
+.input-create,
+.input-update,
+.block-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 360px;
+}
+
+.input-create__text,
+.input-update__text {
+  height: 25px;
+}
+
+.input-create__color,
+.input-update__color {
+  height: 25px;
+  cursor: pointer;
+}
+
+.input-create__submit,
+.input-update__submit,
+.block-btn__input {
+  cursor: pointer;
+  height: 25px;
+  border: none;
+  outline: none;
+  color: #fff;
+  width: 80px;
+  background-color: #333;
+  transition: 0.3s all;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.block-btn__race,
+.block-btn__reset {
+  width: 23%;
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}
+
+.block-btn__generate {
+  width: 48%;
+}
+
+.car {
+  margin-bottom: 15px;
+}
+
+.car__header {
+  margin-bottom: 5px;
+}
+
+.car__body-btn {
+  display: flex;
+  margin: 0 5px 20px 0;
+}
+
+.car__body-race {
+  width: 100%;
+}
+
+.car__body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px dotted #fff;
+  &::after {
+    position: absolute;
+    top: -3px;
+    right: 35px;
+    content: "FINISH";
+    transform: rotate(90deg);
+  }
+}
+
+.current-car {
+  object-fit: cover;
+  width: 52px;
+  height: 41px;
+  filter: drop-shadow(0px 0px 1px #ccc);
+}
