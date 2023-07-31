@@ -5,7 +5,7 @@
 You need use this server-mock:
 [server](https://github.com/mikhama/async-race-api)
 
-And then click deploy to link:
+And then click deploy link:
 
 ## Deploy
 [Deploy](https://noisekov.github.io/async-race/async-race/)
